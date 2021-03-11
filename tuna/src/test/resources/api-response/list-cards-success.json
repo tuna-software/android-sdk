@@ -1,0 +1,24 @@
+{
+  "tokens": [
+    {
+      "token": "ct_NDE4MWJhYmItYWFiMC00YWE5LWI0YTktYTI1MWVjY2E2MDVk0",
+      "brand": "Visa",
+      "cardHolderName": "ASCHER DA COSTA PAUL",
+      "expirationMonth": 10,
+      "expirationYear": 2022,
+      "maskedNumber": "411111xxxxxx1111",
+      "singleUse": false
+    },
+    {
+      "token": "ct_ZTE5MzdlZTktZWUxMy00MWViLTg0MGItZWFhZThmY2Y3Yjdm0",
+      "brand": "Visa",
+      "cardHolderName": "Tunilson da Silva",
+      "expirationMonth": 12,
+      "expirationYear": 2022,
+      "maskedNumber": "411111xxxxxx1111",
+      "singleUse": false
+    }
+  ],
+  "code": 1,
+  "message": null
+}

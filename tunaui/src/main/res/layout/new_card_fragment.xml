@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.tunasoftware.tunaui.creditcard.NewCardViewModel" />
+
+        <import type="android.view.View"/>
+    </data>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".creditcard.NewCardFragment">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tuna_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <com.tunasoftware.tunaui.widgets.TunaCardWidget
+            android:id="@+id/widgetCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tuna_toolbar"
+            android:layout_marginStart="47dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="47dp"/>
+
+        <ImageButton
+            android:id="@+id/ivBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="4dp"
+            android:background="@android:color/transparent"
+            android:onClick="@{ () -> viewmodel.onPreviousClick()}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/widgetCard"
+            app:srcCompat="@drawable/ic_arrow_back" />
+
+        <HorizontalScrollView
+            android:id="@+id/vpCardFields"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:paddingStart="24dp"
+            android:scrollbars="none"
+            android:paddingEnd="24dp"
+            android:clipToPadding="false"
+            android:clipChildren="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivBack" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    app:error="@{viewmodel.cardNumber.error}"
+                    app:hint="@{viewmodel.cardNumber.type}">
+
+                    <EditText
+                        android:id="@+id/etNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext"
+                        app:type="@{viewmodel.cardNumber}"
+                        android:text="@={viewmodel.cardNumber.text}" >
+                        <requestFocus />
+                    </EditText>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:error="@{viewmodel.cardName.error}"
+                    app:hint="@{viewmodel.cardName.type}">
+
+                    <EditText
+                        android:id="@+id/etName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext"
+                        app:type="@{viewmodel.cardName}"
+                        android:text="@={viewmodel.cardName.text}" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:error="@{viewmodel.cardExpirationDate.error}"
+                    app:hint="@{viewmodel.cardExpirationDate.type}">
+
+                    <EditText
+                        android:id="@+id/etExDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext"
+                        app:type="@{viewmodel.cardExpirationDate}"
+                        android:text="@={viewmodel.cardExpirationDate.text}" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:error="@{viewmodel.cardCvv.error}"
+                    app:hint="@{viewmodel.cardCvv.type}">
+
+                    <EditText
+                        android:id="@+id/etCvv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext"
+                        app:type="@{viewmodel.cardCvv}"
+                        android:text="@={viewmodel.cardCvv.text}" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:error="@{viewmodel.cardCpf.error}"
+                    app:hint="@{viewmodel.cardCpf.type}">
+
+                    <EditText
+                        android:id="@+id/etCpf"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext"
+                        app:type="@{viewmodel.cardCpf}"
+                        android:text="@={viewmodel.cardCpf.text}" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:error="@{viewmodel.cardPhone.error}"
+                    app:hint="@{viewmodel.cardPhone.type}">
+
+                    <EditText
+                        android:id="@+id/etPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionDone"
+                        app:type="@{viewmodel.cardPhone}"
+                        android:text="@={viewmodel.cardPhone.text}" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+
+    </LinearLayout>
+
+</layout>

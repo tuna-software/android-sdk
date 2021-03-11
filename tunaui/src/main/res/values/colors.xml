@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="tunaui_primary_color">#FFFFFF</color>
+    <color name="tunaui_primary_variant_color">#E5E5E5</color>
+    <color name="tunaui_secundary_color">#000000</color>
+
+    <color name="tuna_white">#FFFFFF</color>
+    <color name="tuna_black">#000000</color>
+    <color name="tuna_gray">#999999</color>
+    <color name="tuna_background">@color/tunaui_primary_variant_color</color>
+
+    <color name="tuna_bg_text_view_masked_50">#80ffffff</color>
+    <color name="tuna_bg_text_view_masked_20">#33ffffff</color>
+</resources>

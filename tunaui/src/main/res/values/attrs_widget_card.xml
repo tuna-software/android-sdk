@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CardWidget">
+        <attr name="cardNumber" format="string" />
+        <attr name="cardName" format="string" />
+        <attr name="cardExpirationDate" format="string" />
+        <attr name="cardCvv" format="string" />
+    </declare-styleable>
+</resources>

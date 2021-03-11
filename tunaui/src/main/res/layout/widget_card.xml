@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/content"
+    android:layout_width="266dp"
+    android:layout_height="166dp"
+    android:background="@drawable/card_input_background"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent">
+
+    <com.tunasoftware.tunaui.widgets.TextViewMaskedWidget
+        android:id="@+id/tvNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="38dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:maskTextColor="@color/tuna_bg_text_view_masked_50"
+        app:maskWidth="198" />
+
+    <com.tunasoftware.tunaui.widgets.TextViewMaskedWidget
+        android:id="@+id/tvName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/tvNumber"
+        app:layout_constraintTop_toBottomOf="@+id/tvNumber"
+        app:maskTextColor="@color/tuna_bg_text_view_masked_20"
+        app:maskWidth="161" />
+
+    <com.tunasoftware.tunaui.widgets.TextViewMaskedWidget
+        android:id="@+id/tvValidate"
+        android:layout_width="56dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvNumber"
+        app:maskTextColor="@color/tuna_bg_text_view_masked_20"
+        app:maskWidth="56" />
+
+    <com.tunasoftware.tunaui.widgets.TextViewMaskedWidget
+        android:id="@+id/tvCvv"
+        android:layout_width="56dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvValidate"
+        app:layout_constraintStart_toEndOf="@+id/tvValidate"
+        app:maskTextColor="@color/tuna_bg_text_view_masked_20"
+        app:maskWidth="56" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

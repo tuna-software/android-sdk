@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tunasoftware.tunaui">
+
+    <application>
+        <activity android:name=".TunaMotionSwipeActivity"></activity>
+        <activity
+            android:name=".TunaSelectPaymentMethodActivity"
+            android:theme="@style/Theme.TunaUI.NoActionBar" />
+    </application>
+
+</manifest>

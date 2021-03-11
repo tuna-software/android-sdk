@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PaymentMethodWidget">
+        <attr name="paymentMethodFlag" format="integer" />
+        <attr name="paymentMethodLabelPrimary" format="string" />
+        <attr name="paymentMethodLabelSecondary" format="string" />
+        <attr name="paymentMethodSelected" format="boolean" />
+    </declare-styleable>
+</resources>

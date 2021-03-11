@@ -1,0 +1,18 @@
+<resources>
+
+    <string name="tuna_card_number_invalid">Cartão inválido</string>
+    <string name="tuna_card_name_invalid">Nome inválido</string>
+    <string name="tuna_card_expitarion_date_invalid">Validade parece estar incorreta</string>
+    <string name="tuna_card_cvv_invalid">Código de segurança inválido</string>
+    <string name="tuna_card_phone_invalid">Telefone parece estar incorreto</string>
+    <string name="tuna_card_cpf_invalid">CPF inválido</string>
+    <string name="tuna_credit_card_number_label">Número do Cartão</string>
+    <string name="tuna_credit_card_name_label">Nome no Cartão</string>
+    <string name="tuna_credit_card_expiration_label">Data de validade</string>
+    <string name="tuna_credit_card_cvv_label">CVV</string>
+    <string name="tuna_credit_card_cpf_label">CPF do titular do cartão</string>
+    <string name="tuna_credit_card_phone_label">Telefone</string>
+    <string name="tuna_select_payment_method_title">Selecione como você deseja pagar</string>
+    <string name="tuna_select_payment_method">Selecionar forma de pagamento</string>
+
+</resources>

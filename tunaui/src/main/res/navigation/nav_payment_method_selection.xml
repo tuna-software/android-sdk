@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_payment_method_selection"
+    app:startDestination="@id/selectPaymentMethodFragment">
+
+    <fragment
+        android:id="@+id/selectPaymentMethodFragment"
+        android:name="com.tunasoftware.tunaui.select.SelectPaymentMethodFragment"
+        android:label="select_payment_method_fragment"
+        tools:layout="@layout/select_payment_method_fragment" >
+        <action
+            android:id="@+id/action_selectMethod_to_newCard"
+            app:destination="@id/newCardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newCardFragment"
+        android:name="com.tunasoftware.tunaui.creditcard.NewCardFragment"
+        android:label="new_card_fragment"
+        tools:layout="@layout/new_card_fragment" />
+</navigation>
