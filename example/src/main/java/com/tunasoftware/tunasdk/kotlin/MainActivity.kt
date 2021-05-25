@@ -9,7 +9,6 @@ import com.tunasoftware.tuna.exceptions.*
 import com.tunasoftware.tunasdk.R
 import com.tunasoftware.tunasdk.java.JavaListCardsActivity
 import com.tunasoftware.tunasdk.java.utils.Extras
-import com.tunasoftware.tunaui.TunaMotionSwipeActivity
 import com.tunasoftware.tunaui.TunaSelectPaymentMethodActivity
 
 class MainActivity : AppCompatActivity() {
@@ -26,7 +25,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.btnTunaUiExample).setOnClickListener {
-//            startActivity(Intent(this, TunaMotionSwipeActivity::class.java))
             TunaSelectPaymentMethodActivity.startForResult(this, 1)
         }
     }

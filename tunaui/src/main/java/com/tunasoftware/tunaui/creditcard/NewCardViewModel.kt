@@ -2,11 +2,21 @@ package com.tunasoftware.tunaui.creditcard
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import com.tunasoftware.tunaui.R
+import com.tunasoftware.tunaui.domain.entities.TunaUICard
 import com.tunasoftware.tunaui.extensions.*
+import com.tunasoftware.tunaui.utils.CardMatcher
+import com.tunasoftware.tunaui.utils.SingleLiveEvent
 import com.tunasoftware.tunaui.utils.TextFieldState
+import com.tunasoftware.tunaui.utils.default
 
 class NewCardViewModel(application: Application) : AndroidViewModel(application) {
+
+    val actionsLiveData = SingleLiveEvent<Any>()
+
+    var cardFlag = MutableLiveData<CardMatcher.CardFlag>().default(CardMatcher.CardFlag.UNDEFINED)
+
     val cardNumber = CreditCardField(CreditCardFieldType.NUMBER){ field, showError ->
         if (field.getValue().isCreditCard())
             true else {
@@ -42,14 +52,6 @@ class NewCardViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    val cardPhone = CreditCardField(CreditCardFieldType.PHONE){ field, showError ->
-        if (field.getValue().isPhone()){
-            true
-        } else {
-            if (showError) field.setError(context.getString(R.string.tuna_card_phone_invalid))
-            false
-        }
-    }
     val cardCpf = CreditCardField(CreditCardFieldType.CPF){ field, showError ->
         if (field.getValue().isCpf()){
             true
@@ -60,7 +62,42 @@ class NewCardViewModel(application: Application) : AndroidViewModel(application)
     }
 
     fun onPreviousClick() {
-//        submitAction(ActionFieldBack())
+        actionsLiveData.postValue(ActionFieldBack())
+    }
+
+    fun onNextClick(currentField:CreditCardFieldType) {
+        if (currentField == CreditCardFieldType.CPF) {
+            saveCard()
+        } else {
+            actionsLiveData.postValue(ActionFieldNext())
+        }
+    }
+
+    fun saveCard(){
+        //TODO: Save card
+        actionsLiveData.postValue(
+            ActionFinish(
+                TunaUICard(
+                    token = "",
+                    brand = "brand",
+                    cardHolderName = cardName.getValue(),
+                    maskedNumber = cardNumber.getValue().let {
+                        "* * * * ${
+                            it.substring(
+                                it.length - 4,
+                                it.length
+                            )
+                        }"
+                                                             },
+                    expirationMonth = 2,
+                    expirationYear = 2023
+                )
+            )
+        )
+    }
+
+    init {
+        cardNumber.text.observeForever { cardFlag.value = CardMatcher.matches(it.toString()) }
     }
 }
 
@@ -76,6 +113,9 @@ enum class CreditCardFieldType {
     NAME,
     EX_DATE,
     CVV,
-    PHONE,
     CPF
 }
+
+class ActionFieldBack
+class ActionFieldNext
+class ActionFinish(val card: TunaUICard)

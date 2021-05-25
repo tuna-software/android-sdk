@@ -1,0 +1,60 @@
+package com.tunasoftware.tunaui.widgets
+
+import android.content.Context
+import android.util.AttributeSet
+import android.view.View
+import androidx.appcompat.widget.Toolbar
+import com.tunasoftware.tunaui.R
+import kotlinx.android.synthetic.main.widget_tuna_footer_bar.view.*
+
+class TunaFooterBarWidget : Toolbar {
+
+    private var _onPreviousClickListener: () -> Unit = {}
+    private var _onNextClickListener: () -> Unit = {}
+
+    fun setOnPreviousClickListener(listener: () -> Unit) {
+        _onPreviousClickListener = listener
+    }
+
+    fun setOnNextClickListener(listener: () -> Unit) {
+        _onNextClickListener = listener
+    }
+
+    var steps: Int = 0
+        set(value) {
+            field = value
+            dotsIndicator.steps = value-1
+            changeUI()
+        }
+
+    var currentStep: Int = 0
+        set(value) {
+            field = value
+            changeUI()
+        }
+
+    constructor(context: Context) : this(context, null)
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
+        View.inflate(context, R.layout.widget_tuna_footer_bar, this)
+
+        btnPrevious.setOnClickListener { _onPreviousClickListener.invoke() }
+        btnNext.setOnClickListener { _onNextClickListener.invoke() }
+    }
+
+    private fun changeUI() {
+        btnPrevious.isEnabled = currentStep > 0
+
+        if (currentStep < (steps - 1)) {
+            btnNext.text = context.getString(R.string.tuna_footer_bar_btn_next)
+        } else {
+            btnNext.text = context.getString(R.string.tuna_footer_bar_btn_finish)
+        }
+
+        dotsIndicator.current = currentStep
+    }
+}

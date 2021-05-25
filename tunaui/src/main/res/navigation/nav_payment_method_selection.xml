@@ -12,7 +12,11 @@
         tools:layout="@layout/select_payment_method_fragment" >
         <action
             android:id="@+id/action_selectMethod_to_newCard"
-            app:destination="@id/newCardFragment" />
+            app:destination="@id/newCardFragment"
+            app:enterAnim="@anim/enter_slide"
+            app:exitAnim="@anim/exit_slide"
+            app:popEnterAnim="@anim/push_out_enter"
+            app:popExitAnim="@anim/push_out_exit" />
     </fragment>
     <fragment
         android:id="@+id/newCardFragment"

@@ -7,26 +7,26 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.widget_text_view_masked.view.*
 import com.tunasoftware.tunaui.R
-import com.tunasoftware.tunaui.extensions.px
+import com.tunasoftware.tunaui.extensions.dp
 
 class TextViewMaskedWidget : ConstraintLayout {
 
     var maskTextColor: Int = 0
         set(value) {
             field = value
-            mask.backgroundTintList = ContextCompat.getColorStateList(context, value)
+            mask.setTextColor(ContextCompat.getColor(context, value))
+        }
+
+    var maskText:String = ""
+        set(value) {
+            field = value
+            mask.text = value
         }
 
     var textColor: Int? = 0
         set(value) {
             field = value
             value?.let { tvValue.setTextColor(ContextCompat.getColor(context, value)) }
-        }
-
-    var maskWidth: Int = 0
-        set(value) {
-            field = value
-            mask.layoutParams.width = value.px
         }
 
     var value: String? = ""
@@ -38,17 +38,6 @@ class TextViewMaskedWidget : ConstraintLayout {
             }
         }
 
-    var maskActive: Boolean? = false
-        set(value) {
-            field = value
-            value?.let {
-                maskTextColor = if (value) {
-                    R.color.tuna_bg_text_view_masked_50
-                } else {
-                    R.color.tuna_bg_text_view_masked_20
-                }
-            }
-        }
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -72,9 +61,8 @@ class TextViewMaskedWidget : ConstraintLayout {
                     R.styleable.TextViewMaskedWidget_textColor,
                     android.R.color.white
                 )
-                maskWidth = getInt(R.styleable.TextViewMaskedWidget_maskWidth, 0)
-                maskActive = getBoolean(R.styleable.TextViewMaskedWidget_maskActive, false)
                 value = getString(R.styleable.TextViewMaskedWidget_value)
+                maskText = getString(R.styleable.TextViewMaskedWidget_maskText)?:""
             } finally {
                 recycle()
             }

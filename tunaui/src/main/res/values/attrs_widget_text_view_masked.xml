@@ -2,8 +2,7 @@
 <resources>
     <declare-styleable name="TextViewMaskedWidget">
         <attr name="maskTextColor" format="reference"/>
-        <attr name="maskWidth" format="integer"/>
-        <attr name="maskActive" format="boolean"/>
+        <attr name="maskText" format="string"/>
         <attr name="textColor" format="reference"/>
         <attr name="value" format="string"/>
     </declare-styleable>

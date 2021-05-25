@@ -9,7 +9,7 @@ import android.view.View
 import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import com.tunasoftware.tunaui.R
-import com.tunasoftware.tunaui.extensions.px
+import com.tunasoftware.tunaui.extensions.dp
 import kotlinx.android.synthetic.main.widget_payment_method.view.*
 
 class TunaPaymentMethodWidget : FrameLayout {
@@ -43,7 +43,7 @@ class TunaPaymentMethodWidget : FrameLayout {
                 if (value) {
                     ivSelected.visibility = VISIBLE
                     content.setCardBackgroundColor(ContextCompat.getColor(context, R.color.tuna_white))
-                    content.cardElevation = 4.px.toFloat()
+                    content.cardElevation = 2.dp.toFloat()
                 } else {
                     ivSelected.visibility = GONE
                     content.setCardBackgroundColor(ContextCompat.getColor(context, R.color.tuna_background))

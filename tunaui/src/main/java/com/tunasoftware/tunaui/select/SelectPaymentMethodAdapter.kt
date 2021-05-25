@@ -11,7 +11,11 @@ import kotlinx.android.synthetic.main.model_payment_method.view.*
 class SelectPaymentMethodAdapter : RecyclerView.Adapter<SelectPaymentMethodAdapter.ViewHolder>() {
 
     private val dataSet: MutableList<PaymentMethod> = mutableListOf()
-    private var _current: PaymentMethod? = null
+    var current: PaymentMethod? = null
+    set(value) {
+        field = value
+        notifyDataSetChanged()
+    }
     private var _onClickListener: (PaymentMethod) -> Unit = {}
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
@@ -31,17 +35,18 @@ class SelectPaymentMethodAdapter : RecyclerView.Adapter<SelectPaymentMethodAdapt
             widget.apply {
                 paymentMethodFlag = paymentMethod.flag
                 paymentMethodLabelSecondary = paymentMethod.displayName
-                paymentMethodSelected = _current == paymentMethod
+                paymentMethodSelected = current == paymentMethod
             }
 
-            if (_current != paymentMethod){
+            if (current != paymentMethod){
                 view.tunaSwipeWidget.close()
             }
 
             view.tunaSwipeWidget.swipeDisabled = paymentMethod.disableSwipe
 
             view.tunaSwipeWidget.setOnItemClickListener {
-                _current = paymentMethod
+                if (paymentMethod.selectable)
+                    current = paymentMethod
                 _onClickListener.invoke(paymentMethod)
                 notifyDataSetChanged()
             }
@@ -60,6 +65,7 @@ class SelectPaymentMethodAdapter : RecyclerView.Adapter<SelectPaymentMethodAdapt
 
     fun setItems(items: MutableList<PaymentMethod>) {
         dataSet.addAll(items)
+        current = items.firstOrNull { it.selectable }
         notifyDataSetChanged()
     }
 

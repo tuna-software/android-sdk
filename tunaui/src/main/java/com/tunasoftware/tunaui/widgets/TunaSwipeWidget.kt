@@ -7,7 +7,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
 import com.tunasoftware.tunaui.R
-import com.tunasoftware.tunaui.extensions.px
+import com.tunasoftware.tunaui.extensions.dp
 import kotlinx.android.synthetic.main.widget_tuna_swipe.view.*
 import kotlin.math.abs
 
@@ -60,6 +60,7 @@ class TunaSwipeWidget : FrameLayout {
 
             override fun onTouch(p0: View?, event: MotionEvent): Boolean {
                 when(event.action){
+
                     MotionEvent.ACTION_DOWN -> {
                         hasMoven = false
                         startX = event.x
@@ -71,7 +72,7 @@ class TunaSwipeWidget : FrameLayout {
 
                         if (event.x < lastX!!){
                             val diff = lastX!! - event.x
-                            if (abs(diff) > 2.px) {
+                            if (abs(diff) > 2.dp) {
                                 hasMoven = true
                                 val progressInc = diff / swipe_layout.width
                                 Log.d("swipe", "progressInc $progressInc")
@@ -82,7 +83,7 @@ class TunaSwipeWidget : FrameLayout {
                             }
                         } else {
                             val diff = event.x - lastX!!
-                            if (abs(diff) > 2.px) {
+                            if (abs(diff) > 2.dp) {
                                 hasMoven = true
                                 val progressInc = diff / swipe_layout.width
                                 Log.d("swipe", "progressInc $progressInc")
@@ -95,7 +96,7 @@ class TunaSwipeWidget : FrameLayout {
 
                     }
                     MotionEvent.ACTION_UP -> {
-                        if (!hasMoven){
+                        if (!hasMoven || swipeDisabled){
                             swipe_layout.progress = 0f
                             _onItemClickListener.invoke()
                         } else {
@@ -108,10 +109,12 @@ class TunaSwipeWidget : FrameLayout {
                     }
 
                     MotionEvent.ACTION_CANCEL -> {
-                        if (swipe_layout.progress >= 0.5f){
-                            swipe_layout.transitionToEnd()
-                        } else {
-                            swipe_layout.transitionToStart()
+                        if (hasMoven) {
+                            if (event.x < startX ?: 0f) {
+                                swipe_layout.transitionToEnd()
+                            } else {
+                                swipe_layout.transitionToStart()
+                            }
                         }
                     }
                 }

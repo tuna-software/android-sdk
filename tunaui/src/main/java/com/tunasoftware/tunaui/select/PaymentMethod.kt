@@ -5,25 +5,26 @@ import com.tunasoftware.tunaui.R
 class PaymentMethod(
     val methodType: Int,
     val displayName: String,
-    val disableSwipe: Boolean = false
+    val disableSwipe: Boolean = false,
+    val selectable: Boolean = true
 )
 
 val PaymentMethod.flag
     get() = when (this.methodType) {
-        PaymentMethodType.AMEX.value -> R.drawable.ic_amex
-        PaymentMethodType.APPLE_PAY.value -> R.drawable.ic_apple_pay
-        PaymentMethodType.BANK_SLIP.value -> R.drawable.ic_barcode
-        PaymentMethodType.CREDIT_CARD.value -> R.drawable.ic_generic_card
-        PaymentMethodType.DEBIT_CARD.value -> R.drawable.ic_generic_card
-        PaymentMethodType.DINERS.value -> R.drawable.ic_diners
-        PaymentMethodType.ELO.value -> R.drawable.ic_elo
-        PaymentMethodType.GOOGLE_PAY.value -> R.drawable.ic_google_pay
-        PaymentMethodType.HIPERCARD.value -> R.drawable.ic_hipercard
-        PaymentMethodType.MASTER.value -> R.drawable.ic_master
-        PaymentMethodType.PAYPAL.value -> R.drawable.ic_paypal
-        PaymentMethodType.PIX.value -> R.drawable.ic_pix
-        PaymentMethodType.SAMSUNG_PAY.value -> R.drawable.ic_samsung_pay
-        PaymentMethodType.VISA.value -> R.drawable.ic_visa
+        PaymentMethodType.AMEX.value -> R.drawable.tuna_ic_amex
+        PaymentMethodType.APPLE_PAY.value -> R.drawable.tuna_ic_apple_pay
+        PaymentMethodType.BANK_SLIP.value -> R.drawable.tuna_ic_barcode
+        PaymentMethodType.CREDIT_CARD.value -> R.drawable.tuna_ic_generic_card
+        PaymentMethodType.DEBIT_CARD.value -> R.drawable.tuna_ic_generic_card
+        PaymentMethodType.DINERS.value -> R.drawable.tuna_ic_diners
+        PaymentMethodType.ELO.value -> R.drawable.tuna_ic_elo
+        PaymentMethodType.GOOGLE_PAY.value -> R.drawable.tuna_ic_google_pay
+        PaymentMethodType.HIPERCARD.value -> R.drawable.tuna_ic_hipercard
+        PaymentMethodType.MASTER.value -> R.drawable.tuna_ic_master
+        PaymentMethodType.PAYPAL.value -> R.drawable.tuna_ic_paypal
+        PaymentMethodType.PIX.value -> R.drawable.tuna_ic_pix
+        PaymentMethodType.SAMSUNG_PAY.value -> R.drawable.tuna_ic_samsung_pay
+        PaymentMethodType.VISA.value -> R.drawable.tuna_ic_visa
         else -> 0
     }
 

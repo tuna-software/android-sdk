@@ -3,10 +3,11 @@
     package="com.tunasoftware.tunaui">
 
     <application>
-        <activity android:name=".TunaMotionSwipeActivity"></activity>
         <activity
             android:name=".TunaSelectPaymentMethodActivity"
-            android:theme="@style/Theme.TunaUI.NoActionBar" />
+            android:theme="@style/Theme.TunaUI.NoActionBar"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

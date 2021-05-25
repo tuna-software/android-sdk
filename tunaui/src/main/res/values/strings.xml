@@ -12,7 +12,15 @@
     <string name="tuna_credit_card_cvv_label">CVV</string>
     <string name="tuna_credit_card_cpf_label">CPF do titular do cartão</string>
     <string name="tuna_credit_card_phone_label">Telefone</string>
-    <string name="tuna_select_payment_method_title">Selecione como você deseja pagar</string>
+    <string name="tuna_select_payment_method_title">Meios de Pagamento</string>
+    <string name="tuna_add_credit_card">Adicionar novo cartão</string>
+    <string name="tuna_select_payment_method_header">Selecione como você deseja pagar</string>
     <string name="tuna_select_payment_method">Selecionar forma de pagamento</string>
+    <string name="tuna_card_number_placeholder">Número do cartão</string>
+    <string name="tuna_card_holder_name_placeholder">Nome no cartão</string>
+    <string name="tuna_card_expiration_placeholder">Validade</string>
+    <string name="tuna_footer_bar_btn_previous">Voltar</string>
+    <string name="tuna_footer_bar_btn_next">Próximo</string>
+    <string name="tuna_footer_bar_btn_finish">Finalizar</string>
 
 </resources>

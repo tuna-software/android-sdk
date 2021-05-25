@@ -4,10 +4,9 @@
     android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:cardElevation="0dp"
     app:cardCornerRadius="8dp"
-    app:contentPaddingLeft="16dp"
-    app:contentPaddingRight="16dp">
+    app:contentPaddingLeft="@dimen/widget_payment_method_content_padding_left"
+    app:contentPaddingRight="@dimen/widget_payment_method_content_padding_right">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -25,8 +24,8 @@
             android:id="@+id/tvLabel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="@dimen/widget_payment_method_label_margin_start"
+            android:layout_marginEnd="@dimen/widget_payment_method_label_margin_end"
             android:maxLines="1"
             android:textColor="@color/tuna_gray"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -38,7 +37,7 @@
             android:id="@+id/ivSelected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_check"
+            android:src="@drawable/tuna_ic_check"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

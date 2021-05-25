@@ -10,59 +10,86 @@
             name="viewmodel"
             type="com.tunasoftware.tunaui.creditcard.NewCardViewModel" />
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
+
     </data>
-    <LinearLayout
-        android:orientation="vertical"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/tuna_background"
+        android:clipChildren="false"
+        android:orientation="vertical"
         tools:context=".creditcard.NewCardFragment">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/tuna_toolbar"
+            style="@style/TunaToolbarStyle"
             android:layout_width="match_parent"
             android:layout_height="?android:actionBarSize"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-        <com.tunasoftware.tunaui.widgets.TunaCardWidget
-            android:id="@+id/widgetCard"
+        <FrameLayout
+            android:id="@+id/flCards"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tuna_toolbar"
-            android:layout_marginStart="47dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="47dp"/>
+            app:layout_constraintTop_toBottomOf="@+id/tuna_toolbar">
 
-        <ImageButton
-            android:id="@+id/ivBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="4dp"
-            android:background="@android:color/transparent"
-            android:onClick="@{ () -> viewmodel.onPreviousClick()}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/widgetCard"
-            app:srcCompat="@drawable/ic_arrow_back" />
+            <com.tunasoftware.tunaui.widgets.TunaCardCpfWidget
+                android:id="@+id/widgetCardCpf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="47dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="47dp"
+                app:cardCpfName="@{viewmodel.cardName.text}"
+                app:cardCpfNumber="@{viewmodel.cardCpf.text}" />
+
+            <com.tunasoftware.tunaui.widgets.TunaCardBackWidget
+                android:id="@+id/widgetCardBack"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="47dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="47dp"
+                app:cardFlag="@{viewmodel.cardFlag}"
+                app:cardCvv="@{viewmodel.cardCvv.text}" />
+
+            <com.tunasoftware.tunaui.widgets.TunaCardWidget
+                android:id="@+id/widgetCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="47dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="47dp"
+                app:cardExpirationDate="@{viewmodel.cardExpirationDate.text}"
+                app:cardFlag="@{viewmodel.cardFlag}"
+                app:cardName="@{viewmodel.cardName.text}"
+                app:cardNumber="@{viewmodel.cardNumber.text}" />
+        </FrameLayout>
 
         <HorizontalScrollView
             android:id="@+id/vpCardFields"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="9dp"
-            android:paddingStart="24dp"
-            android:scrollbars="none"
-            android:paddingEnd="24dp"
-            android:clipToPadding="false"
             android:clipChildren="false"
+            android:clipToPadding="false"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:scrollbars="none"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivBack" >
+            app:layout_constraintTop_toBottomOf="@+id/flCards">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -70,108 +97,115 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Theme.TunaUI.TunaTextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
                     app:error="@{viewmodel.cardNumber.error}"
                     app:hint="@{viewmodel.cardNumber.type}">
 
                     <EditText
                         android:id="@+id/etNumber"
+                        style="@style/Theme.TunaUI.TunaTextInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeOptions="actionNext"
-                        app:type="@{viewmodel.cardNumber}"
-                        android:text="@={viewmodel.cardNumber.text}" >
+                        android:text="@={viewmodel.cardNumber.text}"
+                        app:type="@{viewmodel.cardNumber}">
+
                         <requestFocus />
+
                     </EditText>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Theme.TunaUI.TunaTextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     app:error="@{viewmodel.cardName.error}"
                     app:hint="@{viewmodel.cardName.type}">
 
                     <EditText
                         android:id="@+id/etName"
+                        style="@style/Theme.TunaUI.TunaTextInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeOptions="actionNext"
-                        app:type="@{viewmodel.cardName}"
-                        android:text="@={viewmodel.cardName.text}" />
+                        android:text="@={viewmodel.cardName.text}"
+                        app:type="@{viewmodel.cardName}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Theme.TunaUI.TunaTextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     app:error="@{viewmodel.cardExpirationDate.error}"
                     app:hint="@{viewmodel.cardExpirationDate.type}">
 
                     <EditText
                         android:id="@+id/etExDate"
+                        style="@style/Theme.TunaUI.TunaTextInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeOptions="actionNext"
-                        app:type="@{viewmodel.cardExpirationDate}"
-                        android:text="@={viewmodel.cardExpirationDate.text}" />
+                        android:text="@={viewmodel.cardExpirationDate.text}"
+                        app:type="@{viewmodel.cardExpirationDate}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Theme.TunaUI.TunaTextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     app:error="@{viewmodel.cardCvv.error}"
                     app:hint="@{viewmodel.cardCvv.type}">
 
                     <EditText
                         android:id="@+id/etCvv"
+                        style="@style/Theme.TunaUI.TunaTextInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeOptions="actionNext"
-                        app:type="@{viewmodel.cardCvv}"
-                        android:text="@={viewmodel.cardCvv.text}" />
+                        android:text="@={viewmodel.cardCvv.text}"
+                        app:type="@{viewmodel.cardCvv}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Theme.TunaUI.TunaTextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     app:error="@{viewmodel.cardCpf.error}"
                     app:hint="@{viewmodel.cardCpf.type}">
 
                     <EditText
                         android:id="@+id/etCpf"
+                        style="@style/Theme.TunaUI.TunaTextInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeOptions="actionNext"
-                        app:type="@{viewmodel.cardCpf}"
-                        android:text="@={viewmodel.cardCpf.text}" />
+                        android:text="@={viewmodel.cardCpf.text}"
+                        app:type="@{viewmodel.cardCpf}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:error="@{viewmodel.cardPhone.error}"
-                    app:hint="@{viewmodel.cardPhone.type}">
-
-                    <EditText
-                        android:id="@+id/etPhone"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:imeOptions="actionDone"
-                        app:type="@{viewmodel.cardPhone}"
-                        android:text="@={viewmodel.cardPhone.text}" />
-
-                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
         </HorizontalScrollView>
 
+        <com.tunasoftware.tunaui.widgets.TunaFooterBarWidget
+            android:id="@+id/tuna_footerBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

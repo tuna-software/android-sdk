@@ -4,6 +4,5 @@
         <attr name="cardNumber" format="string" />
         <attr name="cardName" format="string" />
         <attr name="cardExpirationDate" format="string" />
-        <attr name="cardCvv" format="string" />
     </declare-styleable>
 </resources>
