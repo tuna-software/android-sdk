@@ -7,10 +7,15 @@ You can use our Android SDK to tokenize customer information, collect sensitive 
 ## Get Started
 
 ### Configuration
-
 Add `tuna` to your `build.gradle` dependencies.
 
 ```
+repositories {
+    maven {
+        url = uri("https://maven.pkg.github.com/tuna-software/android-sdk")
+    }
+}
+
 dependencies {
     implementation 'com.tunasoftware:tuna:<version>'
     //for kotlin extensions
