@@ -13,6 +13,8 @@
 
     <color name="tuna_bg_text_view_masked_50">#80ffffff</color>
     <color name="tuna_bg_text_view_masked_20">#33ffffff</color>
+
+    <color name="tuna_camera_icon_color">#000000</color>
     
 
 </resources>

@@ -22,7 +22,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
+        vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
@@ -64,6 +64,8 @@ dependencies {
 
     implementation 'com.tunasoftware:tuna:0.0.6-beta'
     implementation 'com.tunasoftware:tunakt:0.0.6-beta'
+    implementation project(":tunacr")
+    api project(":tunacommons")
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

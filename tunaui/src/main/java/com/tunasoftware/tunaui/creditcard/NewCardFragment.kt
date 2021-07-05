@@ -3,9 +3,13 @@ package com.tunasoftware.tunaui.creditcard
 import android.animation.AnimatorInflater
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.graphics.Point
-import android.os.Bundle
+import android.os.*
 import android.text.InputType
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -14,18 +18,22 @@ import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
+import com.tunasoftware.tunacr.TunaCardRecognition
 import com.tunasoftware.tunaui.R
 import com.tunasoftware.tunaui.databinding.NewCardFragmentBinding
 import com.tunasoftware.tunaui.extensions.*
 import com.tunasoftware.tunaui.navigator
 import com.tunasoftware.tunaui.utils.Mask
 import kotlinx.android.synthetic.main.new_card_fragment.*
+
 
 class NewCardFragment : Fragment() {
 
@@ -45,6 +53,20 @@ class NewCardFragment : Fragment() {
     private var isCardFlipped = false
     private var isCardCpfFlipped = false
 
+    var resultCardRecognitionLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            // There are no request codes
+            result.data?.run {
+                val name = getStringExtra(TunaCardRecognition.RESULT_NAME)?:""
+                val number = getStringExtra(TunaCardRecognition.RESULT_NUMBER)?:""
+                val expiration = getStringExtra(TunaCardRecognition.RESULT_EXPIRATION)?:""
+                viewModel.setCardData(name, number, expiration)
+            }
+
+        }
+    }
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -59,7 +81,10 @@ class NewCardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         tuna_toolbar.apply {
-            navigationIcon = ContextCompat.getDrawable(requireContext(), R.drawable.tuna_ic_arrow_back)
+            navigationIcon = ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.tuna_ic_arrow_back
+            )
             setNavigationOnClickListener {
                 navigator.navigateUp()
             }
@@ -73,7 +98,13 @@ class NewCardFragment : Fragment() {
 
     private fun setupFields(){
         val fieldWidth = requireContext().displayMetrics.widthPixels - 48.dp
-        listOfFields = listOf(binding.etNumber, binding.etName, binding.etExDate, binding.etCvv, binding.etCpf)
+        listOfFields = listOf(
+            binding.etNumber,
+            binding.etName,
+            binding.etExDate,
+            binding.etCvv,
+            binding.etCpf
+        )
 
         binding.etNumber.layout(width = fieldWidth)
         binding.etName.layout(width = fieldWidth)
@@ -128,6 +159,19 @@ class NewCardFragment : Fragment() {
         binding.flCards.setOnClickListener {
             viewModel.onPreviousClick()
         }
+        binding.btnCamera.setOnClickListener {
+            Intent().apply {
+                action = "TUNA_OPEN_CARD_RECOGNITION"
+            }.run {
+                val packageManager = requireActivity().packageManager
+                if (resolveActivity(packageManager) != null) {
+                    resultCardRecognitionLauncher.launch(this)
+                    requireActivity().overridePendingTransition(R.anim.modal_in, R.anim.no_change)
+                } else {
+                    Log.d("TUNA", "No Intent available to handle action")
+                }
+            }
+        }
     }
 
     fun subscribe() {
@@ -156,6 +200,7 @@ class NewCardFragment : Fragment() {
             }
         })
     }
+
 
     private fun loadAnimations() {
         val scale = requireContext().resources.displayMetrics.density
@@ -231,13 +276,15 @@ class NewCardFragment : Fragment() {
         }
 
         binding.tunaFooterBar.setOnNextClickListener {
-            viewModel.onNextClick(when (binding.tunaFooterBar.currentStep){
-                0 -> CreditCardFieldType.NUMBER
-                1 -> CreditCardFieldType.NAME
-                2 -> CreditCardFieldType.EX_DATE
-                3 -> CreditCardFieldType.CVV
-                else -> CreditCardFieldType.CPF
-            })
+            viewModel.onNextClick(
+                when (binding.tunaFooterBar.currentStep) {
+                    0 -> CreditCardFieldType.NUMBER
+                    1 -> CreditCardFieldType.NAME
+                    2 -> CreditCardFieldType.EX_DATE
+                    3 -> CreditCardFieldType.CVV
+                    else -> CreditCardFieldType.CPF
+                }
+            )
         }
     }
 

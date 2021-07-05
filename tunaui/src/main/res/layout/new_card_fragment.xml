@@ -96,27 +96,49 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Theme.TunaUI.TunaTextInputLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:error="@{viewmodel.cardNumber.error}"
-                    app:hint="@{viewmodel.cardNumber.type}">
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-                    <EditText
-                        android:id="@+id/etNumber"
-                        style="@style/Theme.TunaUI.TunaTextInput"
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Theme.TunaUI.TunaTextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:imeOptions="actionNext"
-                        android:text="@={viewmodel.cardNumber.text}"
-                        app:type="@{viewmodel.cardNumber}">
+                        app:error="@{viewmodel.cardNumber.error}"
+                        app:hint="@{viewmodel.cardNumber.type}">
 
-                        <requestFocus />
+                        <EditText
+                            android:id="@+id/etNumber"
+                            style="@style/Theme.TunaUI.TunaTextInput"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:text="@={viewmodel.cardNumber.text}"
+                            app:type="@{viewmodel.cardNumber}">
 
-                    </EditText>
+                            <requestFocus />
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        </EditText>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <FrameLayout
+                        android:id="@+id/btnCamera"
+                        android:layout_gravity="end|top"
+                        android:layout_marginTop="12dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:scaleType="fitXY"
+                            app:srcCompat="@drawable/tuna_ic_camera"/>
+
+                    </FrameLayout>
+
+                </FrameLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Theme.TunaUI.TunaTextInputLayout"

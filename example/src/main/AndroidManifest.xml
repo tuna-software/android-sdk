@@ -3,6 +3,7 @@
     package="com.tunasoftware.tunasdk">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:name=".TunaExampleApplication"
@@ -11,10 +12,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.TunaAndroidSDK">
+        <activity android:name=".kotlin.ReadCreditCardExampleActivity"></activity>
         <activity android:name=".java.JavaListCardsActivity" />
         <activity android:name=".java.JavaDetailCardActivity" />
         <activity android:name=".java.JavaNewCardActivity" />
-
         <activity android:name=".kotlin.KotlinListCardsActivity" />
         <activity android:name=".kotlin.KotlinDetailCardActivity" />
         <activity android:name=".kotlin.KotlinNewCardActivity" />

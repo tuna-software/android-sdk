@@ -61,6 +61,12 @@ class NewCardViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
+    fun setCardData(name:String , number:String, expiration:String){
+        cardName.text.value = name
+        cardNumber.text.value = number
+        cardExpirationDate.text.value = expiration
+    }
+
     fun onPreviousClick() {
         actionsLiveData.postValue(ActionFieldBack())
     }
