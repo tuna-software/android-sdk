@@ -35,9 +35,7 @@ class SelectPaymentMethodFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         tuna_toolbar.apply {
             navigationIcon = ContextCompat.getDrawable(requireContext(), R.drawable.tuna_ic_baseline_close_24)
-            setNavigationOnClickListener(View.OnClickListener {
-                activity?.finish()
-            })
+            setNavigationOnClickListener { activity?.finish() }
             setTitle(R.string.tuna_select_payment_method_title)
         }
 

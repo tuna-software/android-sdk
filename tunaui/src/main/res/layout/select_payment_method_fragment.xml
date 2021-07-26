@@ -23,7 +23,7 @@
         android:layout_marginTop="@dimen/tuna_select_payment_method_fragment_title_margin_top"
         android:gravity="center_horizontal"
         android:text="@string/tuna_select_payment_method_header"
-        android:textColor="@color/tuna_black"
+        android:textColor="@color/tunaui_secundary_color"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tuna_toolbar" />

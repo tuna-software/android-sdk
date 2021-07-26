@@ -42,7 +42,7 @@ class TunaPaymentMethodWidget : FrameLayout {
             value?.let {
                 if (value) {
                     ivSelected.visibility = VISIBLE
-                    content.setCardBackgroundColor(ContextCompat.getColor(context, R.color.tuna_white))
+                    content.setCardBackgroundColor(ContextCompat.getColor(context, R.color.tunaui_primary_color))
                     content.cardElevation = 2.dp.toFloat()
                 } else {
                     ivSelected.visibility = GONE

@@ -1,0 +1,24 @@
+<resources>
+
+    <style name="TunaToolbarTheme">
+        <!-- Color used for the title of the Toolbar - as long as not overridden -->
+        <item name="android:textColorPrimary">@color/tuna_white</item>
+        <!-- Used to color back button and three dots -->
+        <item name="android:textColorSecondary">@color/tuna_white</item>
+    </style>
+
+    <style name="TunaToolbarTitleTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/tuna_white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Theme.TunaUI.TunaTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="boxStrokeColor">@color/tuna_white</item>
+        <item name="boxBackgroundColor">@color/tuna_background</item>
+        <item name="android:textColorHint">@color/tuna_gray</item>
+        <item name="hintTextColor">@color/tuna_gray</item>
+        <item name="textColor">@color/tuna_white</item>
+    </style>
+
+</resources>
