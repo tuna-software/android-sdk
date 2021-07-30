@@ -14,7 +14,7 @@ class Mask{
         }
 
 
-        fun mask(mask : String, etCpf : EditText) : TextWatcher {
+        fun mask(mask : String, editText : EditText) : TextWatcher {
 
             val textWatcher : TextWatcher = object : TextWatcher {
                 var isUpdating : Boolean = false
@@ -25,7 +25,7 @@ class Mask{
 
                 override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                     val str = replaceChars(s.toString())
-                    var cpfWithMask = ""
+                    var textWithMask = ""
 
                     if (count == 0)//is deleting
                         isUpdating = true
@@ -39,11 +39,11 @@ class Mask{
                     var i = 0
                     for (m : Char in mask.toCharArray()){
                         if (m != '#' && str.length > oldString.length){
-                            cpfWithMask += m
+                            textWithMask += m
                             continue
                         }
                         try {
-                            cpfWithMask += str.get(i)
+                            textWithMask += str.get(i)
                         }catch (e : Exception){
                             break
                         }
@@ -51,8 +51,8 @@ class Mask{
                     }
 
                     isUpdating = true
-                    etCpf.setText(cpfWithMask)
-                    etCpf.setSelection(cpfWithMask.length)
+                    editText.setText(textWithMask)
+                    editText.setSelection(textWithMask.length)
 
                 }
 

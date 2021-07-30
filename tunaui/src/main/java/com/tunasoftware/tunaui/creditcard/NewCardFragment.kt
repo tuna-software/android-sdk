@@ -294,7 +294,7 @@ class NewCardFragment : Fragment() {
 fun EditText.createFieldMask(cardField: CreditCardField) {
 
     when(cardField.type) {
-        CreditCardFieldType.NUMBER -> addTextChangedListener(Mask.mask("#### #### #### ####", this))
+        CreditCardFieldType.NUMBER -> addTextChangedListener(Mask.mask("#### #### #### #### ###", this))
         CreditCardFieldType.EX_DATE -> addTextChangedListener(Mask.mask("##/##", this))
         CreditCardFieldType.CVV -> addTextChangedListener(Mask.mask("####", this))
         CreditCardFieldType.CPF -> addTextChangedListener(Mask.mask("###.###.###-##", this))
