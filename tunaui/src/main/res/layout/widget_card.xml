@@ -50,7 +50,8 @@
 
         <com.tunasoftware.tunaui.widgets.TextViewMaskedWidget
             android:id="@+id/tvValidate"
-            android:layout_width="56dp"
+            android:layout_width="wrap_content"
+            android:minWidth="64dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/tvNumber"
             app:layout_constraintEnd_toEndOf="parent"
