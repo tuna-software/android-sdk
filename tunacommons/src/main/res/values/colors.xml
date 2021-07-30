@@ -15,6 +15,9 @@
     <color name="tuna_bg_text_view_masked_20">#33ffffff</color>
 
     <color name="tuna_camera_icon_color">#000000</color>
-    
+
+    <color name="tuna_dot_selected">#333333</color>
+    <color name="tuna_dot_unselected">#EEEEEE</color>
+
 
 </resources>

@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import com.tunasoftware.tunaui.R
+import kotlinx.android.synthetic.main.tuna_widget_dot.view.*
 import kotlinx.android.synthetic.main.tuna_widget_dot_indicator.view.*
 
 class TunaDotsIndicator : LinearLayout {
@@ -52,7 +53,7 @@ class TunaDotView : FrameLayout {
     var active = false
     set(value) {
         field = value
-        animate().alpha(if (value) 1f else 0.5f).setDuration(200).start()
+        tuna_dot_view_selected.animate().alpha(if (value) 1f else 0f).setDuration(200).start()
     }
 
     constructor(context: Context) : this(context, null)
@@ -63,6 +64,6 @@ class TunaDotView : FrameLayout {
         defStyleAttr
     ){
         inflate(context, R.layout.tuna_widget_dot, this)
-        alpha = 0.5f
+        tuna_dot_view_selected.alpha = 0f
     }
 }
