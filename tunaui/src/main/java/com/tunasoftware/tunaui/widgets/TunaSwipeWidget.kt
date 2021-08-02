@@ -55,7 +55,6 @@ class TunaSwipeWidget : FrameLayout {
         gestureHandler.setOnTouchListener(object :OnTouchListener{
 
             var startX:Float? = null
-            var lastX:Float? = null
             var hasMoven = false
 
             override fun onTouch(p0: View?, event: MotionEvent): Boolean {
@@ -64,15 +63,16 @@ class TunaSwipeWidget : FrameLayout {
                     MotionEvent.ACTION_DOWN -> {
                         hasMoven = false
                         startX = event.x
-                        lastX = event.x
                     }
                     MotionEvent.ACTION_MOVE -> {
 
                         if (swipeDisabled) return false
 
-                        if (event.x < lastX!!){
-                            val diff = lastX!! - event.x
-                            if (abs(diff) > 2.dp) {
+                        if (event.x < startX!!){
+                            val diff = startX!! - event.x
+                            Log.d("swipe", "diff $diff")
+                            Log.d("swipe", "diff dp ${diff/ 1.dp}")
+                            if (abs(diff) > 20.dp) {
                                 hasMoven = true
                                 val progressInc = diff / swipe_layout.width
                                 Log.d("swipe", "progressInc $progressInc")
@@ -82,8 +82,10 @@ class TunaSwipeWidget : FrameLayout {
                                     swipe_layout.progress = 1f
                             }
                         } else {
-                            val diff = event.x - lastX!!
-                            if (abs(diff) > 2.dp) {
+                            val diff = event.x - startX!!
+                            Log.d("swipe", "diff $diff")
+                            Log.d("swipe", "diff dp ${diff/ 1.dp}")
+                            if (abs(diff) > 20.dp) {
                                 hasMoven = true
                                 val progressInc = diff / swipe_layout.width
                                 Log.d("swipe", "progressInc $progressInc")
@@ -109,7 +111,7 @@ class TunaSwipeWidget : FrameLayout {
                     }
 
                     MotionEvent.ACTION_CANCEL -> {
-                        if (hasMoven) {
+                        if (hasMoven && !swipeDisabled) {
                             if (event.x < startX ?: 0f) {
                                 swipe_layout.transitionToEnd()
                             } else {
