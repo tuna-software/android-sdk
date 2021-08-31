@@ -10,7 +10,6 @@
         android:id="@+id/btnJavaExample"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:text="JAVA EXAMPLE"
         app:layout_constraintBottom_toTopOf="@+id/btnKotlinExample"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,12 +46,24 @@
         android:id="@+id/btnTunaCardRecognitionExample"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="TUNA CARD RECOGNITION"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnTunaGooglePayExample"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnTunaUiExample"
-        app:layout_constraintVertical_bias="0.851" />
+        app:layout_constraintTop_toBottomOf="@+id/btnTunaUiExample" />
+
+    <Button
+        android:id="@+id/btnTunaGooglePayExample"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="TUNA PAY WITH GOOGLE PAY"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnTunaCardRecognitionExample" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

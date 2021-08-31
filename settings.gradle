@@ -4,4 +4,6 @@ include ':tunaui'
 include ':tunakt'
 include ':tuna'
 include ':example'
+include ':tuna-wallets'
+include ':tuna-google-pay'
 rootProject.name = "Tuna Android SDK"
