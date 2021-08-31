@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.widget.Toolbar
+import androidx.databinding.BindingAdapter
 import com.tunasoftware.tunaui.R
 import kotlinx.android.synthetic.main.widget_tuna_footer_bar.view.*
 
@@ -11,6 +12,18 @@ class TunaFooterBarWidget : Toolbar {
 
     private var _onPreviousClickListener: () -> Unit = {}
     private var _onNextClickListener: () -> Unit = {}
+
+    var isLoading = false
+    set(value) {
+        field = value
+        if (value) {
+            btnNext.visibility = View.INVISIBLE
+            progress_next.visibility = View.VISIBLE
+        } else {
+            btnNext.visibility = View.VISIBLE
+            progress_next.visibility = View.GONE
+        }
+    }
 
     fun setOnPreviousClickListener(listener: () -> Unit) {
         _onPreviousClickListener = listener
@@ -57,4 +70,9 @@ class TunaFooterBarWidget : Toolbar {
 
         dotsIndicator.current = currentStep
     }
+}
+
+@BindingAdapter("isLoading")
+fun TunaFooterBarWidget.isLoading(isLoading: Boolean){
+    this.isLoading = isLoading
 }

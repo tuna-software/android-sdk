@@ -17,6 +17,7 @@ class SelectPaymentMethodAdapter : RecyclerView.Adapter<SelectPaymentMethodAdapt
         notifyDataSetChanged()
     }
     private var _onClickListener: (PaymentMethod) -> Unit = {}
+    private var _onRemoveItemListener: (PaymentMethod) -> Unit = {}
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val widget: TunaPaymentMethodWidget = view.findViewById(R.id.paymentMethodWidget)
@@ -33,8 +34,16 @@ class SelectPaymentMethodAdapter : RecyclerView.Adapter<SelectPaymentMethodAdapt
         val paymentMethod = dataSet[position]
         viewHolder.apply {
             widget.apply {
-                paymentMethodFlag = paymentMethod.flag
-                paymentMethodLabelSecondary = paymentMethod.displayName
+                paymentMethodFlag = paymentMethod.methodFlag
+                paymentMethodLabelSecondary = if (paymentMethod is PaymentMethodCreditCard) {
+                    "${context.getString(R.string.paymet_method_credit_card_masked_number)} ${
+                        paymentMethod.tunaUICard.maskedNumber.let {
+                            it.trim().let { it.substring(it.length-4 until it.length) }
+                        }
+                    }"
+                } else {
+                    paymentMethod.displayName
+                }
                 paymentMethodSelected = current == paymentMethod
             }
 
@@ -52,7 +61,8 @@ class SelectPaymentMethodAdapter : RecyclerView.Adapter<SelectPaymentMethodAdapt
             }
 
             view.tunaSwipeWidget.setOnDeleteClickListener {
-                removeAtPosition(position)
+                _onRemoveItemListener.invoke(paymentMethod)
+                removeAtPosition(dataSet.indexOf(paymentMethod))
             }
         }
     }
@@ -63,13 +73,20 @@ class SelectPaymentMethodAdapter : RecyclerView.Adapter<SelectPaymentMethodAdapt
         this._onClickListener = listener
     }
 
-    fun setItems(items: MutableList<PaymentMethod>) {
+    fun setOnRemoveItemListener(listener: (PaymentMethod) -> Unit) {
+        this._onRemoveItemListener = listener
+    }
+
+
+    fun setItems(items: List<PaymentMethod>) {
+        dataSet.clear()
         dataSet.addAll(items)
         current = items.firstOrNull { it.selectable }
         notifyDataSetChanged()
     }
 
-    fun removeAtPosition(position: Int) {
+
+    private fun removeAtPosition(position: Int) {
         dataSet.removeAt(position)
         notifyItemRemoved(position)
     }

@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.tunasoftware.tuna.Tuna
 import com.tunasoftware.tuna.exceptions.*
 import com.tunasoftware.tunacr.TunaCardRecognition
+import com.tunasoftware.tunakt.getSandboxSessionId
 import com.tunasoftware.tunasdk.R
 import com.tunasoftware.tunasdk.java.JavaListCardsActivity
 import com.tunasoftware.tunasdk.java.utils.Extras
@@ -26,7 +28,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.btnTunaUiExample).setOnClickListener {
-            TunaSelectPaymentMethodActivity.startForResult(this, 1)
+            Tuna.getSandboxSessionId().onSuccess {
+                Tuna.startSession(it)
+                TunaSelectPaymentMethodActivity.startForResult(this, 1)
+            }
         }
 
         findViewById<Button>(R.id.btnTunaCardRecognitionExample).setOnClickListener {

@@ -6,6 +6,7 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.tunasoftware.tunaui.R
+import com.tunasoftware.tunaui.domain.entities.TunaCardFlag
 import com.tunasoftware.tunaui.utils.CardMatcher
 import kotlinx.android.synthetic.main.widget_card_back.view.*
 
@@ -17,17 +18,17 @@ class TunaCardBackWidget : ConstraintLayout {
             value?.let { tvCvv.text = value }
         }
 
-    var cardFlag: CardMatcher.CardFlag? = CardMatcher.CardFlag.UNDEFINED
+    var cardFlag: TunaCardFlag? = TunaCardFlag.UNDEFINED
         set(value) {
             field = value
             value?.let {
                 when (it) {
-                    CardMatcher.CardFlag.HIPERCARD -> content.setBackgroundResource(R.drawable.tuna_bg_card_hipercard_back)
-                    CardMatcher.CardFlag.ELO -> content.setBackgroundResource(R.drawable.tuna_bg_card_elo_back)
-                    CardMatcher.CardFlag.AMEX -> content.setBackgroundResource(R.drawable.tuna_bg_card_amex_back)
-                    CardMatcher.CardFlag.DINERS -> content.setBackgroundResource(R.drawable.tuna_bg_card_diners_back)
-                    CardMatcher.CardFlag.VISA -> content.setBackgroundResource(R.drawable.tuna_bg_card_visa_back)
-                    CardMatcher.CardFlag.MASTER -> content.setBackgroundResource(R.drawable.tuna_bg_card_master_back)
+                    TunaCardFlag.HIPERCARD -> content.setBackgroundResource(R.drawable.tuna_bg_card_hipercard_back)
+                    TunaCardFlag.ELO -> content.setBackgroundResource(R.drawable.tuna_bg_card_elo_back)
+                    TunaCardFlag.AMEX -> content.setBackgroundResource(R.drawable.tuna_bg_card_amex_back)
+                    TunaCardFlag.DINERS -> content.setBackgroundResource(R.drawable.tuna_bg_card_diners_back)
+                    TunaCardFlag.VISA -> content.setBackgroundResource(R.drawable.tuna_bg_card_visa_back)
+                    TunaCardFlag.MASTER -> content.setBackgroundResource(R.drawable.tuna_bg_card_master_back)
                     else -> content.background = ContextCompat.getDrawable(context, R.drawable.tuna_bg_card_master)
                 }
             }

@@ -1,4 +1,4 @@
-package com.tunasoftware.tunaui.utils
+package com.tunasoftware.tunaui.extensions
 
 import androidx.lifecycle.MutableLiveData
 

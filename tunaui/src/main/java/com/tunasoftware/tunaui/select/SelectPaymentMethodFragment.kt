@@ -7,16 +7,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
+import com.tunasoftware.tunacommons.ui.entities.UIState
 import com.tunasoftware.tunaui.R
+import com.tunasoftware.tunaui.TunaUIViewModelFactory
 import com.tunasoftware.tunaui.creditcard.NewCardFragment
 import com.tunasoftware.tunaui.domain.entities.TunaUICard
+import com.tunasoftware.tunaui.domain.entities.flag
 import com.tunasoftware.tunaui.extensions.getNavigationResult
 import com.tunasoftware.tunaui.navigator
 import kotlinx.android.synthetic.main.select_payment_method_fragment.*
 
 
 class SelectPaymentMethodFragment : Fragment() {
+
+    lateinit var viewModel: SelectPaymentMethodViewModel
+
+    private val adapter = SelectPaymentMethodAdapter()
 
     companion object {
         fun newInstance() = SelectPaymentMethodFragment()
@@ -33,32 +43,34 @@ class SelectPaymentMethodFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this, TunaUIViewModelFactory(requireActivity().application))[SelectPaymentMethodViewModel::class.java]
         tuna_toolbar.apply {
             navigationIcon = ContextCompat.getDrawable(requireContext(), R.drawable.tuna_ic_baseline_close_24)
             setNavigationOnClickListener { activity?.finish() }
             setTitle(R.string.tuna_select_payment_method_title)
         }
 
-
-        val adapter = SelectPaymentMethodAdapter()
         val new =  getNavigationResult<TunaUICard>(NewCardFragment.RESULT_CARD)?.let {
-             PaymentMethod(12, "Cartão de crédito ${it.maskedNumber}")
+             PaymentMethodCreditCard(PaymentMethodType.CREDIT_CARD, it.maskedNumber, flag = it.flag(), tunaUICard = it)
         }
-        adapter.setItems(
-            new?.let { (listOf(new) + paymentMethods()).toMutableList() }?:paymentMethods()
-        )
         new?.let {
             adapter.current = it
         }
         adapter.setOnClickListener {
-            if (it.methodType == 0){
+            if (it.methodType == PaymentMethodType.NEW_CREDIT_CARD){
                 navigator.navigate(R.id.action_selectMethod_to_newCard)
             }
+        }
+        adapter.setOnRemoveItemListener {
+            if (it is PaymentMethodCreditCard)
+                viewModel.onDeleteCard(it)
         }
         val recyclerView = rvPaymentMethods
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
+        subscribe()
+        viewModel.init()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -70,15 +82,29 @@ class SelectPaymentMethodFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun paymentMethods(): MutableList<PaymentMethod> {
-        return mutableListOf(
-            PaymentMethod(12, "Cartão de crédito * * * * 5150"),
-            PaymentMethod(12, "Cartão de crédito * * * * 5151"),
-            PaymentMethod(0, "Novo cartão de crédito",true, selectable = false),
-            PaymentMethod(5, "Google pay", true, selectable = false),
-            PaymentMethod(3, "Pix", true, selectable = false),
-            PaymentMethod(2, "Boleto", true, selectable = false)
-        )
+    fun subscribe(){
+        viewModel.state.observe(viewLifecycleOwner, { state ->
+            when (state){
+                is UIState.Loading -> {
+
+                }
+                is UIState.Success -> {
+                    adapter.setItems(state.result)
+                }
+                is UIState.Error -> {
+                    //TODO
+                }
+            }
+        })
+        viewModel.actionsLiveData.observe(this , { action ->
+            when (action){
+                is ActionShowErrorDeletingCard -> {
+                    Snackbar.make(container, getString(R.string.error_removing_credit_card), Snackbar.LENGTH_SHORT).show()
+                }
+            }
+        })
     }
+
+
 }
 

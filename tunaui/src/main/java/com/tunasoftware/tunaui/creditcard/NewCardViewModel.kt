@@ -3,19 +3,26 @@ package com.tunasoftware.tunaui.creditcard
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.tunasoftware.tuna.Tuna
+import com.tunasoftware.tuna.entities.TunaCard
+import com.tunasoftware.tunakt.addNewCard
 import com.tunasoftware.tunaui.R
+import com.tunasoftware.tunaui.domain.entities.TunaCardFlag
 import com.tunasoftware.tunaui.domain.entities.TunaUICard
 import com.tunasoftware.tunaui.extensions.*
 import com.tunasoftware.tunaui.utils.CardMatcher
 import com.tunasoftware.tunaui.utils.SingleLiveEvent
 import com.tunasoftware.tunaui.utils.TextFieldState
-import com.tunasoftware.tunaui.utils.default
+import com.tunasoftware.tunaui.extensions.default
 
-class NewCardViewModel(application: Application) : AndroidViewModel(application) {
+class NewCardViewModel(application: Application,
+                       val tuna:Tuna) : AndroidViewModel(application) {
 
     val actionsLiveData = SingleLiveEvent<Any>()
 
-    var cardFlag = MutableLiveData<CardMatcher.CardFlag>().default(CardMatcher.CardFlag.UNDEFINED)
+    val isSaving = MutableLiveData<Boolean>().default(false)
+
+    var cardFlag = MutableLiveData<TunaCardFlag>().default(TunaCardFlag.UNDEFINED)
 
     val cardNumber = CreditCardField(CreditCardFieldType.NUMBER){ field, showError ->
         if (field.getValue().isCreditCard())
@@ -79,33 +86,45 @@ class NewCardViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    fun saveCard(){
-        //TODO: Save card
-        actionsLiveData.postValue(
-            ActionFinish(
-                TunaUICard(
-                    token = "",
-                    brand = "brand",
-                    cardHolderName = cardName.getValue(),
-                    maskedNumber = cardNumber.getValue().let {
-                        "* * * * ${
-                            it.substring(
-                                it.length - 4,
-                                it.length
-                            )
-                        }"
-                                                             },
-                    expirationMonth = 2,
-                    expirationYear = 2023
+    private fun saveCard(){
+        isSaving.postValue(true)
+        val expiration = cardExpirationDate.getValue().split("/")
+        val expirationYear = expiration.last()
+        val expirationMonth = expiration.first()
+        tuna.addNewCard(
+            cardNumber = cardNumber.getValue().replace(" ", ""),
+            cardHolderName = cardName.getValue(),
+            expirationYear = expirationYear.toInt(),
+            expirationMonth = expirationMonth.toInt(),
+            cvv = cardCvv.getValue(),
+            save = true
+        ).onSuccess {
+            isSaving.postValue(false)
+            actionsLiveData.postValue(
+                ActionFinish(
+                    it.toTunaUICard()
                 )
             )
-        )
+        }.onFailure {
+            isSaving.postValue(false)
+            actionsLiveData.postValue(ActionErrorSavingCard())
+        }
     }
 
     init {
         cardNumber.text.observeForever { cardFlag.value = CardMatcher.matches(it.toString()) }
     }
 }
+
+fun TunaCard.toTunaUICard() = TunaUICard(
+        token = token,
+        brand = brand,
+        cardHolderName = cardHolderName,
+        maskedNumber = maskedNumber,
+        expirationMonth = expirationMonth,
+        expirationYear = expirationYear
+    )
+
 
 class CreditCardField(var type: CreditCardFieldType, val validation : (CreditCardField, Boolean) -> Boolean): TextFieldState(){
 
@@ -124,4 +143,5 @@ enum class CreditCardFieldType {
 
 class ActionFieldBack
 class ActionFieldNext
+class ActionErrorSavingCard
 class ActionFinish(val card: TunaUICard)
