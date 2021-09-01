@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -20,7 +19,7 @@ import com.tunasoftware.tunaui.domain.entities.flag
 import com.tunasoftware.tunaui.extensions.getNavigationResult
 import com.tunasoftware.tunaui.navigator
 import kotlinx.android.synthetic.main.select_payment_method_fragment.*
-
+import kotlinx.android.synthetic.main.select_payment_method_shimmer.*
 
 class SelectPaymentMethodFragment : Fragment() {
 
@@ -39,7 +38,6 @@ class SelectPaymentMethodFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.select_payment_method_fragment, container, false)
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -82,17 +80,19 @@ class SelectPaymentMethodFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun subscribe(){
+    private fun subscribe(){
         viewModel.state.observe(viewLifecycleOwner, { state ->
             when (state){
                 is UIState.Loading -> {
-
+                    startShimmer()
                 }
                 is UIState.Success -> {
+                    stopShimmer()
                     adapter.setItems(state.result)
                 }
                 is UIState.Error -> {
                     //TODO
+                    stopShimmer()
                 }
             }
         })
@@ -105,6 +105,18 @@ class SelectPaymentMethodFragment : Fragment() {
         })
     }
 
+    private fun startShimmer() {
+        rvPaymentMethods.visibility = View.GONE
+        btnSelect.visibility = View.GONE
+        shimmer_select_payment_method.startShimmer()
+    }
+
+    private fun stopShimmer() {
+        rvPaymentMethods.visibility = View.VISIBLE
+        btnSelect.visibility = View.VISIBLE
+        shimmer_select_payment_method.stopShimmer()
+        shimmer_select_payment_method.visibility = View.GONE
+    }
 
 }
 
