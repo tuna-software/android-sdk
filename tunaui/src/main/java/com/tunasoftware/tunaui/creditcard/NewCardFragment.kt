@@ -28,6 +28,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
 import com.tunasoftware.tunacr.TunaCardRecognition
 import com.tunasoftware.tunaui.R
+import com.tunasoftware.tunaui.TunaUIViewModelFactory
 import com.tunasoftware.tunaui.databinding.NewCardFragmentBinding
 import com.tunasoftware.tunaui.extensions.*
 import com.tunasoftware.tunaui.navigator
@@ -71,7 +72,7 @@ class NewCardFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel = ViewModelProvider(this).get(NewCardViewModel::class.java)
+        viewModel = ViewModelProvider(this, TunaUIViewModelFactory(requireActivity().application))[NewCardViewModel::class.java]
         binding = NewCardFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.viewmodel = viewModel
@@ -174,7 +175,7 @@ class NewCardFragment : Fragment() {
         }
     }
 
-    fun subscribe() {
+    private fun subscribe() {
         viewModel.actionsLiveData.observe(this, { action ->
             when (action) {
                 is ActionFieldBack -> {

@@ -22,4 +22,6 @@
     <string name="tuna_footer_bar_btn_previous">Voltar</string>
     <string name="tuna_footer_bar_btn_next">Próximo</string>
     <string name="tuna_footer_bar_btn_finish">Finalizar</string>
+    <string name="paymet_method_credit_card_masked_number">Cartão de crédito • • • •</string>
+    <string name="error_removing_credit_card">Ocorreu um erro ao remover item</string>
 </resources>

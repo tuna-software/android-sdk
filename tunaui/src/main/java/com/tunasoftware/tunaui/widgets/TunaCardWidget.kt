@@ -6,6 +6,7 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.tunasoftware.tunaui.R
+import com.tunasoftware.tunaui.domain.entities.TunaCardFlag
 import com.tunasoftware.tunaui.utils.CardMatcher
 import kotlinx.android.synthetic.main.widget_card.view.*
 
@@ -29,33 +30,33 @@ class TunaCardWidget : ConstraintLayout {
             value?.let { tvValidate.value = value }
         }
 
-    var cardFlag: CardMatcher.CardFlag? = CardMatcher.CardFlag.UNDEFINED
+    var cardFlag: TunaCardFlag? = TunaCardFlag.UNDEFINED
         set(value) {
             field = value
             value?.let {
                 ivFlag.backgroundTintList = null
                 when (it) {
-                    CardMatcher.CardFlag.HIPERCARD -> {
+                    TunaCardFlag.HIPERCARD -> {
                         ivFlag.setImageResource(R.drawable.tuna_ic_flag_card_hipercard)
                         content.setBackgroundResource(R.drawable.tuna_bg_card_hipercard)
                     }
-                    CardMatcher.CardFlag.ELO -> {
+                    TunaCardFlag.ELO -> {
                         ivFlag.setImageResource(R.drawable.tuna_ic_flag_card_elo)
                         content.setBackgroundResource(R.drawable.tuna_bg_card_elo)
                     }
-                    CardMatcher.CardFlag.AMEX -> {
+                    TunaCardFlag.AMEX -> {
                         ivFlag.setImageResource(R.drawable.tuna_ic_flag_card_amex)
                         content.setBackgroundResource(R.drawable.tuna_bg_card_amex)
                     }
-                    CardMatcher.CardFlag.DINERS -> {
+                    TunaCardFlag.DINERS -> {
                         ivFlag.setImageResource(R.drawable.tuna_ic_flag_card_diners)
                         content.setBackgroundResource(R.drawable.tuna_bg_card_diners)
                     }
-                    CardMatcher.CardFlag.VISA -> {
+                    TunaCardFlag.VISA -> {
                         ivFlag.setImageResource(R.drawable.tuna_ic_flag_card_visa)
                         content.setBackgroundResource(R.drawable.tuna_bg_card_visa)
                     }
-                    CardMatcher.CardFlag.MASTER -> {
+                    TunaCardFlag.MASTER -> {
                         ivFlag.setImageResource(R.drawable.tuna_ic_flag_card_master)
                         content.setBackgroundResource(R.drawable.tuna_bg_card_master)
                     }
