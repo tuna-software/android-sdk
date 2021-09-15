@@ -66,8 +66,8 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
-    implementation 'com.tunasoftware:tuna:0.0.6-beta'
-    implementation 'com.tunasoftware:tunakt:0.0.6-beta'
+    implementation project(":tuna")
+    implementation project(":tunakt")
     implementation project(":tunacr")
     api project(":tunacommons")
 

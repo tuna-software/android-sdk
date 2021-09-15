@@ -2,6 +2,7 @@ package com.tunasoftware.tuna.request
 
 import com.tunasoftware.tuna.Tuna
 import com.tunasoftware.tuna.entities.TunaCard
+import com.tunasoftware.tuna.entities.TunaPaymentMethod
 import com.tunasoftware.tuna.exceptions.*
 import com.tunasoftware.tuna.exceptions.TunaExceptionCodes.*
 import com.tunasoftware.tuna.request.rest.*
@@ -9,7 +10,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class TunaImp(private val sessionId: String, private val tunaAPI: TunaAPI): Tuna {
+class TunaImp(private val sessionId: String, private val tunaAPI: TunaAPI, private val tunaEngineAPI: TunaEngineAPI): Tuna {
 
     override fun addNewCard(
         cardNumber: String,
@@ -167,6 +168,36 @@ class TunaImp(private val sessionId: String, private val tunaAPI: TunaAPI): Tuna
                         callback.onFailed(t.toTunaException())
                     }
                 })
+    }
+
+    override fun getPaymentMethods(callback: Tuna.TunaRequestCallback<List<TunaPaymentMethod>>) {
+        tunaEngineAPI.getPaymentMethods().enqueue(object : Callback<PaymentMethodsResultVO>{
+            override fun onResponse(
+                call: Call<PaymentMethodsResultVO>,
+                response: Response<PaymentMethodsResultVO>
+            ) {
+                if (response.isSuccessful) {
+                    val result = response.body()
+                    if (result != null) {
+                        if (result.code == 1) {
+                            result.paymentMethods?.let {
+                                callback.onSuccess(it)
+                            }?:callback.onFailed(TunaException.getDefaultException())
+                        } else {
+                            callback.onFailed(result.code.toTunaException(result.message))
+                        }
+                    } else {
+                        callback.onFailed(TunaException.getDefaultException())
+                    }
+                } else {
+                    callback.onFailed(TunaException.getDefaultException())
+                }
+            }
+
+            override fun onFailure(call: Call<PaymentMethodsResultVO>, t: Throwable) {
+                callback.onFailed(t.toTunaException())
+            }
+        })
     }
 
     private fun createTunaCardByResult(card: CardRequestVO, result: GenerateCardResultVO): TunaCard {

@@ -1,5 +1,8 @@
 import com.tunasoftware.tuna.Tuna
 import com.tunasoftware.tuna.entities.TunaCard
+import com.tunasoftware.tuna.entities.TunaCardPaymentMethod
+import com.tunasoftware.tuna.entities.TunaPaymentMethod
+import com.tunasoftware.tuna.entities.TunaPaymentMethodType
 import com.tunasoftware.tuna.exceptions.TunaCardCanNotBeRemovedException
 import com.tunasoftware.tuna.exceptions.TunaExceptionCodes
 import org.junit.Assert.*
@@ -249,5 +252,34 @@ class TunaRequestImpTest : TunaTest() {
                 fail("Expected TunaCardCanNotBeRemovedException")
             }
         }
+    }
+
+    @Test
+    fun `when get payment methods successfully`(){
+        server.enqueueResponse("payment-methods-success.json", 200)
+
+        val future: CompletableFuture<List<TunaPaymentMethod>> = CompletableFuture()
+
+        tuna.getPaymentMethods(callback = object : Tuna.TunaRequestCallback<List<TunaPaymentMethod>>{
+            override fun onSuccess(result: List<TunaPaymentMethod>) {
+                future.complete(result)
+            }
+
+            override fun onFailed(e: Throwable) {
+                future.completeExceptionally(e)
+            }
+
+        })
+
+        val result: List<TunaPaymentMethod> = future.get()
+        assertNotNull(result)
+        assertEquals(2, result.size)
+        val creditCard = result.firstOrNull { it.type == TunaPaymentMethodType.CREDIT_CARD }
+        assertNotNull(creditCard)
+        assert(creditCard is TunaCardPaymentMethod)
+        if (creditCard is TunaCardPaymentMethod){
+            assertEquals(3, creditCard.brands.size)
+        }
+
     }
 }
