@@ -45,13 +45,12 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:indeterminate="true"
-        android:visibility="gone"
         android:indeterminateTint="@color/tuna_black"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/btnNext"
         app:layout_constraintEnd_toEndOf="@+id/btnNext"
         app:layout_constraintStart_toEndOf="@+id/dotsIndicator"
         app:layout_constraintTop_toTopOf="parent" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@ import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import com.tunasoftware.tunaui.R
 import com.tunasoftware.tunaui.extensions.dp
+import com.tunasoftware.tunaui.utils.disableForAccessibility
 import kotlinx.android.synthetic.main.widget_payment_method.view.*
 
 class TunaPaymentMethodWidget : FrameLayout {
@@ -76,6 +77,8 @@ class TunaPaymentMethodWidget : FrameLayout {
             } finally {
                 recycle()
             }
+
+            content.disableForAccessibility()
         }
     }
 

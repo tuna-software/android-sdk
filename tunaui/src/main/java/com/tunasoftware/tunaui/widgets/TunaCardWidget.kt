@@ -7,7 +7,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.tunasoftware.tunaui.R
 import com.tunasoftware.tunaui.domain.entities.TunaCardFlag
-import com.tunasoftware.tunaui.utils.CardMatcher
 import kotlinx.android.synthetic.main.widget_card.view.*
 
 class TunaCardWidget : ConstraintLayout {

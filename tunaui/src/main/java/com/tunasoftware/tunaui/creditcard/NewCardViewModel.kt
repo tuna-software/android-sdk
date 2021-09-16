@@ -13,10 +13,9 @@ import com.tunasoftware.tunaui.extensions.*
 import com.tunasoftware.tunaui.utils.CardMatcher
 import com.tunasoftware.tunaui.utils.SingleLiveEvent
 import com.tunasoftware.tunaui.utils.TextFieldState
-import com.tunasoftware.tunaui.extensions.default
+import com.tunasoftware.tunaui.utils.announceForAccessibility
 
-class NewCardViewModel(application: Application,
-                       val tuna:Tuna) : AndroidViewModel(application) {
+class NewCardViewModel(application: Application, val tuna:Tuna) : AndroidViewModel(application) {
 
     val actionsLiveData = SingleLiveEvent<Any>()
 
@@ -86,7 +85,8 @@ class NewCardViewModel(application: Application,
         }
     }
 
-    private fun saveCard(){
+    private fun saveCard() {
+        context.announceForAccessibility(context.getString(R.string.tuna_accessibility_saving_card))
         isSaving.postValue(true)
         val expiration = cardExpirationDate.getValue().split("/")
         val expirationYear = expiration.last()
