@@ -1,6 +1,7 @@
 package com.tunasoftware.tuna.request.rest
 
 import com.google.gson.annotations.SerializedName
+import com.tunasoftware.tuna.entities.TunaPaymentMethod
 
 data class GenerateCardRequestVO(
         @SerializedName("SessionId") val sessionId: String,
@@ -63,4 +64,10 @@ data class BindCardRequestVO(
 data class BindCardResultVO(
         @SerializedName("code") val code: Int,
         @SerializedName("message") val message: String?,
+)
+
+data class PaymentMethodsResultVO(
+        @SerializedName("code") val code: Int,
+        @SerializedName("message") val message: String?,
+        val paymentMethods: List<TunaPaymentMethod>? = null
 )

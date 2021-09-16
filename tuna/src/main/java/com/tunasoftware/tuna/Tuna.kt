@@ -3,6 +3,7 @@ package com.tunasoftware.tuna
 import com.tunasoftware.tuna.entities.TunaAPIKey
 import com.tunasoftware.tuna.entities.TunaCard
 import com.tunasoftware.tuna.entities.TunaCustomer
+import com.tunasoftware.tuna.entities.TunaPaymentMethod
 import com.tunasoftware.tuna.exceptions.TunaSDKNotInitiatedException
 import com.tunasoftware.tuna.exceptions.TunaSDKSandboxOnlyException
 import com.tunasoftware.tuna.request.TunaImp
@@ -17,9 +18,9 @@ interface Tuna {
         private var hasBeenInitialized = false
         private var currentSession: Tuna? = null
 
-        fun init(appToken: String, sandbox:Boolean = false){
+        fun init(appToken: String, accountToken:String = "", sandbox:Boolean = false){
             TunaServiceProvider.isSandbox = sandbox
-            this.tunaAPIKey = TunaAPIKey(appToken)
+            this.tunaAPIKey = TunaAPIKey(appToken, accountToken)
             hasBeenInitialized = true
         }
 
@@ -27,7 +28,7 @@ interface Tuna {
         fun startSession(sessionId:String): Tuna {
             if (!hasBeenInitialized)
                 throw TunaSDKNotInitiatedException()
-            return TunaImp(sessionId, TunaServiceProvider.tunaAPI).also {
+            return TunaImp(sessionId, TunaServiceProvider.tunaAPI, TunaServiceProvider.provideTunaEngineAPI(tunaAPIKey)).also {
                 currentSession = it
             }
         }
@@ -146,6 +147,13 @@ interface Tuna {
      * @param cvv card security code
      */
     fun bind(card:TunaCard, cvv: String, callback: TunaRequestCallback<TunaCard>)
+
+
+    /**
+     * get payment methods available
+     */
+    fun getPaymentMethods(callback: TunaRequestCallback<List<TunaPaymentMethod>>)
+
 
     interface TunaRequestCallback<T> {
         fun onSuccess(result:T)

@@ -3,6 +3,7 @@ package com.tunasoftware.tunakt
 import com.tunasoftware.tuna.Tuna
 import com.tunasoftware.tuna.entities.TunaCard
 import com.tunasoftware.tuna.entities.TunaCustomer
+import com.tunasoftware.tuna.entities.TunaPaymentMethod
 import java.lang.RuntimeException
 
 class TunaRequestResult<T>{
@@ -160,6 +161,18 @@ fun Tuna.addNewCard(
 fun Tuna.getCardList() = TunaRequestResult<List<TunaCard>>().apply {
     getCardList(callback = object : Tuna.TunaRequestCallback<List<TunaCard>> {
         override fun onSuccess(result: List<TunaCard>) {
+            invokeSuccess(result)
+        }
+
+        override fun onFailed(e: Throwable) {
+            invokeFailure(e)
+        }
+    })
+}
+
+fun Tuna.getPaymentMethods() = TunaRequestResult<List<TunaPaymentMethod>>().apply {
+    getPaymentMethods(callback = object : Tuna.TunaRequestCallback<List<TunaPaymentMethod>> {
+        override fun onSuccess(result: List<TunaPaymentMethod>) {
             invokeSuccess(result)
         }
 

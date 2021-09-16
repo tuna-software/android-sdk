@@ -61,8 +61,8 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3'
 
-    implementation 'com.tunasoftware:tuna:0.0.6-beta'
-    implementation 'com.tunasoftware:tunakt:0.0.6-beta'
+    implementation project(":tuna")
+    implementation project(":tunakt")
 
     implementation project(":tunaui")
     implementation project(":tunacr")
