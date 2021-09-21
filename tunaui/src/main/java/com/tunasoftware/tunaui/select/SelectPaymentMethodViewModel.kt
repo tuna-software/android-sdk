@@ -1,17 +1,22 @@
 package com.tunasoftware.tunaui.select
 
 import androidx.lifecycle.*
+import android.content.Context
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.tunasoftware.tuna.Tuna
-import com.tunasoftware.tuna.entities.TunaCardPaymentMethod
 import com.tunasoftware.tuna.entities.TunaPaymentMethodType
 import com.tunasoftware.tunacommons.ui.entities.UIState
 import com.tunasoftware.tunakt.deleteCard
 import com.tunasoftware.tunakt.getCardList
 import com.tunasoftware.tunakt.getPaymentMethods
+import com.tunasoftware.tunaui.R
 import com.tunasoftware.tunaui.domain.entities.TunaCardFlag
 import com.tunasoftware.tunaui.domain.entities.TunaUICard
 import com.tunasoftware.tunaui.utils.SingleLiveEvent
 import com.tunasoftware.tunaui.extensions.default
+import com.tunasoftware.tunaui.utils.announceForAccessibility
 import kotlinx.coroutines.launch
 
 class SelectPaymentMethodViewModel(val tuna: Tuna) : ViewModel() {
@@ -94,10 +99,12 @@ class SelectPaymentMethodViewModel(val tuna: Tuna) : ViewModel() {
             }
     }
 
-    fun onDeleteCard(paymentMethod:PaymentMethodCreditCard) = viewModelScope.launch {
+    fun onDeleteCard(paymentMethod:PaymentMethodCreditCard, context: Context?) = viewModelScope.launch {
+        context?.announceForAccessibility(context.getString(R.string.tuna_accessibility_removing_card))
         tuna.deleteCard(paymentMethod.tunaUICard.token)
             .onSuccess {
                 //Nothing to be done, UI has already removed the item from view
+                context?.announceForAccessibility(context.getString(R.string.tuna_accessibility_removed_card))
             }
             .onFailure {
                 actionsLiveData.postValue(ActionShowErrorDeletingCard())

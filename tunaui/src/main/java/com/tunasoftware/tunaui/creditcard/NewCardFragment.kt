@@ -4,10 +4,9 @@ import android.animation.AnimatorInflater
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.graphics.Point
-import android.os.*
+import android.os.Bundle
 import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
@@ -20,7 +19,6 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -29,12 +27,14 @@ import com.google.android.material.textfield.TextInputLayout
 import com.tunasoftware.tunacr.TunaCardRecognition
 import com.tunasoftware.tunaui.R
 import com.tunasoftware.tunaui.TunaUIViewModelFactory
+import com.tunasoftware.tunaui.closeKeyboard
 import com.tunasoftware.tunaui.databinding.NewCardFragmentBinding
 import com.tunasoftware.tunaui.extensions.*
 import com.tunasoftware.tunaui.navigator
 import com.tunasoftware.tunaui.utils.Mask
+import com.tunasoftware.tunaui.utils.announceForAccessibility
+import com.tunasoftware.tunaui.utils.disableForAccessibility
 import kotlinx.android.synthetic.main.new_card_fragment.*
-
 
 class NewCardFragment : Fragment() {
 
@@ -67,7 +67,6 @@ class NewCardFragment : Fragment() {
         }
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -82,19 +81,25 @@ class NewCardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         tuna_toolbar.apply {
-            navigationIcon = ContextCompat.getDrawable(
-                requireContext(),
-                R.drawable.tuna_ic_arrow_back
-            )
-            setNavigationOnClickListener {
-                navigator.navigateUp()
-            }
+            navigationIcon = ContextCompat.getDrawable(requireContext(), R.drawable.tuna_ic_arrow_back)
+            navigationContentDescription = getString(R.string.tuna_accessibility_back_button)
+            setNavigationOnClickListener { navigator.navigateUp() }
             setTitle(R.string.tuna_add_credit_card)
         }
+
+        binding.flCards.disableForAccessibility()
+        binding.widgetCardCpf.disableForAccessibility()
+        binding.widgetCardBack.disableForAccessibility()
+
         subscribe()
         setupFields()
         loadAnimations()
         setupFooterBar()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        activity?.closeKeyboard()
     }
 
     private fun setupFields(){
@@ -197,11 +202,11 @@ class NewCardFragment : Fragment() {
                 is ActionFinish -> {
                     setNavigationResult(action.card, RESULT_CARD)
                     findNavController().navigateUp()
+                    context?.announceForAccessibility(getString(R.string.tuna_accessibility_saved_card))
                 }
             }
         })
     }
-
 
     private fun loadAnimations() {
         val scale = requireContext().resources.displayMetrics.density
@@ -211,7 +216,6 @@ class NewCardFragment : Fragment() {
 
         animSetRightOut = AnimatorInflater.loadAnimator(requireContext(), R.animator.out_animation) as AnimatorSet
         animSetLeftIn = AnimatorInflater.loadAnimator(requireContext(), R.animator.in_animation) as AnimatorSet
-
     }
 
     private fun flipCards() {
@@ -288,7 +292,6 @@ class NewCardFragment : Fragment() {
             )
         }
     }
-
 }
 
 @BindingAdapter("type")

@@ -43,7 +43,7 @@ class Mask{
                             continue
                         }
                         try {
-                            textWithMask += str.get(i)
+                            textWithMask += str[i]
                         }catch (e : Exception){
                             break
                         }
@@ -53,7 +53,6 @@ class Mask{
                     isUpdating = true
                     editText.setText(textWithMask)
                     editText.setSelection(textWithMask.length)
-
                 }
 
                 override fun afterTextChanged(editable: Editable) {

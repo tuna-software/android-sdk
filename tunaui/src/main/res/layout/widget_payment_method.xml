@@ -16,6 +16,7 @@
             android:id="@+id/ivFlag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@null"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -37,12 +38,12 @@
             android:id="@+id/ivSelected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/tuna_ic_check"
-            android:visibility="gone"
+            android:contentDescription="@null"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/tuna_ic_check" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

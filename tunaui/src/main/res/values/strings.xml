@@ -24,4 +24,22 @@
     <string name="tuna_footer_bar_btn_finish">Finish</string>
     <string name="paymet_method_credit_card_masked_number">Credit card • • • •</string>
     <string name="error_removing_credit_card">There was an error removing this credit card</string>
+
+    <!--  Accessibility  -->
+    <string name="tuna_accessibility_close_button">Close</string>
+    <string name="tuna_accessibility_back_button">Back</string>
+    <string name="tuna_accessibility_button">Button</string>
+    <string name="tuna_accessibility_select_item">Select item</string>
+    <string name="tuna_accessibility_remove_item">Remove item</string>
+    <string name="tuna_accessibility_button_back_field">Previous field</string>
+    <string name="tuna_accessibility_button_next_field">Next field</string>
+    <string name="tuna_accessibility_button_finish_add_card">Finish</string>
+    <string name="tuna_accessibility_loading_list">Loading list</string>
+    <string name="tuna_accessibility_loaded_list">List loaded</string>
+    <string name="tuna_accessibility_error_loading_list">Error loading list</string>
+    <string name="tuna_accessibility_saving_card">Saving credit card</string>
+    <string name="tuna_accessibility_saved_card">Saved credit card</string>
+    <string name="tuna_accessibility_removing_card">Removing credit card</string>
+    <string name="tuna_accessibility_removed_card">Removed credit card</string>
+    <string name="tuna_accessibility_selected_card">%s selected</string>
 </resources>

@@ -1,10 +1,12 @@
 package com.tunasoftware.tunaui.select
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.view.accessibility.AccessibilityEvent
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -18,6 +20,8 @@ import com.tunasoftware.tunaui.domain.entities.TunaUICard
 import com.tunasoftware.tunaui.domain.entities.flag
 import com.tunasoftware.tunaui.extensions.getNavigationResult
 import com.tunasoftware.tunaui.navigator
+import com.tunasoftware.tunaui.utils.announceForAccessibility
+import com.tunasoftware.tunaui.utils.setAsHeading
 import kotlinx.android.synthetic.main.select_payment_method_fragment.*
 import kotlinx.android.synthetic.main.select_payment_method_shimmer.*
 
@@ -44,9 +48,12 @@ class SelectPaymentMethodFragment : Fragment() {
         viewModel = ViewModelProvider(this, TunaUIViewModelFactory(requireActivity().application))[SelectPaymentMethodViewModel::class.java]
         tuna_toolbar.apply {
             navigationIcon = ContextCompat.getDrawable(requireContext(), R.drawable.tuna_ic_baseline_close_24)
+            navigationContentDescription = getString(R.string.tuna_accessibility_close_button)
             setNavigationOnClickListener { activity?.finish() }
             setTitle(R.string.tuna_select_payment_method_title)
         }
+
+        tvTitle.setAsHeading()
 
         val new =  getNavigationResult<TunaUICard>(NewCardFragment.RESULT_CARD)?.let {
              PaymentMethodCreditCard(PaymentMethodType.CREDIT_CARD, it.maskedNumber, flag = it.flag(), tunaUICard = it)
@@ -57,11 +64,16 @@ class SelectPaymentMethodFragment : Fragment() {
         adapter.setOnClickListener {
             if (it.methodType == PaymentMethodType.NEW_CREDIT_CARD){
                 navigator.navigate(R.id.action_selectMethod_to_newCard)
+            } else {
+                rvPaymentMethods.postDelayed({
+                    val holder = rvPaymentMethods.findViewHolderForAdapterPosition(adapter.getItemPosition(it))
+                    holder?.itemView?.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_FOCUSED)
+                }, 1000)
             }
         }
         adapter.setOnRemoveItemListener {
             if (it is PaymentMethodCreditCard)
-                viewModel.onDeleteCard(it)
+                viewModel.onDeleteCard(it, context)
         }
         val recyclerView = rvPaymentMethods
         recyclerView.setHasFixedSize(true)
@@ -84,14 +96,17 @@ class SelectPaymentMethodFragment : Fragment() {
         viewModel.state.observe(viewLifecycleOwner, { state ->
             when (state){
                 is UIState.Loading -> {
+                    context?.announceForAccessibility(getString(R.string.tuna_accessibility_loading_list))
                     startShimmer()
                 }
                 is UIState.Success -> {
+                    context?.announceForAccessibility(getString(R.string.tuna_accessibility_loaded_list))
                     stopShimmer()
                     adapter.setItems(state.result)
                 }
                 is UIState.Error -> {
                     //TODO
+                    context?.announceForAccessibility(getString(R.string.tuna_accessibility_error_loading_list))
                     stopShimmer()
                 }
             }

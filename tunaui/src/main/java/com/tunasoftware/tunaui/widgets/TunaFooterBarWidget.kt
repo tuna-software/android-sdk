@@ -57,6 +57,9 @@ class TunaFooterBarWidget : Toolbar {
 
         btnPrevious.setOnClickListener { _onPreviousClickListener.invoke() }
         btnNext.setOnClickListener { _onNextClickListener.invoke() }
+
+        btnPrevious.contentDescription = context.getString(R.string.tuna_accessibility_button_back_field)
+        btnNext.contentDescription = context.getString(R.string.tuna_accessibility_button_next_field)
     }
 
     private fun changeUI() {
@@ -64,8 +67,10 @@ class TunaFooterBarWidget : Toolbar {
 
         if (currentStep < (steps - 1)) {
             btnNext.text = context.getString(R.string.tuna_footer_bar_btn_next)
+            btnNext.contentDescription = context.getString(R.string.tuna_accessibility_button_next_field)
         } else {
             btnNext.text = context.getString(R.string.tuna_footer_bar_btn_finish)
+            btnNext.contentDescription = context.getString(R.string.tuna_accessibility_button_finish_add_card)
         }
 
         dotsIndicator.current = currentStep
