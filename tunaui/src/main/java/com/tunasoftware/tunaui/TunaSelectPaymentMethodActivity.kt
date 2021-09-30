@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
 import com.tunasoftware.tuna.Tuna
 import com.tunasoftware.tuna.exceptions.TunaSessionExpiredException
 import com.tunasoftware.tunaui.select.PaymentMethod
+import com.tunasoftware.tunaui.select.SelectPaymentMethodFragment
 
 class TunaSelectPaymentMethodActivity : AppCompatActivity(), TunaPaymentMethodResultHandler  {
 
@@ -33,6 +35,19 @@ class TunaSelectPaymentMethodActivity : AppCompatActivity(), TunaPaymentMethodRe
             }
         }
 
+    }
+
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        for (fragment in supportFragmentManager.fragments) {
+            if (fragment is NavHostFragment) {
+                fragment.childFragmentManager.fragments.forEach {
+                    if (it is SelectPaymentMethodFragment) {
+                        it.onActivityResult(requestCode, resultCode, data)
+                    }
+                }
+            }
+        }
     }
 
     override fun onPaymentSelected(paymentMethod: PaymentMethod) {

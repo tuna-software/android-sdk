@@ -1,0 +1,3 @@
+package com.tunasoftware.wallets
+
+abstract class TunaWalletPaymentData

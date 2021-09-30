@@ -66,4 +66,7 @@ dependencies {
 
     implementation project(":tunaui")
     implementation project(":tunacr")
+
+    implementation project(":tuna-wallets")
+    implementation project(":tuna-google-pay")
 }

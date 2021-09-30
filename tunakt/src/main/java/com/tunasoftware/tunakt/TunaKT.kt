@@ -6,7 +6,7 @@ import com.tunasoftware.tuna.entities.TunaCustomer
 import com.tunasoftware.tuna.entities.TunaPaymentMethod
 import java.lang.RuntimeException
 
-class TunaRequestResult<T>{
+open class TunaRequestResult<T>{
 
     private var success: ((T) -> Unit)? = null
     private var failure: ((Throwable) -> Unit)? = null
@@ -207,8 +207,6 @@ fun Tuna.bind(card: TunaCard, cvv: String) = TunaRequestResult<TunaCard>().apply
         }
     })
 }
-
-
 
 fun Tuna.Companion.getSandboxSessionId() = TunaRequestResult<String>().apply {
     getSandboxSessionId(callback = object : Tuna.TunaRequestCallback<String> {
