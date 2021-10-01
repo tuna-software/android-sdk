@@ -1,66 +1,9 @@
 package com.tunasoftware.tuna
 
-import com.tunasoftware.tuna.entities.TunaAPIKey
 import com.tunasoftware.tuna.entities.TunaCard
-import com.tunasoftware.tuna.entities.TunaCustomer
 import com.tunasoftware.tuna.entities.TunaPaymentMethod
-import com.tunasoftware.tuna.exceptions.TunaSDKNotInitiatedException
-import com.tunasoftware.tuna.exceptions.TunaSDKSandboxOnlyException
-import com.tunasoftware.tuna.request.TunaImp
-import com.tunasoftware.tuna.request.rest.TunaAPI
-import kotlinx.coroutines.*
 
-interface Tuna {
-
-    companion object {
-
-        private lateinit var tunaAPIKey:TunaAPIKey
-        private var hasBeenInitialized = false
-        private var currentSession: Tuna? = null
-
-        fun init(appToken: String, accountToken:String = "", sandbox:Boolean = false){
-            TunaServiceProvider.isSandbox = sandbox
-            this.tunaAPIKey = TunaAPIKey(appToken, accountToken)
-            hasBeenInitialized = true
-        }
-
-        @JvmStatic
-        fun startSession(sessionId:String): Tuna {
-            if (!hasBeenInitialized)
-                throw TunaSDKNotInitiatedException()
-            return TunaImp(sessionId, TunaServiceProvider.tunaAPI, TunaServiceProvider.provideTunaEngineAPI(tunaAPIKey)).also {
-                currentSession = it
-            }
-        }
-
-        @JvmStatic
-        fun getCurrentSession():Tuna? = currentSession
-
-        @JvmStatic
-        fun getSandboxSessionId(callback: TunaRequestCallback<String>) {
-            if (!hasBeenInitialized)
-                throw TunaSDKNotInitiatedException()
-            if (!TunaServiceProvider.isSandbox)
-                throw TunaSDKSandboxOnlyException()
-            CoroutineScope(Dispatchers.IO).launch {
-                runCatching {
-                    TunaServiceProvider.getTunaSessionProvider().let { provider ->
-
-                        provider.getNewSession(tunaAPIKey, TunaCustomer("1", "sandbox@tuna.uy"))
-                    }
-                }.onSuccess { sessionId ->
-                    withContext(Dispatchers.Main){
-                        callback.onSuccess(sessionId)
-                    }
-                }.onFailure {
-                    withContext(Dispatchers.Main) {
-                        callback.onFailed(it)
-                    }
-                }
-            }
-        }
-
-    }
+interface TunaCore {
 
     /**
      * Creates and save a new credit card, after calling this method
@@ -122,7 +65,6 @@ interface Tuna {
                    save: Boolean = true,
                    callback: TunaRequestCallback<TunaCard>)
 
-
     /**
      * Get the list of saved cards
      */
@@ -148,12 +90,10 @@ interface Tuna {
      */
     fun bind(card:TunaCard, cvv: String, callback: TunaRequestCallback<TunaCard>)
 
-
     /**
      * get payment methods available
      */
     fun getPaymentMethods(callback: TunaRequestCallback<List<TunaPaymentMethod>>)
-
 
     interface TunaRequestCallback<T> {
         fun onSuccess(result:T)

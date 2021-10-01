@@ -7,7 +7,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
-import com.tunasoftware.tuna.Tuna
+import com.tunasoftware.android.Tuna
 import com.tunasoftware.tuna.exceptions.TunaSessionExpiredException
 import com.tunasoftware.tunaui.select.PaymentMethod
 import com.tunasoftware.tunaui.select.SelectPaymentMethodFragment

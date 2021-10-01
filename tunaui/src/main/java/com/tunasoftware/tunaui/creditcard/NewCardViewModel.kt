@@ -3,7 +3,7 @@ package com.tunasoftware.tunaui.creditcard
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.tunasoftware.tuna.Tuna
+import com.tunasoftware.android.Tuna
 import com.tunasoftware.tuna.entities.TunaCard
 import com.tunasoftware.tunakt.addNewCard
 import com.tunasoftware.tunaui.R
@@ -15,7 +15,7 @@ import com.tunasoftware.tunaui.utils.SingleLiveEvent
 import com.tunasoftware.tunaui.utils.TextFieldState
 import com.tunasoftware.tunaui.utils.announceForAccessibility
 
-class NewCardViewModel(application: Application, val tuna:Tuna) : AndroidViewModel(application) {
+class NewCardViewModel(application: Application, val tuna: Tuna) : AndroidViewModel(application) {
 
     val actionsLiveData = SingleLiveEvent<Any>()
 

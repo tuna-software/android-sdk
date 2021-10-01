@@ -1,4 +1,4 @@
-import com.tunasoftware.tuna.Tuna
+import com.tunasoftware.tuna.TunaCore
 import com.tunasoftware.tuna.entities.TunaCard
 import com.tunasoftware.tuna.entities.TunaCardPaymentMethod
 import com.tunasoftware.tuna.entities.TunaPaymentMethod
@@ -23,7 +23,7 @@ class TunaRequestImpTest : TunaTest() {
                 cardNumber = "4111111111111111",
                 expirationMonth = 12,
                 expirationYear = 2022,
-                callback = object : Tuna.TunaRequestCallback<TunaCard> {
+                callback = object : TunaCore.TunaRequestCallback<TunaCard> {
                     override fun onFailed(e: Throwable) {
                         future.completeExceptionally(e)
                     }
@@ -56,7 +56,7 @@ class TunaRequestImpTest : TunaTest() {
                 expirationMonth = 12,
                 expirationYear = 2022,
                 cvv = "123",
-                callback = object : Tuna.TunaRequestCallback<TunaCard> {
+                callback = object : TunaCore.TunaRequestCallback<TunaCard> {
                     override fun onFailed(e: Throwable) {
                         future.completeExceptionally(e)
                     }
@@ -90,7 +90,7 @@ class TunaRequestImpTest : TunaTest() {
                 expirationYear = 2022,
                 brand = "Visa",
                 maskedNumber = "411111xxxxxx1111"),
-                callback = object : Tuna.TunaRequestCallback<TunaCard> {
+                callback = object : TunaCore.TunaRequestCallback<TunaCard> {
                     override fun onFailed(e: Throwable) {
                         future.complete(null)
                     }
@@ -118,7 +118,7 @@ class TunaRequestImpTest : TunaTest() {
 
         val future: CompletableFuture<List<TunaCard>> = CompletableFuture()
 
-        tuna.getCardList(object : Tuna.TunaRequestCallback<List<TunaCard>>{
+        tuna.getCardList(object : TunaCore.TunaRequestCallback<List<TunaCard>>{
             override fun onSuccess(result: List<TunaCard>) {
                 future.complete(result)
             }
@@ -146,7 +146,7 @@ class TunaRequestImpTest : TunaTest() {
                 expirationMonth = 12,
                 expirationYear = 2022,
                 save = false,
-                callback = object : Tuna.TunaRequestCallback<TunaCard> {
+                callback = object : TunaCore.TunaRequestCallback<TunaCard> {
                     override fun onFailed(e: Throwable) {
                         future.completeExceptionally(e)
                     }
@@ -180,7 +180,7 @@ class TunaRequestImpTest : TunaTest() {
                 expirationYear = 2022,
                 save = false,
                 cvv = "123",
-                callback = object : Tuna.TunaRequestCallback<TunaCard> {
+                callback = object : TunaCore.TunaRequestCallback<TunaCard> {
                     override fun onFailed(e: Throwable) {
                         future.completeExceptionally(e)
                     }
@@ -207,7 +207,7 @@ class TunaRequestImpTest : TunaTest() {
 
         val future: CompletableFuture<Boolean> = CompletableFuture()
 
-        tuna.deleteCard(token = "token of card", callback = object : Tuna.TunaRequestCallback<Boolean>{
+        tuna.deleteCard(token = "token of card", callback = object : TunaCore.TunaRequestCallback<Boolean>{
             override fun onSuccess(result: Boolean) {
                 future.complete(result)
             }
@@ -228,7 +228,7 @@ class TunaRequestImpTest : TunaTest() {
 
         val future: CompletableFuture<Boolean> = CompletableFuture()
 
-        tuna.deleteCard(token = "token of card", callback = object : Tuna.TunaRequestCallback<Boolean>{
+        tuna.deleteCard(token = "token of card", callback = object : TunaCore.TunaRequestCallback<Boolean>{
             override fun onSuccess(result: Boolean) {
                 future.complete(result)
             }
@@ -260,7 +260,7 @@ class TunaRequestImpTest : TunaTest() {
 
         val future: CompletableFuture<List<TunaPaymentMethod>> = CompletableFuture()
 
-        tuna.getPaymentMethods(callback = object : Tuna.TunaRequestCallback<List<TunaPaymentMethod>>{
+        tuna.getPaymentMethods(callback = object : TunaCore.TunaRequestCallback<List<TunaPaymentMethod>>{
             override fun onSuccess(result: List<TunaPaymentMethod>) {
                 future.complete(result)
             }

@@ -8,7 +8,7 @@ import com.tunasoftware.googlepay.exceptions.TunaGooglePayException
 import com.tunasoftware.googlepay.exceptions.TunaGooglePayResultErrorException
 import com.tunasoftware.googlepay.exceptions.TunaGooglePayResultNullException
 import com.tunasoftware.googlepay.utils.TunaGooglePayUtil
-import com.tunasoftware.tuna.Tuna.TunaRequestCallback
+import com.tunasoftware.tuna.TunaCore.TunaRequestCallback
 import com.tunasoftware.wallets.TunaWallet
 import com.tunasoftware.wallets.TunaWalletCallback
 import com.tunasoftware.wallets.TunaWalletPaymentData

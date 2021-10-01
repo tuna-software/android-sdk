@@ -61,13 +61,12 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0-alpha03'
 
-
     // Kotlin
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
-    implementation project(":tuna")
-    implementation project(":tunakt")
+    implementation project(":tuna-android")
+    implementation project(":tuna-android-kt")
     implementation project(":tunacr")
     api project(":tunacommons")
 
