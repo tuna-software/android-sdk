@@ -91,7 +91,7 @@ java {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation project(":tuna")
+    implementation project(":tuna-java")
 
     //Testing
     testImplementation 'junit:junit:4.13.2'

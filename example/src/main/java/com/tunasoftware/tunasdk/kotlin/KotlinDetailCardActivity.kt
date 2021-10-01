@@ -14,18 +14,16 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.tunasoftware.tuna.Tuna
+import com.tunasoftware.android.Tuna
 import com.tunasoftware.tuna.entities.TunaCard
 import com.tunasoftware.tuna.exceptions.*
 import com.tunasoftware.tunakt.bind
 import com.tunasoftware.tunakt.deleteCard
-import com.tunasoftware.tunakt.getSandboxSessionId
 import com.tunasoftware.tunasdk.R
 import com.tunasoftware.tunasdk.java.utils.Extras
 import com.tunasoftware.tunasdk.kotlin.MainActivity.Companion.printTunaException
 import kotlinx.android.synthetic.main.activity_detail_card.*
 import kotlinx.android.synthetic.main.model_card.*
-
 
 class KotlinDetailCardActivity : AppCompatActivity() {
 
@@ -68,7 +66,6 @@ class KotlinDetailCardActivity : AppCompatActivity() {
         }
 
         tuna = Tuna.getCurrentSession()
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -83,8 +80,6 @@ class KotlinDetailCardActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
-
 
     private fun bindCard(cvv: String) {
         showLoading()

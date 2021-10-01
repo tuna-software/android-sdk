@@ -4,8 +4,6 @@ plugins {
     id 'kotlin-android-extensions'
 }
 
-
-
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
@@ -61,8 +59,8 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3'
 
-    implementation project(":tuna")
-    implementation project(":tunakt")
+    implementation project(":tuna-android")
+    implementation project(":tuna-android-kt")
 
     implementation project(":tunaui")
     implementation project(":tunacr")

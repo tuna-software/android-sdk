@@ -8,10 +8,9 @@ import com.google.android.gms.wallet.WalletConstants
 import com.tunasoftware.googlepay.TunaGooglePayBillingAddressFormat
 import com.tunasoftware.googlepay.TunaGooglePayConfig
 import com.tunasoftware.googlepay.TunaGooglePayPaymentData
-import com.tunasoftware.tuna.Tuna.TunaRequestCallback
+import com.tunasoftware.tuna.TunaCore.TunaRequestCallback
 import org.json.JSONArray
 import org.json.JSONObject
-import java.lang.Exception
 import java.math.BigDecimal
 import java.math.RoundingMode
 

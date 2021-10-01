@@ -1,5 +1,7 @@
 package com.tunasoftware.tunasdk.java;
 
+import static com.tunasoftware.tunasdk.java.utils.Extras.LOG;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
@@ -22,7 +24,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.tunasoftware.tuna.Tuna;
+import com.tunasoftware.android.Tuna;
 import com.tunasoftware.tuna.entities.TunaCard;
 import com.tunasoftware.tuna.exceptions.TunaCardCanNotBeRemovedException;
 import com.tunasoftware.tuna.exceptions.TunaCardDataMissedException;
@@ -50,8 +52,6 @@ import com.tunasoftware.tunasdk.R;
 import com.tunasoftware.tunasdk.java.utils.Extras;
 
 import org.jetbrains.annotations.NotNull;
-
-import static com.tunasoftware.tunasdk.java.utils.Extras.LOG;
 
 public class JavaDetailCardActivity extends AppCompatActivity {
 

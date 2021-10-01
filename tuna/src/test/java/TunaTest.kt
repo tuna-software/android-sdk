@@ -1,6 +1,6 @@
 import com.google.gson.GsonBuilder
-import com.tunasoftware.tuna.Tuna
-import com.tunasoftware.tuna.request.TunaImp
+import com.tunasoftware.tuna.TunaCore
+import com.tunasoftware.tuna.request.TunaCoreImp
 import com.tunasoftware.tuna.request.rest.PaymentMethodsResultVO
 import com.tunasoftware.tuna.request.rest.TunaAPI
 import com.tunasoftware.tuna.request.rest.TunaEngineAPI
@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit
 
 open class TunaTest {
 
-    lateinit var tuna: Tuna
+    lateinit var tuna: TunaCore
     val server = MockWebServer()
 
     private val client = OkHttpClient.Builder()
@@ -33,7 +33,7 @@ open class TunaTest {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
 
-        tuna = TunaImp("test session", retrofit.create(TunaAPI::class.java), retrofit.create(TunaEngineAPI::class.java))
+        tuna = TunaTestImpl("test session", retrofit.create(TunaAPI::class.java), retrofit.create(TunaEngineAPI::class.java))
     }
 
     @After

@@ -1,5 +1,5 @@
 import com.tunasoftware.tuna.exceptions.*
-import com.tunasoftware.tuna.Tuna
+import com.tunasoftware.tuna.TunaCore
 import com.tunasoftware.tuna.entities.TunaCard
 import org.junit.Assert.*
 import org.junit.Test
@@ -7,11 +7,8 @@ import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import org.junit.runners.Parameterized.Parameter
 import org.junit.runners.Parameterized.Parameters
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ExecutionException
-import java.util.concurrent.TimeUnit
 
 @RunWith(Parameterized::class)
 class TunaExceptionsTest: TunaTest() {
@@ -40,7 +37,7 @@ class TunaExceptionsTest: TunaTest() {
                 cardNumber = "4111111111111111",
                 expirationMonth = 12,
                 expirationYear = 2022,
-                callback = object : Tuna.TunaRequestCallback<TunaCard> {
+                callback = object : TunaCore.TunaRequestCallback<TunaCard> {
                     override fun onFailed(e: Throwable) {
                         future.completeExceptionally(e)
                     }
@@ -77,7 +74,7 @@ class TunaExceptionsTest: TunaTest() {
                 expirationMonth = 12,
                 expirationYear = 2022,
                 save = false,
-                callback = object : Tuna.TunaRequestCallback<TunaCard> {
+                callback = object : TunaCore.TunaRequestCallback<TunaCard> {
                     override fun onFailed(e: Throwable) {
                         future.completeExceptionally(e)
                     }

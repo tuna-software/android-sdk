@@ -1,7 +1,7 @@
 package com.tunasoftware.wallets
 
 import android.content.Intent
-import com.tunasoftware.tuna.Tuna.TunaRequestCallback
+import com.tunasoftware.tuna.TunaCore.TunaRequestCallback
 import com.tunasoftware.tunakt.TunaRequestResult
 
 interface TunaWallet {

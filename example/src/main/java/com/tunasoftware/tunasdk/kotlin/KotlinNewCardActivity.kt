@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.tunasoftware.tuna.Tuna
+import com.tunasoftware.android.Tuna
 import com.tunasoftware.tuna.entities.TunaCard
 import com.tunasoftware.tunakt.addNewCard
 import com.tunasoftware.tunasdk.R
@@ -29,7 +29,6 @@ class KotlinNewCardActivity : AppCompatActivity() {
             edtCardCvv.visibility = if (isChecked) View.VISIBLE else View.GONE
         }
     }
-
 
     private fun addNewCard(tuna: Tuna) {
         showLoading()

@@ -6,12 +6,11 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.tunasoftware.tuna.Tuna
+import com.tunasoftware.android.Tuna
 import com.tunasoftware.googlepay.TunaGooglePay
 import com.tunasoftware.googlepay.TunaGooglePayPaymentData
 import com.tunasoftware.tuna.exceptions.*
-import com.tunasoftware.tunacr.TunaCardRecognition
-import com.tunasoftware.tunakt.getSandboxSessionId
+import com.tunasoftware.android.kt.getSandboxSessionId
 import com.tunasoftware.tunasdk.R
 import com.tunasoftware.tunasdk.java.JavaListCardsActivity
 import com.tunasoftware.tunasdk.java.utils.Extras

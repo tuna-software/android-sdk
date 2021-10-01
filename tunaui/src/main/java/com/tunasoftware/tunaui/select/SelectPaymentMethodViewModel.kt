@@ -1,11 +1,8 @@
 package com.tunasoftware.tunaui.select
 
-import androidx.lifecycle.*
 import android.content.Context
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.tunasoftware.tuna.Tuna
+import androidx.lifecycle.*
+import com.tunasoftware.android.Tuna
 import com.tunasoftware.tuna.entities.TunaPaymentMethodType
 import com.tunasoftware.tunacommons.ui.entities.UIState
 import com.tunasoftware.tunakt.deleteCard
@@ -14,8 +11,8 @@ import com.tunasoftware.tunakt.getPaymentMethods
 import com.tunasoftware.tunaui.R
 import com.tunasoftware.tunaui.domain.entities.TunaCardFlag
 import com.tunasoftware.tunaui.domain.entities.TunaUICard
-import com.tunasoftware.tunaui.utils.SingleLiveEvent
 import com.tunasoftware.tunaui.extensions.default
+import com.tunasoftware.tunaui.utils.SingleLiveEvent
 import com.tunasoftware.tunaui.utils.announceForAccessibility
 import kotlinx.coroutines.launch
 
@@ -47,7 +44,6 @@ class SelectPaymentMethodViewModel(val tuna: Tuna) : ViewModel() {
             cards = it
             verify()
         }
-
     }
 
     val state = MutableLiveData<UIState<List<PaymentMethod>>>().default(UIState.Loading)
@@ -110,7 +106,6 @@ class SelectPaymentMethodViewModel(val tuna: Tuna) : ViewModel() {
                 actionsLiveData.postValue(ActionShowErrorDeletingCard())
             }
     }
-
 
     private fun mockPaymentMethods(): MutableList<PaymentMethod> {
         return mutableListOf(

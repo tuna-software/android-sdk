@@ -1,6 +1,8 @@
 import com.nhaarman.mockitokotlin2.mock
-import com.tunasoftware.tuna.Tuna
+import com.tunasoftware.java.Tuna
+import com.tunasoftware.tuna.TunaCore
 import com.tunasoftware.tuna.entities.TunaCard
+import com.tunasoftware.tuna.entities.TunaPaymentMethod
 import com.tunasoftware.tunakt.*
 import junit.framework.Assert.assertTrue
 import org.junit.Assert
@@ -10,13 +12,13 @@ import java.util.concurrent.ExecutionException
 
 class TunaKtExtensionTest {
 
-    val tunaSuccess = object : Tuna {
+    private val tunaSuccess = object : Tuna {
         override fun addNewCard(
             cardNumber: String,
             cardHolderName: String,
             expirationMonth: Int,
             expirationYear: Int,
-            callback: Tuna.TunaRequestCallback<TunaCard>
+            callback: TunaCore.TunaRequestCallback<TunaCard>
         ) {
             callback.onSuccess(mock())
         }
@@ -27,7 +29,7 @@ class TunaKtExtensionTest {
             expirationMonth: Int,
             expirationYear: Int,
             save: Boolean,
-            callback: Tuna.TunaRequestCallback<TunaCard>
+            callback: TunaCore.TunaRequestCallback<TunaCard>
         ) {
             callback.onSuccess(mock())
         }
@@ -38,7 +40,7 @@ class TunaKtExtensionTest {
             expirationMonth: Int,
             expirationYear: Int,
             cvv: String,
-            callback: Tuna.TunaRequestCallback<TunaCard>
+            callback: TunaCore.TunaRequestCallback<TunaCard>
         ) {
             callback.onSuccess(mock())
         }
@@ -50,40 +52,44 @@ class TunaKtExtensionTest {
             expirationYear: Int,
             cvv: String,
             save: Boolean,
-            callback: Tuna.TunaRequestCallback<TunaCard>
+            callback: TunaCore.TunaRequestCallback<TunaCard>
         ) {
             callback.onSuccess(mock())
         }
 
-        override fun getCardList(callback: Tuna.TunaRequestCallback<List<TunaCard>>) {
+        override fun getCardList(callback: TunaCore.TunaRequestCallback<List<TunaCard>>) {
             callback.onSuccess(mock())
         }
 
-        override fun deleteCard(token: String, callback: Tuna.TunaRequestCallback<Boolean>) {
+        override fun deleteCard(token: String, callback: TunaCore.TunaRequestCallback<Boolean>) {
             callback.onSuccess(true)
         }
 
-        override fun deleteCard(card: TunaCard, callback: Tuna.TunaRequestCallback<Boolean>) {
+        override fun deleteCard(card: TunaCard, callback: TunaCore.TunaRequestCallback<Boolean>) {
             callback.onSuccess(true)
         }
 
         override fun bind(
             card: TunaCard,
             cvv: String,
-            callback: Tuna.TunaRequestCallback<TunaCard>
+            callback: TunaCore.TunaRequestCallback<TunaCard>
         ) {
             callback.onSuccess(mock())
+        }
+
+        override fun getPaymentMethods(callback: TunaCore.TunaRequestCallback<List<TunaPaymentMethod>>) {
+            TODO("Not yet implemented")
         }
 
     }
 
-    val tunaFailure = object : Tuna {
+    private val tunaFailure = object : Tuna {
         override fun addNewCard(
             cardNumber: String,
             cardHolderName: String,
             expirationMonth: Int,
             expirationYear: Int,
-            callback: Tuna.TunaRequestCallback<TunaCard>
+            callback: TunaCore.TunaRequestCallback<TunaCard>
         ) {
             callback.onFailed(mock())
         }
@@ -94,7 +100,7 @@ class TunaKtExtensionTest {
             expirationMonth: Int,
             expirationYear: Int,
             save: Boolean,
-            callback: Tuna.TunaRequestCallback<TunaCard>
+            callback: TunaCore.TunaRequestCallback<TunaCard>
         ) {
             callback.onFailed(mock())
         }
@@ -105,7 +111,7 @@ class TunaKtExtensionTest {
             expirationMonth: Int,
             expirationYear: Int,
             cvv: String,
-            callback: Tuna.TunaRequestCallback<TunaCard>
+            callback: TunaCore.TunaRequestCallback<TunaCard>
         ) {
             callback.onFailed(mock())
         }
@@ -117,29 +123,33 @@ class TunaKtExtensionTest {
             expirationYear: Int,
             cvv: String,
             save: Boolean,
-            callback: Tuna.TunaRequestCallback<TunaCard>
+            callback: TunaCore.TunaRequestCallback<TunaCard>
         ) {
             callback.onFailed(mock())
         }
 
-        override fun getCardList(callback: Tuna.TunaRequestCallback<List<TunaCard>>) {
+        override fun getCardList(callback: TunaCore.TunaRequestCallback<List<TunaCard>>) {
             callback.onFailed(mock())
         }
 
-        override fun deleteCard(token: String, callback: Tuna.TunaRequestCallback<Boolean>) {
+        override fun deleteCard(token: String, callback: TunaCore.TunaRequestCallback<Boolean>) {
             callback.onFailed(mock())
         }
 
-        override fun deleteCard(card: TunaCard, callback: Tuna.TunaRequestCallback<Boolean>) {
+        override fun deleteCard(card: TunaCard, callback: TunaCore.TunaRequestCallback<Boolean>) {
             callback.onFailed(mock())
         }
 
         override fun bind(
             card: TunaCard,
             cvv: String,
-            callback: Tuna.TunaRequestCallback<TunaCard>
+            callback: TunaCore.TunaRequestCallback<TunaCard>
         ) {
             callback.onFailed(mock())
+        }
+
+        override fun getPaymentMethods(callback: TunaCore.TunaRequestCallback<List<TunaPaymentMethod>>) {
+            TODO("Not yet implemented")
         }
 
     }
