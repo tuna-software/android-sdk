@@ -298,16 +298,16 @@ class NewCardFragment : Fragment() {
 fun EditText.createFieldMask(cardField: CreditCardField) {
 
     when(cardField.type) {
-        CreditCardFieldType.NUMBER -> addTextChangedListener(Mask.mask("#### #### #### #### ###", this))
-        CreditCardFieldType.EX_DATE -> addTextChangedListener(Mask.mask("##/##", this))
-        CreditCardFieldType.CVV -> addTextChangedListener(Mask.mask("####", this))
-        CreditCardFieldType.CPF -> addTextChangedListener(Mask.mask("###.###.###-##", this))
+        CreditCardFieldType.NUMBER -> addTextChangedListener(Mask.mask("#### #### #### #### ###"))
+        CreditCardFieldType.EX_DATE -> addTextChangedListener(Mask.mask("##/##"))
+        CreditCardFieldType.CVV -> addTextChangedListener(Mask.mask("####"))
+        CreditCardFieldType.CPF -> addTextChangedListener(Mask.mask("###.###.###-##"))
     }
 
     inputType = when(cardField.type) {
         CreditCardFieldType.NUMBER -> InputType.TYPE_CLASS_PHONE
         CreditCardFieldType.NAME -> InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
-        CreditCardFieldType.EX_DATE -> InputType.TYPE_CLASS_PHONE
+        CreditCardFieldType.EX_DATE -> InputType.TYPE_CLASS_DATETIME
         CreditCardFieldType.CVV -> InputType.TYPE_CLASS_PHONE
         CreditCardFieldType.CPF -> InputType.TYPE_CLASS_PHONE
     }

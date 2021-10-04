@@ -42,4 +42,5 @@
     <string name="tuna_accessibility_removing_card">Removing credit card</string>
     <string name="tuna_accessibility_removed_card">Removed credit card</string>
     <string name="tuna_accessibility_selected_card">%s selected</string>
+    <string name="tuna_accessibility_date_field">month and year with 2 digits</string>
 </resources>
