@@ -78,6 +78,15 @@
                 app:cardNumber="@{viewmodel.cardNumber.text}" />
         </FrameLayout>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:labelFor="@id/etExDate"
+            android:text="@string/tuna_accessibility_date_field"
+            android:visibility="visible"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <HorizontalScrollView
             android:id="@+id/vpCardFields"
             android:layout_width="match_parent"
@@ -158,6 +167,8 @@
                         app:type="@{viewmodel.cardName}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
+
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Theme.TunaUI.TunaTextInputLayout"
