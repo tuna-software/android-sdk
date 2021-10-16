@@ -2,7 +2,7 @@ package com.tunasoftware.tunasdk.java.utils;
 
 public final class Extras {
 
-    public static final String LOG = "TUNA";
+    public static final String LOG_TAG = "TUNA";
 
     public static final String CARD_TOKEN = "card_token";
     public static final String CARD_MASKED_NUMBER = "card_masked_number";

@@ -2,23 +2,26 @@ package com.tunasoftware.tunaui.widgets
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.tunasoftware.tunaui.R
-import kotlinx.android.synthetic.main.widget_card_cpf.view.*
+import com.tunasoftware.tunaui.databinding.WidgetCardCpfBinding
 
 class TunaCardCpfWidget : ConstraintLayout {
+
+    private val binding : WidgetCardCpfBinding
 
     var cardCpfName: String? = ""
         set(value) {
             field = value
-            value?.let { tvName.text = value }
+            value?.let { binding.tvName.text = value }
         }
 
     var cardCpfNumber: String? = ""
         set(value) {
             field = value
-            value?.let { tvCpf.text = value }
+            value?.let { binding.tvCpf.text = value }
         }
 
     constructor(context: Context) : this(context, null)
@@ -28,7 +31,7 @@ class TunaCardCpfWidget : ConstraintLayout {
         attrs,
         defStyleAttr
     ) {
-        View.inflate(context, R.layout.widget_card_cpf, this)
+        binding = WidgetCardCpfBinding.inflate(LayoutInflater.from(context), this, true)
         context?.obtainStyledAttributes(
             attrs,
             R.styleable.CardCpfWidget,

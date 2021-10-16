@@ -34,7 +34,7 @@ import com.tunasoftware.tunaui.navigator
 import com.tunasoftware.tunaui.utils.Mask
 import com.tunasoftware.tunaui.utils.announceForAccessibility
 import com.tunasoftware.tunaui.utils.disableForAccessibility
-import kotlinx.android.synthetic.main.new_card_fragment.*
+
 
 class NewCardFragment : Fragment() {
 
@@ -53,6 +53,8 @@ class NewCardFragment : Fragment() {
 
     private var isCardFlipped = false
     private var isCardCpfFlipped = false
+
+    private var showCpfField : Boolean = false
 
     var resultCardRecognitionLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
@@ -75,12 +77,15 @@ class NewCardFragment : Fragment() {
         binding = NewCardFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.viewmodel = viewModel
+        arguments?.let { NewCardFragmentArgs.fromBundle(it) }?.let {
+            showCpfField = it.shouldShowCpf
+        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        tuna_toolbar.apply {
+        binding.tunaToolbar.apply {
             navigationIcon = ContextCompat.getDrawable(requireContext(), R.drawable.tuna_ic_arrow_back)
             navigationContentDescription = getString(R.string.tuna_accessibility_back_button)
             setNavigationOnClickListener { navigator.navigateUp() }
@@ -109,14 +114,18 @@ class NewCardFragment : Fragment() {
             binding.etName,
             binding.etExDate,
             binding.etCvv,
-            binding.etCpf
         )
+        if (showCpfField){
+            listOfFields = listOfFields + binding.etCpf
+            binding.etCpf.layout(width = fieldWidth)
+        } else {
+            binding.etCpf.visibility = View.GONE
+        }
 
         binding.etNumber.layout(width = fieldWidth)
         binding.etName.layout(width = fieldWidth)
         binding.etExDate.layout(width = fieldWidth)
         binding.etCvv.layout(width = fieldWidth)
-        binding.etCpf.layout(width = fieldWidth)
 
         val focusListener = View.OnFocusChangeListener { view, hasFocus ->
             if (hasFocus) {
@@ -210,18 +219,18 @@ class NewCardFragment : Fragment() {
 
     private fun loadAnimations() {
         val scale = requireContext().resources.displayMetrics.density
-        widgetCard.cameraDistance = 8000 * scale
-        widgetCardBack.cameraDistance = 8000 * scale
-        widgetCardCpf.cameraDistance = 8000 * scale
+        binding.widgetCard.cameraDistance = 8000 * scale
+        binding.widgetCardBack.cameraDistance = 8000 * scale
+        binding.widgetCardCpf.cameraDistance = 8000 * scale
 
         animSetRightOut = AnimatorInflater.loadAnimator(requireContext(), R.animator.out_animation) as AnimatorSet
         animSetLeftIn = AnimatorInflater.loadAnimator(requireContext(), R.animator.in_animation) as AnimatorSet
     }
 
     private fun flipCards() {
-        widgetCardCpf.visibility = GONE
-        animSetRightOut?.setTarget(widgetCard)
-        animSetLeftIn?.setTarget(widgetCardBack)
+        binding.widgetCardCpf.visibility = GONE
+        animSetRightOut?.setTarget(binding.widgetCard)
+        animSetLeftIn?.setTarget(binding.widgetCardBack)
         if (!isCardFlipped) {
             animSetRightOut?.start()
             animSetLeftIn?.start()
@@ -244,24 +253,24 @@ class NewCardFragment : Fragment() {
 
         val duration: Long = 500
 
-        widgetCardCpf.visibility = VISIBLE
+        binding.widgetCardCpf.visibility = VISIBLE
 
         isCardCpfFlipped = if (!isCardCpfFlipped) {
             animSetSlideRightOut = ObjectAnimator
-                .ofFloat(widgetCardBack, "translationX", 0f, (displayWidth * -1.0f))
+                .ofFloat(binding.widgetCardBack, "translationX", 0f, (displayWidth * -1.0f))
                 .setDuration(duration)
 
             animSetSlideLeftIn = ObjectAnimator
-                .ofFloat(widgetCardCpf, "translationX", displayWidth, 0f)
+                .ofFloat(binding.widgetCardCpf, "translationX", displayWidth, 0f)
                 .setDuration(duration)
             true
         } else {
             animSetSlideRightOut = ObjectAnimator
-                .ofFloat(widgetCardBack, "translationX", (displayWidth * -1.0f), 0f)
+                .ofFloat(binding.widgetCardBack, "translationX", (displayWidth * -1.0f), 0f)
                 .setDuration(duration)
 
             animSetSlideLeftIn = ObjectAnimator
-                .ofFloat(widgetCardCpf, "translationX", 0f, displayWidth)
+                .ofFloat(binding.widgetCardCpf, "translationX", 0f, displayWidth)
                 .setDuration(duration)
             false
         }

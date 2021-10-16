@@ -43,4 +43,6 @@
     <string name="tuna_accessibility_removed_card">Removed credit card</string>
     <string name="tuna_accessibility_selected_card">%s selected</string>
     <string name="tuna_accessibility_date_field">month and year with 2 digits</string>
+    <string name="new_credit_card">New Credit Card</string>
+    <string name="bank_slip">Bank Slip</string>
 </resources>

@@ -2,13 +2,16 @@ package com.tunasoftware.tunaui.widgets
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import com.tunasoftware.tunaui.R
-import kotlinx.android.synthetic.main.tuna_widget_dot.view.*
-import kotlinx.android.synthetic.main.tuna_widget_dot_indicator.view.*
+import com.tunasoftware.tunaui.databinding.TunaWidgetDotBinding
+import com.tunasoftware.tunaui.databinding.TunaWidgetDotIndicatorBinding
 
 class TunaDotsIndicator : LinearLayout {
+
+    private val binding: TunaWidgetDotIndicatorBinding
 
     var steps :Int = 0
     set(value) {
@@ -21,9 +24,9 @@ class TunaDotsIndicator : LinearLayout {
                 }
             )
         }
-        dotsContainer.removeAllViews()
+        binding.dotsContainer.removeAllViews()
         dots.forEachIndexed { index, tunaDotView ->
-            dotsContainer.addView(tunaDotView)
+            binding.dotsContainer.addView(tunaDotView)
             tunaDotView.active = current == index
         }
     }
@@ -43,17 +46,19 @@ class TunaDotsIndicator : LinearLayout {
         attrs,
         defStyleAttr
     ){
-        inflate(context, R.layout.tuna_widget_dot_indicator, this)
+        binding = TunaWidgetDotIndicatorBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
 }
 
 class TunaDotView : FrameLayout {
 
+    private val binding : TunaWidgetDotBinding
+
     var active = false
     set(value) {
         field = value
-        tuna_dot_view_selected.animate().alpha(if (value) 1f else 0f).setDuration(200).start()
+        binding.tunaDotViewSelected.animate().alpha(if (value) 1f else 0f).setDuration(200).start()
     }
 
     constructor(context: Context) : this(context, null)
@@ -64,6 +69,7 @@ class TunaDotView : FrameLayout {
         defStyleAttr
     ){
         inflate(context, R.layout.tuna_widget_dot, this)
-        tuna_dot_view_selected.alpha = 0f
+        binding = TunaWidgetDotBinding.bind(this)
+        binding.tunaDotViewSelected.alpha = 0f
     }
 }

@@ -23,6 +23,8 @@ class NewCardViewModel(application: Application, val tuna: Tuna) : AndroidViewMo
 
     var cardFlag = MutableLiveData<TunaCardFlag>().default(TunaCardFlag.UNDEFINED)
 
+    var showCpfField: Boolean = false
+
     val cardNumber = CreditCardField(CreditCardFieldType.NUMBER){ field, showError ->
         if (field.getValue().isCreditCard())
             true else {
@@ -78,7 +80,7 @@ class NewCardViewModel(application: Application, val tuna: Tuna) : AndroidViewMo
     }
 
     fun onNextClick(currentField:CreditCardFieldType) {
-        if (currentField == CreditCardFieldType.CPF) {
+        if ((currentField == CreditCardFieldType.CPF && showCpfField) || (currentField == CreditCardFieldType.CVV && !showCpfField)) {
             saveCard()
         } else {
             actionsLiveData.postValue(ActionFieldNext())

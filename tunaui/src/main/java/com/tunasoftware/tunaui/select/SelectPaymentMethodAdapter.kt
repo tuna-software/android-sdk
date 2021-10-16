@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tunasoftware.tunaui.R
 import com.tunasoftware.tunaui.utils.describeAsButton
 import com.tunasoftware.tunaui.widgets.TunaPaymentMethodWidget
-import kotlinx.android.synthetic.main.model_payment_method.view.*
+import com.tunasoftware.tunaui.widgets.TunaSwipeWidget
 
 class SelectPaymentMethodAdapter : RecyclerView.Adapter<SelectPaymentMethodAdapter.ViewHolder>() {
 
@@ -35,6 +35,7 @@ class SelectPaymentMethodAdapter : RecyclerView.Adapter<SelectPaymentMethodAdapt
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val paymentMethod = dataSet[position]
         viewHolder.apply {
+            val tunaSwipeWidget = view.findViewById<TunaSwipeWidget>(R.id.tunaSwipeWidget)
 
             ViewCompat.addAccessibilityAction(view, view.context.getString(R.string.tuna_accessibility_select_item)) { _, _ ->
                 selectPaymentMethod(paymentMethod, position)
@@ -57,7 +58,11 @@ class SelectPaymentMethodAdapter : RecyclerView.Adapter<SelectPaymentMethodAdapt
                         }
                     }"
                 } else {
-                    paymentMethod.displayName
+                    when(paymentMethod.methodType){
+                        PaymentMethodType.BANK_SLIP -> context.getString(R.string.bank_slip)
+                        PaymentMethodType.NEW_CREDIT_CARD -> context.getString(R.string.new_credit_card)
+                        else -> paymentMethod.displayName
+                    }
                 }
                 paymentMethodSelected = current == paymentMethod
 
@@ -69,16 +74,16 @@ class SelectPaymentMethodAdapter : RecyclerView.Adapter<SelectPaymentMethodAdapt
             }
 
             if (current != paymentMethod){
-                view.tunaSwipeWidget.close()
+                tunaSwipeWidget.close()
             }
 
-            view.tunaSwipeWidget.swipeDisabled = paymentMethod.disableSwipe
+            tunaSwipeWidget.swipeDisabled = paymentMethod.disableSwipe
 
-            view.tunaSwipeWidget.setOnItemClickListener {
+            tunaSwipeWidget.setOnItemClickListener {
                 selectPaymentMethod(paymentMethod, position)
             }
 
-            view.tunaSwipeWidget.setOnDeleteClickListener { removePaymentMethod(paymentMethod) }
+            tunaSwipeWidget.setOnDeleteClickListener { removePaymentMethod(paymentMethod) }
         }
     }
 

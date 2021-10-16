@@ -43,4 +43,6 @@
     <string name="tuna_accessibility_removed_card">Cartão de crédito removido</string>
     <string name="tuna_accessibility_selected_card">%s selecionado</string>
     <string name="tuna_accessibility_date_field">mês e ano com 2 dígitos</string>
+    <string name="new_credit_card">Novo Cartão de Crédito</string>
+    <string name="bank_slip">Boleto</string>
 </resources>

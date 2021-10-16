@@ -20,6 +20,8 @@ class SelectPaymentMethodViewModel(val tuna: Tuna) : ViewModel() {
 
     val actionsLiveData = SingleLiveEvent<Any>()
 
+    private var selectedPaymentMethod: PaymentMethod? = null
+
     private val _paymentsLiveData = MutableLiveData<List<PaymentMethod>>()
     private val _cardsLiveData = MutableLiveData<List<PaymentMethod>>()
     private val _paymetsMediatorLiveData = MediatorLiveData<List<PaymentMethod>>().apply {
@@ -55,8 +57,8 @@ class SelectPaymentMethodViewModel(val tuna: Tuna) : ViewModel() {
     fun init() = viewModelScope.launch {
         _paymetsMediatorLiveData.observeForever(paymentsObserver)
         tuna.getCardList()
-            .onSuccess {
-                it.map {
+            .onSuccess { result ->
+                result.map {
                     PaymentMethodCreditCard(methodType = PaymentMethodType.CREDIT_CARD,
                         displayName = it.maskedNumber,
                         disableSwipe = false,
@@ -77,11 +79,12 @@ class SelectPaymentMethodViewModel(val tuna: Tuna) : ViewModel() {
             }
         tuna.getPaymentMethods()
             .onSuccess { list ->
-                _paymentsLiveData.postValue(list.map {
+                _paymentsLiveData.postValue(list.map { it ->
                     PaymentMethod(
                         methodType = when (it.type) {
                             TunaPaymentMethodType.CREDIT_CARD -> PaymentMethodType.NEW_CREDIT_CARD
                             TunaPaymentMethodType.BANK_SLIP -> PaymentMethodType.BANK_SLIP
+                            else -> TODO()
                         },
                         displayName = it.displayName,
                         disableSwipe = true,
@@ -89,11 +92,13 @@ class SelectPaymentMethodViewModel(val tuna: Tuna) : ViewModel() {
                     )
                 })
             }
-            .onFailure {
+            .onFailure { error ->
                 //TODO: handle error
                 _paymentsLiveData.postValue(listOf())
             }
     }
+
+
 
     fun onDeleteCard(paymentMethod:PaymentMethodCreditCard, context: Context?) = viewModelScope.launch {
         context?.announceForAccessibility(context.getString(R.string.tuna_accessibility_removing_card))
@@ -107,13 +112,14 @@ class SelectPaymentMethodViewModel(val tuna: Tuna) : ViewModel() {
             }
     }
 
-    private fun mockPaymentMethods(): MutableList<PaymentMethod> {
-        return mutableListOf(
-            PaymentMethod(PaymentMethodType.NEW_CREDIT_CARD, "Novo cartão de crédito",true, selectable = false),
-            PaymentMethod(PaymentMethodType.GOOGLE_PAY, "Google pay", true, selectable = false),
-            PaymentMethod(PaymentMethodType.PIX, "Pix", true, selectable = false),
-            PaymentMethod(PaymentMethodType.BANK_SLIP, "Boleto", true, selectable = false)
-        )
+    fun onPaymentMethodSelected(paymentMethod: PaymentMethod){
+        selectedPaymentMethod = paymentMethod
+    }
+
+    fun onSubmitClick(){
+        selectedPaymentMethod?.let {
+            actionsLiveData.postValue(ActionOnPaymentMethodSelected(it))
+        }
     }
 
     override fun onCleared() {
@@ -123,5 +129,6 @@ class SelectPaymentMethodViewModel(val tuna: Tuna) : ViewModel() {
 
 }
 
-class ActionShowErrorDeletingCard()
+class ActionShowErrorDeletingCard
+data class ActionOnPaymentMethodSelected(val paymentMethod: PaymentMethod)
 
