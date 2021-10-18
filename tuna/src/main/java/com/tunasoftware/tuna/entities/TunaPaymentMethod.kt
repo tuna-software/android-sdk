@@ -4,7 +4,7 @@ open class TunaPaymentMethod(val type: TunaPaymentMethodType, val displayName: S
 
 class TunaCardPaymentMethod(displayName: String, val brands:List<String>) : TunaPaymentMethod(TunaPaymentMethodType.CREDIT_CARD, displayName)
 
-enum class TunaPaymentMethodType(val value:Int){
-    BANK_SLIP(51),
-    CREDIT_CARD(49),
+enum class TunaPaymentMethodType(val value:String){
+    BANK_SLIP("3"),
+    CREDIT_CARD("1"),
 }

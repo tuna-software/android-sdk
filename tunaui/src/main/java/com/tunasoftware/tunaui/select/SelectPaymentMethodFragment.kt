@@ -11,25 +11,31 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.facebook.shimmer.Shimmer
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.snackbar.Snackbar
 import com.tunasoftware.tunacommons.ui.entities.UIState
 import com.tunasoftware.tunaui.R
+import com.tunasoftware.tunaui.TunaPaymentMethodResultHandler
 import com.tunasoftware.tunaui.TunaUIViewModelFactory
 import com.tunasoftware.tunaui.creditcard.NewCardFragment
+import com.tunasoftware.tunaui.databinding.SelectPaymentMethodFragmentBinding
 import com.tunasoftware.tunaui.domain.entities.TunaUICard
 import com.tunasoftware.tunaui.domain.entities.flag
 import com.tunasoftware.tunaui.extensions.getNavigationResult
 import com.tunasoftware.tunaui.navigator
 import com.tunasoftware.tunaui.utils.announceForAccessibility
 import com.tunasoftware.tunaui.utils.setAsHeading
-import kotlinx.android.synthetic.main.select_payment_method_fragment.*
-import kotlinx.android.synthetic.main.select_payment_method_shimmer.*
 
 class SelectPaymentMethodFragment : Fragment() {
 
     lateinit var viewModel: SelectPaymentMethodViewModel
 
     private val adapter = SelectPaymentMethodAdapter()
+
+    lateinit var binding : SelectPaymentMethodFragmentBinding
+
+    lateinit var shimmerSelectPaymentMethod: ShimmerFrameLayout
 
     companion object {
         fun newInstance() = SelectPaymentMethodFragment()
@@ -39,34 +45,41 @@ class SelectPaymentMethodFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.select_payment_method_fragment, container, false)
+    ): View {
+        binding = SelectPaymentMethodFragmentBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this, TunaUIViewModelFactory(requireActivity().application))[SelectPaymentMethodViewModel::class.java]
-        tuna_toolbar.apply {
+        binding.tunaToolbar.apply {
             navigationIcon = ContextCompat.getDrawable(requireContext(), R.drawable.tuna_ic_baseline_close_24)
             navigationContentDescription = getString(R.string.tuna_accessibility_close_button)
             setNavigationOnClickListener { activity?.finish() }
             setTitle(R.string.tuna_select_payment_method_title)
         }
+        binding.btnSelect.setOnClickListener {
+            viewModel.onSubmitClick()
+        }
 
-        tvTitle.setAsHeading()
+        binding.tvTitle.setAsHeading()
+        shimmerSelectPaymentMethod = binding.root.findViewById(R.id.shimmer_select_payment_method)
 
         val new =  getNavigationResult<TunaUICard>(NewCardFragment.RESULT_CARD)?.let {
              PaymentMethodCreditCard(PaymentMethodType.CREDIT_CARD, it.maskedNumber, flag = it.flag(), tunaUICard = it)
         }
         new?.let {
             adapter.current = it
+            viewModel.onPaymentMethodSelected(it)
         }
         adapter.setOnClickListener {
             if (it.methodType == PaymentMethodType.NEW_CREDIT_CARD){
                 navigator.navigate(R.id.action_selectMethod_to_newCard)
             } else {
-                rvPaymentMethods.postDelayed({
-                    val holder = rvPaymentMethods.findViewHolderForAdapterPosition(adapter.getItemPosition(it))
+                viewModel.onPaymentMethodSelected(it)
+                binding.rvPaymentMethods.postDelayed({
+                    val holder = binding.rvPaymentMethods.findViewHolderForAdapterPosition(adapter.getItemPosition(it))
                     holder?.itemView?.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_FOCUSED)
                 }, 1000)
             }
@@ -75,7 +88,7 @@ class SelectPaymentMethodFragment : Fragment() {
             if (it is PaymentMethodCreditCard)
                 viewModel.onDeleteCard(it, context)
         }
-        val recyclerView = rvPaymentMethods
+        val recyclerView = binding.rvPaymentMethods
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -103,6 +116,9 @@ class SelectPaymentMethodFragment : Fragment() {
                     context?.announceForAccessibility(getString(R.string.tuna_accessibility_loaded_list))
                     stopShimmer()
                     adapter.setItems(state.result)
+                    adapter.current?.let {
+                        viewModel.onPaymentMethodSelected(it)
+                    }
                 }
                 is UIState.Error -> {
                     //TODO
@@ -114,23 +130,30 @@ class SelectPaymentMethodFragment : Fragment() {
         viewModel.actionsLiveData.observe(this , { action ->
             when (action){
                 is ActionShowErrorDeletingCard -> {
-                    Snackbar.make(container, getString(R.string.error_removing_credit_card), Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(binding.container, getString(R.string.error_removing_credit_card), Snackbar.LENGTH_SHORT).show()
+                }
+                is ActionOnPaymentMethodSelected -> {
+                    requireActivity().let {
+                        if (it is TunaPaymentMethodResultHandler){
+                            it.onPaymentSelected(action.paymentMethod)
+                        }
+                    }
                 }
             }
         })
     }
 
     private fun startShimmer() {
-        rvPaymentMethods.visibility = View.GONE
-        btnSelect.visibility = View.GONE
-        shimmer_select_payment_method.startShimmer()
+        binding.rvPaymentMethods.visibility = View.GONE
+        binding.btnSelect.visibility = View.GONE
+        shimmerSelectPaymentMethod.startShimmer()
     }
 
     private fun stopShimmer() {
-        rvPaymentMethods.visibility = View.VISIBLE
-        btnSelect.visibility = View.VISIBLE
-        shimmer_select_payment_method.stopShimmer()
-        shimmer_select_payment_method.visibility = View.GONE
+        binding.rvPaymentMethods.visibility = View.VISIBLE
+        binding.btnSelect.visibility = View.VISIBLE
+        shimmerSelectPaymentMethod.stopShimmer()
+        shimmerSelectPaymentMethod.visibility = View.GONE
     }
 
 }

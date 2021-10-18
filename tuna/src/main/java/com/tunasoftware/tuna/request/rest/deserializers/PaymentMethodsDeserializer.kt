@@ -26,7 +26,7 @@ class PaymentMethodsDeserializer : JsonDeserializer<PaymentMethodsResultVO>{
             val paymentMethods = element["paymentMethods"]?.asJsonArray?.map {
                 val obj = it.asJsonObject
                 val type =
-                    TunaPaymentMethodType.values().first { it.value == obj["methodType"].asInt }
+                    TunaPaymentMethodType.values().first { it.value == obj["methodType"].asString }
                 val displayName = obj["displayName"].asString
                 val paymentMethod = if (type == TunaPaymentMethodType.CREDIT_CARD) {
                     TunaCardPaymentMethod(displayName, brands)

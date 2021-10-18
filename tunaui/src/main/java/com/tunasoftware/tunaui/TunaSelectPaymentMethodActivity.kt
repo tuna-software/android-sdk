@@ -8,9 +8,11 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import com.tunasoftware.android.Tuna
+import com.tunasoftware.tuna.entities.TunaPaymentMethod
+import com.tunasoftware.tuna.entities.TunaPaymentMethodType
 import com.tunasoftware.tuna.exceptions.TunaSessionExpiredException
-import com.tunasoftware.tunaui.select.PaymentMethod
-import com.tunasoftware.tunaui.select.SelectPaymentMethodFragment
+import com.tunasoftware.tunaui.domain.entities.PaymentMethodSelectionResult
+import com.tunasoftware.tunaui.select.*
 
 class TunaSelectPaymentMethodActivity : AppCompatActivity(), TunaPaymentMethodResultHandler  {
 
@@ -51,7 +53,23 @@ class TunaSelectPaymentMethodActivity : AppCompatActivity(), TunaPaymentMethodRe
     }
 
     override fun onPaymentSelected(paymentMethod: PaymentMethod) {
-
+        Intent().apply {
+            putExtra(TunaUI.RESULT_PAYMENT_SELECTION, PaymentMethodSelectionResult(
+                paymentMethodType = when(paymentMethod.methodType){
+                    PaymentMethodType.CREDIT_CARD -> TunaPaymentMethodType.CREDIT_CARD
+                    PaymentMethodType.BANK_SLIP -> TunaPaymentMethodType.BANK_SLIP
+                    PaymentMethodType.PIX -> TODO()
+                    PaymentMethodType.GOOGLE_PAY -> TODO()
+                    PaymentMethodType.SAMSUNG_PAY -> TODO()
+                    PaymentMethodType.PAYPAL -> TODO()
+                    PaymentMethodType.NEW_CREDIT_CARD -> throw Exception("unexpected payment method")
+                },
+                cardInfo = paymentMethod.let { if (it is PaymentMethodCreditCard) it.getTunaCard() else null }
+            ))
+        }.also {
+            setResult(RESULT_OK, it)
+        }
+        finish()
     }
 }
 

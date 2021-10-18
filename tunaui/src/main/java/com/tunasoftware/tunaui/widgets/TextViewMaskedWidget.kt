@@ -2,39 +2,41 @@ package com.tunasoftware.tunaui.widgets
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import kotlinx.android.synthetic.main.widget_text_view_masked.view.*
 import com.tunasoftware.tunaui.R
-import com.tunasoftware.tunaui.extensions.dp
+import com.tunasoftware.tunaui.databinding.WidgetTextViewMaskedBinding
 
 class TextViewMaskedWidget : ConstraintLayout {
+
+    private val binding : WidgetTextViewMaskedBinding
 
     var maskTextColor: Int = 0
         set(value) {
             field = value
-            mask.setTextColor(ContextCompat.getColor(context, value))
+            binding.mask.setTextColor(ContextCompat.getColor(context, value))
         }
 
     var maskText:String = ""
         set(value) {
             field = value
-            mask.text = value
+            binding.mask.text = value
         }
 
     var textColor: Int? = 0
         set(value) {
             field = value
-            value?.let { tvValue.setTextColor(ContextCompat.getColor(context, value)) }
+            value?.let { binding.tvValue.setTextColor(ContextCompat.getColor(context, value)) }
         }
 
     var value: String? = ""
         set(value) {
             field = value
             value?.let {
-                tvValue.text = value
-                mask.visibility = if (value.isNotBlank()) View.GONE else View.VISIBLE
+                binding.tvValue.text = value
+                binding.mask.visibility = if (value.isNotBlank()) View.GONE else View.VISIBLE
             }
         }
 
@@ -46,7 +48,7 @@ class TextViewMaskedWidget : ConstraintLayout {
         attrs,
         defStyleAttr
     ) {
-        View.inflate(context, R.layout.widget_text_view_masked, this)
+        binding = WidgetTextViewMaskedBinding.inflate(LayoutInflater.from(context), this, true)
         context?.obtainStyledAttributes(
             attrs,
             R.styleable.TextViewMaskedWidget,

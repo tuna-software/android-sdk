@@ -6,7 +6,7 @@ import static com.tunasoftware.tunasdk.java.utils.Extras.CARD_EXPIRATION_YEAR;
 import static com.tunasoftware.tunasdk.java.utils.Extras.CARD_HOLDER_NAME;
 import static com.tunasoftware.tunasdk.java.utils.Extras.CARD_MASKED_NUMBER;
 import static com.tunasoftware.tunasdk.java.utils.Extras.CARD_TOKEN;
-import static com.tunasoftware.tunasdk.java.utils.Extras.LOG;
+import static com.tunasoftware.tunasdk.java.utils.Extras.LOG_TAG;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -99,7 +99,7 @@ public class JavaNewCardActivity extends AppCompatActivity {
             @Override
             public void onFailed(@NotNull Throwable e) {
                 hideLoading();
-                Log.e(LOG, "Error generate new card!!!", e);
+                Log.e(LOG_TAG, "Error generate new card!!!", e);
             }
         };
     }

@@ -2,23 +2,29 @@ package com.tunasoftware.tunaui.widgets
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import com.tunasoftware.tunaui.R
-import kotlinx.android.synthetic.main.widget_shimmer_payment_method.view.*
+import com.tunasoftware.tunaui.databinding.WidgetShimmerPaymentMethodBinding
+
 
 class TunaPaymentMethodShimmerWidget : FrameLayout {
+
+    private val binding : WidgetShimmerPaymentMethodBinding
 
     var paymentMethodShimmerSelected: Boolean? = false
         set(value) {
             field = value
-            value?.let {
-                if (it) {
-                    content.setCardBackgroundColor(context.resources.getColor(R.color.tuna_divider))
-                    ivSelected.visibility = View.VISIBLE
-                } else {
-                    content.setCardBackgroundColor(context.resources.getColor(android.R.color.transparent))
-                    ivSelected.visibility = View.GONE
+            binding.apply {
+                value?.let {
+                    if (it) {
+                        content.setCardBackgroundColor(context.resources.getColor(R.color.tuna_divider))
+                        ivSelected.visibility = View.VISIBLE
+                    } else {
+                        content.setCardBackgroundColor(context.resources.getColor(android.R.color.transparent))
+                        ivSelected.visibility = View.GONE
+                    }
                 }
             }
         }
@@ -26,7 +32,7 @@ class TunaPaymentMethodShimmerWidget : FrameLayout {
     var paymentMethodShimmerLabelWidth: Float? = 0F
         set(value) {
             field = value
-            value?.let { tvLabel.width = value.toInt() }
+            value?.let { binding.tvLabel.width = value.toInt() }
         }
 
     constructor(context: Context) : this(context, null)
@@ -36,7 +42,7 @@ class TunaPaymentMethodShimmerWidget : FrameLayout {
         attrs,
         defStyleAttr
     ) {
-        View.inflate(context, R.layout.widget_shimmer_payment_method, this)
+        binding = WidgetShimmerPaymentMethodBinding.inflate(LayoutInflater.from(context), this, true)
         context.obtainStyledAttributes(
             attrs,
             R.styleable.PaymentMethodShimmerWidget,

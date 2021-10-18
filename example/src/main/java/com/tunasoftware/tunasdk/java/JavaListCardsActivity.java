@@ -6,7 +6,7 @@ import static com.tunasoftware.tunasdk.java.utils.Extras.CARD_EXPIRATION_YEAR;
 import static com.tunasoftware.tunasdk.java.utils.Extras.CARD_HOLDER_NAME;
 import static com.tunasoftware.tunasdk.java.utils.Extras.CARD_MASKED_NUMBER;
 import static com.tunasoftware.tunasdk.java.utils.Extras.CARD_TOKEN;
-import static com.tunasoftware.tunasdk.java.utils.Extras.LOG;
+import static com.tunasoftware.tunasdk.java.utils.Extras.LOG_TAG;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -81,7 +81,7 @@ public class JavaListCardsActivity extends AppCompatActivity {
             @Override
             public void onFailed(@NotNull Throwable e) {
                 hideLoading();
-                Log.e(LOG, "Error start session!!!", e);
+                Log.e(LOG_TAG, "Error start session!!!", e);
             }
         });
     }
@@ -98,7 +98,7 @@ public class JavaListCardsActivity extends AppCompatActivity {
             @Override
             public void onFailed(@NotNull Throwable e) {
                 hideLoading();
-                Log.e(LOG, "Error get cards!!!", e);
+                Log.e(LOG_TAG, "Error get cards!!!", e);
             }
         });
     }
