@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.tunasoftware:tuna:<version>'
+    implementation 'com.tunasoftware:tuna-android:<version>'
     //for kotlin extensions
     implementation 'com.tunasoftware:tunakt:<version>'
 }
@@ -34,7 +34,7 @@ class YourApplication : Application(){
 
     override fun onCreate() {
         super.onCreate()
-        Tuna.init("<your app token>")
+        Tuna.init("<your app token>", "<your account token>")
     }
 }
 ```
@@ -48,7 +48,7 @@ class YourApplication : Application(){
 
     override fun onCreate() {
         super.onCreate()
-        Tuna.init("a3823a59-66bb-49e2-95eb-b47c447ec7a7", sandbox = true)
+        Tuna.init("a3823a59-66bb-49e2-95eb-b47c447ec7a7", "demo", sandbox = true)
     }
 }
 ```
@@ -388,6 +388,63 @@ tunaSession.deleteCard(token = "<card token>")
                 .onFailure {
                     //it fails, you should handle this exception  
                 }
+```
+
+### Getting Avaliable Payment Methods
+
+#### Java
+
+```
+tunaSession.getPaymentMethods(new Tuna.TunaRequestCallback<List<TunaPaymentMethod>>() {
+            @Override
+            public void onSuccess(List<TunaPaymentMethod> result) {
+                for (TunaPaymentMethod paymentMethod : result ){
+                    switch (paymentMethod.getType()){
+                        case CREDIT_CARD:
+                            Log.i(LOG_TAG, "Credit card");
+                            TunaCardPaymentMethod cardPaymentMethod = (TunaCardPaymentMethod) paymentMethod;
+                            for (String brand : cardPaymentMethod.getBrands()){
+                                Log.i(LOG_TAG, "Brand:"+brand);
+                            }
+                            break;
+                        case BANK_SLIP:
+                            Log.i(LOG_TAG, "Bank Slip");
+                            break;
+                    }
+                }
+            }
+
+            @Override
+            public void onFailed(@NonNull Throwable e) {
+                //Failed to get payment methods
+            }
+        });
+```
+
+#### Kotlin
+
+```
+tunaSession.getPaymentMethods()
+        .onSuccess { result ->
+            for (paymentMethod in result) {
+                when (paymentMethod.type) {
+                    TunaPaymentMethodType.CREDIT_CARD -> {
+                        Log.i(Extras.LOG_TAG, "Credit card")
+                        val cardPaymentMethod = paymentMethod as TunaCardPaymentMethod
+                        for (brand in cardPaymentMethod.brands) {
+                            Log.i(
+                                Extras.LOG_TAG,
+                                "Brand:$brand"
+                            )
+                        }
+                    }
+                    TunaPaymentMethodType.BANK_SLIP -> Log.i(Extras.LOG_TAG, "Bank Slip")
+                }
+            }
+        }
+        .onFailure { error ->
+            //Failed to get payment methods
+       }
 ```
 
 
