@@ -31,6 +31,7 @@ object Libraries {
     const val cameraView = "androidx.camera:camera-view:${Versions.cameraView}"
     const val googleRecognition = "com.google.android.gms:play-services-mlkit-text-recognition:${Versions.googleRecognition}"
     const val googleWallet = "com.google.android.gms:play-services-wallet:${Versions.googleWallet}"
+    const val cardinalMobileSDK = "org.jfrog.cardinalcommerce.gradle:cardinalmobilesdk:${Versions.cardinalMobileSDK}"
 
     const val junit = "junit:junit:${Versions.junit}"
     const val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:${Versions.mockitoKotlin}"

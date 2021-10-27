@@ -56,7 +56,6 @@
         android:text="CHECKOUT"
         app:layout_constraintBottom_toTopOf="@+id/btnTunaCardRecognitionExample"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSelectPaymentMethodExample" />
 
@@ -78,9 +77,20 @@
         android:layout_marginTop="8dp"
         android:text="TUNA PAY WITH GOOGLE PAY"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnTuna3DS2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnTunaCardRecognitionExample" />
+
+    <Button
+        android:id="@+id/btnTuna3DS2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="TUNA PAY WITH 3DS2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnTunaGooglePayExample" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

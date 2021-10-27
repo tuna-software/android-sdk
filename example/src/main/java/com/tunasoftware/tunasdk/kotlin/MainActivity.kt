@@ -94,6 +94,13 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, ReadCreditCardExampleActivity::class.java))
         }
 
+        btnTuna3DS2.setOnClickListener {
+            Tuna.getSandboxSessionId().onSuccess {
+                val tuna = Tuna.startSession(it)
+                tuna.init3DS(this)
+            }
+        }
+
         tunaGooglePay.isAvailable()
             .onSuccess { available ->
                 if (available) {

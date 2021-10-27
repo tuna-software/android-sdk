@@ -36,6 +36,16 @@ android {
     }
 }
 
+repositories {
+    maven {
+        url = uri("https://cardinalcommerceprod.jfrog.io/artifactory/android")
+        credentials {
+            username = System.getenv("CYBERSOURCE_USER")
+            password = System.getenv("CYBERSOURCE_API_KEY")
+        }
+    }
+}
+
 dependencies {
     implementation(Libraries.stdlib)
     implementation(Libraries.coreKtx)

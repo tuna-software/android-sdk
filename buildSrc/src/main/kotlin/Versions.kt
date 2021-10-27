@@ -22,6 +22,7 @@ object Versions {
     const val shimmer = "0.5.0"
     const val googleRecognition = "17.0.0"
     const val googleWallet = "18.1.3"
+    const val cardinalMobileSDK = "2.2.6-1"
 
     const val junit = "4.13.2"
     const val junitTest = "1.1.3"
