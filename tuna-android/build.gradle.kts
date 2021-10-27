@@ -36,6 +36,8 @@ android {
 }
 
 dependencies {
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
+
     implementation(Libraries.stdlib)
     implementation(Libraries.coroutinesAndroid)
 

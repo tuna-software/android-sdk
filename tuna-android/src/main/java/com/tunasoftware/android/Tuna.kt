@@ -1,5 +1,6 @@
 package com.tunasoftware.android
 
+import android.app.Activity
 import com.tunasoftware.tuna.TunaCore
 import com.tunasoftware.tuna.TunaServiceProvider
 import com.tunasoftware.tuna.entities.TunaAPIKey
@@ -63,4 +64,6 @@ interface Tuna : TunaCore {
             }
         }
     }
+
+    fun init3DS(activity: Activity);
 }
