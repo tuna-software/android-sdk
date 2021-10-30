@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="tuna_new_card_dialog_fragment_window_is_floating">true</bool>
+</resources>

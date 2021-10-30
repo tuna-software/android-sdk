@@ -11,4 +11,4 @@ data class TunaUICard(val token:String,
                     val expirationYear:Int,
                     val maskedNumber:String): Parcelable
 
-fun TunaUICard.flag() = kotlin.runCatching { TunaCardFlag.valueOf(brand) }.getOrNull()?:TunaCardFlag.UNDEFINED
+fun TunaUICard.flag() = kotlin.runCatching { TunaCardFlag.fromBrand(brand) }.getOrNull()?:TunaCardFlag.UNDEFINED

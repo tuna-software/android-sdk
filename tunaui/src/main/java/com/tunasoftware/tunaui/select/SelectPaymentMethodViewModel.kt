@@ -20,7 +20,7 @@ class SelectPaymentMethodViewModel(val tuna: Tuna) : ViewModel() {
 
     val actionsLiveData = SingleLiveEvent<Any>()
 
-    private var selectedPaymentMethod: PaymentMethod? = null
+    var selectedPaymentMethod = MutableLiveData<PaymentMethod?>()
 
     private val _paymentsLiveData = MutableLiveData<List<PaymentMethod>>()
     private val _cardsLiveData = MutableLiveData<List<PaymentMethod>>()
@@ -102,6 +102,9 @@ class SelectPaymentMethodViewModel(val tuna: Tuna) : ViewModel() {
 
     fun onDeleteCard(paymentMethod:PaymentMethodCreditCard, context: Context?) = viewModelScope.launch {
         context?.announceForAccessibility(context.getString(R.string.tuna_accessibility_removing_card))
+        _cardsLiveData.value?.let {
+            _cardsLiveData.value = it - paymentMethod
+        }
         tuna.deleteCard(paymentMethod.tunaUICard.token)
             .onSuccess {
                 //Nothing to be done, UI has already removed the item from view
@@ -113,11 +116,18 @@ class SelectPaymentMethodViewModel(val tuna: Tuna) : ViewModel() {
     }
 
     fun onPaymentMethodSelected(paymentMethod: PaymentMethod){
-        selectedPaymentMethod = paymentMethod
+        selectedPaymentMethod.value = paymentMethod
+    }
+
+    fun onNewCardAdded(paymentMethod: PaymentMethod){
+        _cardsLiveData.value?.let { listOf(paymentMethod) + it }?.run {
+            _cardsLiveData.value = this
+            selectedPaymentMethod.value = paymentMethod
+        }
     }
 
     fun onSubmitClick(){
-        selectedPaymentMethod?.let {
+        selectedPaymentMethod.value?.let {
             actionsLiveData.postValue(ActionOnPaymentMethodSelected(it))
         }
     }

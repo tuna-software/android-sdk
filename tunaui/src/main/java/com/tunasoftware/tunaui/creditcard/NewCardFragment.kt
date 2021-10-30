@@ -6,6 +6,7 @@ import android.animation.ObjectAnimator
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Point
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
@@ -20,7 +21,7 @@ import android.widget.EditText
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
@@ -36,12 +37,12 @@ import com.tunasoftware.tunaui.utils.announceForAccessibility
 import com.tunasoftware.tunaui.utils.disableForAccessibility
 
 
-class NewCardFragment : Fragment() {
+open class NewCardFragment : DialogFragment() {
 
     companion object {
         fun newInstance() = NewCardFragment()
 
-        const val  RESULT_CARD = "RESULT_CARD"
+        const val RESULT_CARD = "RESULT_CARD"
     }
 
     private lateinit var viewModel: NewCardViewModel
@@ -50,13 +51,15 @@ class NewCardFragment : Fragment() {
 
     private var animSetRightOut: AnimatorSet? = null
     private var animSetLeftIn: AnimatorSet? = null
+    private var animSetRightOutReverse: AnimatorSet? = null
+    private var animSetLeftInReverse: AnimatorSet? = null
 
     private var isCardFlipped = false
     private var isCardCpfFlipped = false
 
-    private var showCpfField : Boolean = false
+    protected var showCpfField : Boolean = false
 
-    var resultCardRecognitionLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    private var resultCardRecognitionLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             // There are no request codes
             result.data?.run {
@@ -65,12 +68,12 @@ class NewCardFragment : Fragment() {
                 val expiration = getStringExtra(TunaCardRecognition.RESULT_EXPIRATION)?:""
                 viewModel.setCardData(name, number, expiration)
             }
-
         }
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         viewModel = ViewModelProvider(this, TunaUIViewModelFactory(requireActivity().application))[NewCardViewModel::class.java]
@@ -86,7 +89,7 @@ class NewCardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.tunaToolbar.apply {
-            navigationIcon = ContextCompat.getDrawable(requireContext(), R.drawable.tuna_ic_arrow_back)
+            navigationIcon = getNavigationIconDrawable()
             navigationContentDescription = getString(R.string.tuna_accessibility_back_button)
             setNavigationOnClickListener { navigator.navigateUp() }
             setTitle(R.string.tuna_add_credit_card)
@@ -107,8 +110,23 @@ class NewCardFragment : Fragment() {
         activity?.closeKeyboard()
     }
 
+    open fun getNavigationIconDrawable(): Drawable? {
+        return ContextCompat.getDrawable(requireContext(), R.drawable.tuna_ic_arrow_back)
+    }
+
+    open fun getCurrentFocus(): View? {
+        return requireActivity().currentFocus
+    }
+
     private fun setupFields(){
-        val fieldWidth = requireContext().displayMetrics.widthPixels - 48.dp
+        val fieldWidth = resources.getBoolean(R.bool.tuna_new_card_dialog_fragment_window_is_floating).let {
+            if (it) {
+                resources.getDimension(R.dimen.tuna_select_payment_method_layout_width).toInt() - 48.dp
+            } else {
+                requireContext().displayMetrics.widthPixels - 48.dp
+            }
+        }
+
         listOfFields = listOf(
             binding.etNumber,
             binding.etName,
@@ -119,7 +137,7 @@ class NewCardFragment : Fragment() {
             listOfFields = listOfFields + binding.etCpf
             binding.etCpf.layout(width = fieldWidth)
         } else {
-            binding.etCpf.visibility = View.GONE
+            binding.etCpf.visibility = GONE
         }
 
         binding.etNumber.layout(width = fieldWidth)
@@ -153,9 +171,9 @@ class NewCardFragment : Fragment() {
                 binding.vpCardFields.smoothScrollTo(view.textLayoutParent().x.toInt(), 0)
                 listOfFields.forEach {
                     if (it != view) {
-                        it.setOnTouchListener { view, motionEvent -> true }
+                        it.setOnTouchListener { _, _ -> true }
                     } else {
-                        it.setOnTouchListener { view, motionEvent -> false }
+                        it.setOnTouchListener { _, _ -> false }
                     }
                 }
 
@@ -169,11 +187,9 @@ class NewCardFragment : Fragment() {
         binding.etCvv.onFocusChangeListener = focusListener
         binding.etCpf.onFocusChangeListener = focusListener
 
-        binding.vpCardFields.setOnTouchListener { p0, p1 -> true }
+        // Block touching next field
+        binding.vpCardFields.setOnTouchListener { _, _ -> true }
 
-        binding.flCards.setOnClickListener {
-            viewModel.onPreviousClick()
-        }
         binding.btnCamera.setOnClickListener {
             Intent().apply {
                 action = "TUNA_OPEN_CARD_RECOGNITION"
@@ -193,7 +209,7 @@ class NewCardFragment : Fragment() {
         viewModel.actionsLiveData.observe(this, { action ->
             when (action) {
                 is ActionFieldBack -> {
-                    requireActivity().currentFocus?.apply {
+                    getCurrentFocus()?.apply {
                         when (id) {
                             R.id.etName -> binding.etNumber.requestFocus()
                             R.id.etExDate -> binding.etName.requestFocus()
@@ -203,9 +219,12 @@ class NewCardFragment : Fragment() {
                     }
                 }
                 is ActionFieldNext -> {
-                    if (requireActivity().currentFocus is EditText) {
-                        val editText = requireActivity().currentFocus as EditText
-                        editText.onEditorAction(editText.imeOptions)
+                    when (action.currentType) {
+                        CreditCardFieldType.NUMBER -> binding.etName.requestFocus()
+                        CreditCardFieldType.NAME -> binding.etExDate.requestFocus()
+                        CreditCardFieldType.EX_DATE -> binding.etCvv.requestFocus()
+                        CreditCardFieldType.CVV -> binding.etCpf.requestFocus()
+                        else -> {}
                     }
                 }
                 is ActionFinish -> {
@@ -224,21 +243,31 @@ class NewCardFragment : Fragment() {
         binding.widgetCardCpf.cameraDistance = 8000 * scale
 
         animSetRightOut = AnimatorInflater.loadAnimator(requireContext(), R.animator.out_animation) as AnimatorSet
+        animSetRightOut?.setTarget(binding.widgetCard)
+
         animSetLeftIn = AnimatorInflater.loadAnimator(requireContext(), R.animator.in_animation) as AnimatorSet
+        animSetLeftIn?.setTarget(binding.widgetCardBack)
+
+        animSetRightOutReverse = AnimatorInflater.loadAnimator(requireContext(), R.animator.out_animation_reverse) as AnimatorSet
+        animSetRightOutReverse?.setTarget(binding.widgetCard)
+
+        animSetLeftInReverse = AnimatorInflater.loadAnimator(requireContext(), R.animator.in_animation_reverse) as AnimatorSet
+        animSetLeftInReverse?.setTarget(binding.widgetCardBack)
     }
 
     private fun flipCards() {
         binding.widgetCardCpf.visibility = GONE
-        animSetRightOut?.setTarget(binding.widgetCard)
-        animSetLeftIn?.setTarget(binding.widgetCardBack)
-        if (!isCardFlipped) {
+
+        isCardFlipped = if (!isCardFlipped) {
+            // Start
             animSetRightOut?.start()
             animSetLeftIn?.start()
-            isCardFlipped = true
+            true
         } else {
-            animSetRightOut?.reverse()
-            animSetLeftIn?.reverse()
-            isCardFlipped = false
+            // Reverse
+            animSetRightOutReverse?.start()
+            animSetLeftInReverse?.start()
+            false
         }
     }
 
@@ -311,6 +340,7 @@ fun EditText.createFieldMask(cardField: CreditCardField) {
         CreditCardFieldType.EX_DATE -> addTextChangedListener(Mask.mask("##/##"))
         CreditCardFieldType.CVV -> addTextChangedListener(Mask.mask("####"))
         CreditCardFieldType.CPF -> addTextChangedListener(Mask.mask("###.###.###-##"))
+        else -> {}
     }
 
     inputType = when(cardField.type) {
@@ -321,10 +351,12 @@ fun EditText.createFieldMask(cardField: CreditCardField) {
         CreditCardFieldType.CPF -> InputType.TYPE_CLASS_PHONE
     }
 
-    setOnEditorActionListener { textView, i, keyEvent ->
+    setOnEditorActionListener { _, i, _ ->
         if (i == EditorInfo.IME_ACTION_NEXT || i == EditorInfo.IME_ACTION_DONE){
-            !cardField.validation(cardField, true)
-        } else false
+            val result = cardField.validation(cardField, true)
+            if (result) cardField.next(cardField)
+        }
+        true
     }
 
 }
