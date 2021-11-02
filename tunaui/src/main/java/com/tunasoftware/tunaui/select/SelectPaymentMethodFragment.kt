@@ -1,17 +1,16 @@
 package com.tunasoftware.tunaui.select
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.accessibility.AccessibilityEvent
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.snackbar.Snackbar
 import com.tunasoftware.tunacommons.ui.entities.UIState
@@ -86,7 +85,7 @@ class SelectPaymentMethodFragment : Fragment() {
         }
         adapter.setOnRemoveItemListener {
             if (it is PaymentMethodCreditCard)
-                viewModel.onDeleteCard(it, context)
+                showDialogRemoveCard(it)
         }
         val recyclerView = binding.rvPaymentMethods
         recyclerView.setHasFixedSize(true)
@@ -154,6 +153,18 @@ class SelectPaymentMethodFragment : Fragment() {
         binding.btnSelect.visibility = View.VISIBLE
         shimmerSelectPaymentMethod.stopShimmer()
         shimmerSelectPaymentMethod.visibility = View.GONE
+    }
+
+    private fun showDialogRemoveCard(paymentMethod: PaymentMethodCreditCard) {
+        AlertDialog.Builder(requireContext(), R.style.Theme_TunaUI_Dialog_Alert)
+            .setMessage(R.string.message_confirmation_remove_card)
+            .setNegativeButton(R.string.button_label_no, null)
+            .setPositiveButton(R.string.button_label_yes) { _, _ ->
+                viewModel.onDeleteCard(paymentMethod, requireContext())
+                adapter.removePaymentMethod(paymentMethod)
+            }
+            .create()
+            .show()
     }
 
 }

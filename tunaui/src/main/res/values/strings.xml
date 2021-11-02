@@ -22,8 +22,11 @@
     <string name="tuna_footer_bar_btn_previous">Back</string>
     <string name="tuna_footer_bar_btn_next">Next</string>
     <string name="tuna_footer_bar_btn_finish">Finish</string>
-    <string name="paymet_method_credit_card_masked_number">Credit card • • • •</string>
+    <string name="payment_method_credit_card_masked_number">Credit card • • • •</string>
     <string name="error_removing_credit_card">There was an error removing this credit card</string>
+    <string name="message_confirmation_remove_card">Do you want to remove this card?</string>
+    <string name="button_label_no">No</string>
+    <string name="button_label_yes">Yes</string>
 
     <!--  Accessibility  -->
     <string name="tuna_accessibility_close_button">Close</string>
