@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.tunasoftware.tunaui.R
-import com.tunasoftware.tunaui.utils.describeAsButton
 import com.tunasoftware.tunaui.widgets.TunaPaymentMethodWidget
 import com.tunasoftware.tunaui.widgets.TunaSwipeWidget
 
@@ -44,7 +43,7 @@ class SelectPaymentMethodAdapter : RecyclerView.Adapter<SelectPaymentMethodAdapt
 
             if (!paymentMethod.disableSwipe) {
                 ViewCompat.addAccessibilityAction(view, view.context.getString(R.string.tuna_accessibility_remove_item)) { _, _ ->
-                    removePaymentMethod(paymentMethod)
+                    onRemovePaymentMethod(paymentMethod)
                     true
                 }
             }
@@ -52,7 +51,7 @@ class SelectPaymentMethodAdapter : RecyclerView.Adapter<SelectPaymentMethodAdapt
             widget.apply {
                 paymentMethodFlag = paymentMethod.methodFlag
                 paymentMethodLabelSecondary = if (paymentMethod is PaymentMethodCreditCard) {
-                    "${context.getString(R.string.paymet_method_credit_card_masked_number)} ${
+                    "${context.getString(R.string.payment_method_credit_card_masked_number)} ${
                         paymentMethod.tunaUICard.maskedNumber.let { number ->
                             number.trim().let { it.substring(it.length - 4 until it.length) }
                         }
@@ -83,7 +82,7 @@ class SelectPaymentMethodAdapter : RecyclerView.Adapter<SelectPaymentMethodAdapt
                 selectPaymentMethod(paymentMethod, position)
             }
 
-            tunaSwipeWidget.setOnDeleteClickListener { removePaymentMethod(paymentMethod) }
+            tunaSwipeWidget.setOnDeleteClickListener { onRemovePaymentMethod(paymentMethod) }
         }
     }
 
@@ -108,14 +107,17 @@ class SelectPaymentMethodAdapter : RecyclerView.Adapter<SelectPaymentMethodAdapt
         return dataSet.indexOf(item);
     }
 
+    fun removePaymentMethod(paymentMethod: PaymentMethod) {
+        removeAtPosition(getItemPosition(paymentMethod))
+    }
+
     private fun removeAtPosition(position: Int) {
         dataSet.removeAt(position)
         notifyItemRemoved(position)
     }
 
-    private fun removePaymentMethod(paymentMethod: PaymentMethod) {
+    private fun onRemovePaymentMethod(paymentMethod: PaymentMethod) {
         _onRemoveItemListener.invoke(paymentMethod)
-        removeAtPosition(getItemPosition(paymentMethod))
     }
 
     private fun selectPaymentMethod(paymentMethod: PaymentMethod, position: Int) {
