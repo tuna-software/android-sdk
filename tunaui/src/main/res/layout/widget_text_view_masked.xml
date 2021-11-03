@@ -10,18 +10,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
-        android:letterSpacing="0.06"
         android:textColor="@color/tuna_white"
         android:textSize="16sp"
         android:textStyle="normal"
         android:maxLines="1"
         android:ellipsize="end"/>
 
-    <View
+    <TextView
         android:id="@+id/mask"
-        android:layout_width="198dp"
+        android:layout_width="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_height="15dp"
-        android:background="@drawable/tuna_bg_text_view_masked" />
+        android:layout_height="wrap_content"
+        android:textColor="@color/tuna_gray"/>
 
 </FrameLayout>

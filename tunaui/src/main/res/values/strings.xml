@@ -1,18 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="tuna_card_number_invalid">Cartão inválido</string>
-    <string name="tuna_card_name_invalid">Nome inválido</string>
-    <string name="tuna_card_expitarion_date_invalid">Validade parece estar incorreta</string>
-    <string name="tuna_card_cvv_invalid">Código de segurança inválido</string>
-    <string name="tuna_card_phone_invalid">Telefone parece estar incorreto</string>
-    <string name="tuna_card_cpf_invalid">CPF inválido</string>
-    <string name="tuna_credit_card_number_label">Número do Cartão</string>
-    <string name="tuna_credit_card_name_label">Nome no Cartão</string>
-    <string name="tuna_credit_card_expiration_label">Data de validade</string>
+    <string name="tuna_card_number_invalid">Invalid card</string>
+    <string name="tuna_card_name_invalid">Invalid name</string>
+    <string name="tuna_card_expitarion_date_invalid">Expiration appears to be incorrect</string>
+    <string name="tuna_card_cvv_invalid">Security code is invalid</string>
+    <string name="tuna_card_phone_invalid">Phone appears to be incorrect</string>
+    <string name="tuna_card_cpf_invalid">Invalid CPF</string>
+    <string name="tuna_credit_card_number_label">Card number</string>
+    <string name="tuna_credit_card_name_label">Name on card</string>
+    <string name="tuna_credit_card_expiration_label">Expiration date</string>
     <string name="tuna_credit_card_cvv_label">CVV</string>
-    <string name="tuna_credit_card_cpf_label">CPF do titular do cartão</string>
-    <string name="tuna_credit_card_phone_label">Telefone</string>
-    <string name="tuna_select_payment_method_title">Selecione como você deseja pagar</string>
-    <string name="tuna_select_payment_method">Selecionar forma de pagamento</string>
+    <string name="tuna_credit_card_cpf_label">CPF</string>
+    <string name="tuna_credit_card_phone_label">Phone</string>
+    <string name="tuna_select_payment_method_title">Payment methods</string>
+    <string name="tuna_add_credit_card">Add new card</string>
+    <string name="tuna_select_payment_method_header">Select how do you want to pay</string>
+    <string name="tuna_select_payment_method">Select payment method</string>
+    <string name="tuna_card_number_placeholder">Card Number</string>
+    <string name="tuna_card_holder_name_placeholder">Card Holder Name</string>
+    <string name="tuna_card_expiration_placeholder">Expiration</string>
+    <string name="tuna_footer_bar_btn_previous">Back</string>
+    <string name="tuna_footer_bar_btn_next">Next</string>
+    <string name="tuna_footer_bar_btn_finish">Finish</string>
+    <string name="payment_method_credit_card_masked_number">Credit card • • • •</string>
+    <string name="error_removing_credit_card">There was an error removing this credit card</string>
+    <string name="message_confirmation_remove_card">Do you want to remove this card?</string>
+    <string name="button_label_no">No</string>
+    <string name="button_label_yes">Yes</string>
 
+    <!--  Accessibility  -->
+    <string name="tuna_accessibility_close_button">Close</string>
+    <string name="tuna_accessibility_back_button">Back</string>
+    <string name="tuna_accessibility_button">Button</string>
+    <string name="tuna_accessibility_select_item">Select item</string>
+    <string name="tuna_accessibility_remove_item">Remove item</string>
+    <string name="tuna_accessibility_button_back_field">Previous field</string>
+    <string name="tuna_accessibility_button_next_field">Next field</string>
+    <string name="tuna_accessibility_button_finish_add_card">Finish</string>
+    <string name="tuna_accessibility_loading_list">Loading list</string>
+    <string name="tuna_accessibility_loaded_list">List loaded</string>
+    <string name="tuna_accessibility_error_loading_list">Error loading list</string>
+    <string name="tuna_accessibility_saving_card">Saving credit card</string>
+    <string name="tuna_accessibility_saved_card">Saved credit card</string>
+    <string name="tuna_accessibility_removing_card">Removing credit card</string>
+    <string name="tuna_accessibility_removed_card">Removed credit card</string>
+    <string name="tuna_accessibility_selected_card">%s selected</string>
+    <string name="tuna_accessibility_date_field">month and year with 2 digits</string>
+    <string name="new_credit_card">New Credit Card</string>
+    <string name="bank_slip">Bank Slip</string>
 </resources>

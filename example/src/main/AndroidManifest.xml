@@ -3,19 +3,19 @@
     package="com.tunasoftware.tunasdk">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:name=".TunaExampleApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TunaAndroidSDK">
+        <activity android:name=".kotlin.ReadCreditCardExampleActivity"></activity>
         <activity android:name=".java.JavaListCardsActivity" />
         <activity android:name=".java.JavaDetailCardActivity" />
         <activity android:name=".java.JavaNewCardActivity" />
-
         <activity android:name=".kotlin.KotlinListCardsActivity" />
         <activity android:name=".kotlin.KotlinDetailCardActivity" />
         <activity android:name=".kotlin.KotlinNewCardActivity" />
@@ -26,6 +26,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.wallet.api.enabled"
+            android:value="true" />
     </application>
 
 </manifest>

@@ -6,10 +6,10 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.tunasoftware.tuna.Tuna
+import com.tunasoftware.android.Tuna
+import com.tunasoftware.android.kt.getSandboxSessionId
 import com.tunasoftware.tuna.entities.TunaCard
 import com.tunasoftware.tunakt.getCardList
-import com.tunasoftware.tunakt.getSandboxSessionId
 import com.tunasoftware.tunasdk.R
 import com.tunasoftware.tunasdk.java.adapters.ListCardsAdapter
 import com.tunasoftware.tunasdk.java.interfaces.RecyclerViewOnClickListener

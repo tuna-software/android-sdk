@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/tuna_background"
+    tools:context=".TunaCardRecognition">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tuna_toolbar"
+        style="@style/TunaToolbarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.camera.view.PreviewView
+            android:id="@+id/cameraPreview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+        <com.tunasoftware.tunacr.TunaCardFrame
+            android:id="@+id/cardFrame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </FrameLayout>
+
+</LinearLayout>

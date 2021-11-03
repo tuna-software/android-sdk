@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="tuna_select_payment_method_layout_width">400dp</dimen>
+    <dimen name="tuna_select_payment_method_layout_height">500dp</dimen>
+    <dimen name="new_card_dialog_card_fields_margin_top">16dp</dimen>
+    <dimen name="new_card_dialog_frame_cards_margin_top">0dp</dimen>
+</resources>

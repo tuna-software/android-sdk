@@ -1,45 +1,71 @@
 package com.tunasoftware.tunaui.select
 
+import com.tunasoftware.tuna.entities.TunaCard
 import com.tunasoftware.tunaui.R
+import com.tunasoftware.tunaui.domain.entities.TunaCardFlag
+import com.tunasoftware.tunaui.domain.entities.TunaUICard
 
-class PaymentMethod(
-    val methodType: Int,
+
+
+open class PaymentMethod(
+    val methodType: PaymentMethodType,
     val displayName: String,
-    val disableSwipe: Boolean = false
+    val disableSwipe: Boolean = false,
+    val selectable: Boolean = true
 )
 
-val PaymentMethod.flag
+class  PaymentMethodCreditCard(methodType: PaymentMethodType,
+                               displayName: String,
+                               disableSwipe: Boolean = false,
+                               selectable: Boolean = true,
+                               val flag: TunaCardFlag,
+                               val tunaUICard: TunaUICard
+): PaymentMethod(methodType, displayName, disableSwipe, selectable)
+
+fun PaymentMethodCreditCard.getTunaCard() = TunaCard(token = this.tunaUICard.token,
+        brand = this.tunaUICard.brand,
+        cardHolderName = this.tunaUICard.cardHolderName,
+        expirationMonth = this.tunaUICard.expirationMonth,
+        expirationYear = this.tunaUICard.expirationYear,
+        maskedNumber = this.tunaUICard.maskedNumber
+    )
+
+
+
+val PaymentMethod.methodFlag
     get() = when (this.methodType) {
-        PaymentMethodType.AMEX.value -> R.drawable.ic_amex
-        PaymentMethodType.APPLE_PAY.value -> R.drawable.ic_apple_pay
-        PaymentMethodType.BANK_SLIP.value -> R.drawable.ic_barcode
-        PaymentMethodType.CREDIT_CARD.value -> R.drawable.ic_generic_card
-        PaymentMethodType.DEBIT_CARD.value -> R.drawable.ic_generic_card
-        PaymentMethodType.DINERS.value -> R.drawable.ic_diners
-        PaymentMethodType.ELO.value -> R.drawable.ic_elo
-        PaymentMethodType.GOOGLE_PAY.value -> R.drawable.ic_google_pay
-        PaymentMethodType.HIPERCARD.value -> R.drawable.ic_hipercard
-        PaymentMethodType.MASTER.value -> R.drawable.ic_master
-        PaymentMethodType.PAYPAL.value -> R.drawable.ic_paypal
-        PaymentMethodType.PIX.value -> R.drawable.ic_pix
-        PaymentMethodType.SAMSUNG_PAY.value -> R.drawable.ic_samsung_pay
-        PaymentMethodType.VISA.value -> R.drawable.ic_visa
+        PaymentMethodType.BANK_SLIP -> R.drawable.tuna_ic_barcode
+        PaymentMethodType.CREDIT_CARD -> {
+            if (this is PaymentMethodCreditCard) {
+                when (this.flag) {
+                    TunaCardFlag.VISA -> {
+                        R.drawable.tuna_ic_visa
+                    }
+                    TunaCardFlag.HIPERCARD -> R.drawable.tuna_ic_hipercard
+                    TunaCardFlag.ELO -> R.drawable.tuna_ic_elo
+                    TunaCardFlag.AMEX -> R.drawable.tuna_ic_amex
+                    TunaCardFlag.DINERS -> R.drawable.tuna_ic_diners
+                    TunaCardFlag.MASTER -> R.drawable.tuna_ic_master
+                    TunaCardFlag.UNDEFINED -> R.drawable.tuna_ic_generic_card
+                }
+            } else {
+                R.drawable.tuna_ic_generic_card
+            }
+        }
+        PaymentMethodType.NEW_CREDIT_CARD -> R.drawable.tuna_ic_generic_card
+        PaymentMethodType.GOOGLE_PAY -> R.drawable.tuna_ic_google_pay
+        PaymentMethodType.PAYPAL -> R.drawable.tuna_ic_paypal
+        PaymentMethodType.PIX -> R.drawable.tuna_ic_pix
+        PaymentMethodType.SAMSUNG_PAY -> R.drawable.tuna_ic_samsung_pay
         else -> 0
     }
 
 enum class PaymentMethodType(val value: Int) {
     CREDIT_CARD(0),
-    DEBIT_CARD(1),
-    BANK_SLIP(2),
-    PIX(3),
-    APPLE_PAY(4),
-    GOOGLE_PAY(5),
-    SAMSUNG_PAY(6),
-    PAYPAL(7),
-    AMEX(8),
-    DINERS(9),
-    ELO(10),
-    HIPERCARD(11),
-    MASTER(12),
-    VISA(13),
+    BANK_SLIP(1),
+    PIX(2),
+    GOOGLE_PAY(3),
+    SAMSUNG_PAY(4),
+    PAYPAL(5),
+    NEW_CREDIT_CARD(6),
 }

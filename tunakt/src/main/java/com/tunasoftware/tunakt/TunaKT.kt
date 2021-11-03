@@ -1,11 +1,11 @@
 package com.tunasoftware.tunakt
 
-import com.tunasoftware.tuna.Tuna
+import com.tunasoftware.java.Tuna
+import com.tunasoftware.tuna.TunaCore
 import com.tunasoftware.tuna.entities.TunaCard
-import com.tunasoftware.tuna.entities.TunaCustomer
-import java.lang.RuntimeException
+import com.tunasoftware.tuna.entities.TunaPaymentMethod
 
-class TunaRequestResult<T>{
+open class TunaRequestResult<T>{
 
     private var success: ((T) -> Unit)? = null
     private var failure: ((Throwable) -> Unit)? = null
@@ -61,12 +61,12 @@ class TunaRequestResult<T>{
  * @param expirationMonth Month of expiration
  * @param expirationYear Year of expiration
  */
-fun Tuna.addNewCard(cardNumber: String,
-                    cardHolderName: String,
-                    expirationMonth: Int,
-                    expirationYear: Int
+fun TunaCore.addNewCard(cardNumber: String,
+                        cardHolderName: String,
+                        expirationMonth: Int,
+                        expirationYear: Int
 ) = TunaRequestResult<TunaCard>().apply {
-    addNewCard(cardNumber, cardHolderName, expirationMonth, expirationYear, true, object : Tuna.TunaRequestCallback<TunaCard> {
+    addNewCard(cardNumber, cardHolderName, expirationMonth, expirationYear, true, object : TunaCore.TunaRequestCallback<TunaCard> {
         override fun onSuccess(result: TunaCard) {
             invokeSuccess(result)
         }
@@ -85,13 +85,13 @@ fun Tuna.addNewCard(cardNumber: String,
  * @param expirationMonth Month of expiration
  * @param expirationYear Year of expiration
  */
-fun Tuna.addNewCard(cardNumber: String,
-                    cardHolderName: String,
-                    expirationMonth: Int,
-                    expirationYear: Int,
-                    save: Boolean
+fun TunaCore.addNewCard(cardNumber: String,
+                        cardHolderName: String,
+                        expirationMonth: Int,
+                        expirationYear: Int,
+                        save: Boolean
 ) = TunaRequestResult<TunaCard>().apply {
-    addNewCard(cardNumber, cardHolderName, expirationMonth, expirationYear, save, object : Tuna.TunaRequestCallback<TunaCard> {
+    addNewCard(cardNumber, cardHolderName, expirationMonth, expirationYear, save, object : TunaCore.TunaRequestCallback<TunaCard> {
         override fun onSuccess(result: TunaCard) {
             invokeSuccess(result)
         }
@@ -111,14 +111,14 @@ fun Tuna.addNewCard(cardNumber: String,
  * @param expirationYear Year of expiration
  * @param cvv card sercurity code
  */
-fun Tuna.addNewCard(
+fun TunaCore.addNewCard(
     cardNumber: String,
     cardHolderName: String,
     expirationMonth: Int,
     expirationYear: Int,
     cvv: String,
 ) = TunaRequestResult<TunaCard>().apply {
-    addNewCard(cardNumber, cardHolderName, expirationMonth, expirationYear, cvv, true, object : Tuna.TunaRequestCallback<TunaCard> {
+    addNewCard(cardNumber, cardHolderName, expirationMonth, expirationYear, cvv, true, object : TunaCore.TunaRequestCallback<TunaCard> {
         override fun onSuccess(result: TunaCard) {
             invokeSuccess(result)
         }
@@ -138,7 +138,7 @@ fun Tuna.addNewCard(
  * @param expirationYear Year of expiration
  * @param cvv card sercurity code
  */
-fun Tuna.addNewCard(
+fun TunaCore.addNewCard(
     cardNumber: String,
     cardHolderName: String,
     expirationMonth: Int,
@@ -146,7 +146,7 @@ fun Tuna.addNewCard(
     cvv: String,
     save: Boolean,
 ) = TunaRequestResult<TunaCard>().apply {
-    addNewCard(cardNumber, cardHolderName, expirationMonth, expirationYear, cvv, save, object : Tuna.TunaRequestCallback<TunaCard> {
+    addNewCard(cardNumber, cardHolderName, expirationMonth, expirationYear, cvv, save, object : TunaCore.TunaRequestCallback<TunaCard> {
         override fun onSuccess(result: TunaCard) {
             invokeSuccess(result)
         }
@@ -157,8 +157,8 @@ fun Tuna.addNewCard(
     })
 }
 
-fun Tuna.getCardList() = TunaRequestResult<List<TunaCard>>().apply {
-    getCardList(callback = object : Tuna.TunaRequestCallback<List<TunaCard>> {
+fun TunaCore.getCardList() = TunaRequestResult<List<TunaCard>>().apply {
+    getCardList(callback = object : TunaCore.TunaRequestCallback<List<TunaCard>> {
         override fun onSuccess(result: List<TunaCard>) {
             invokeSuccess(result)
         }
@@ -169,8 +169,20 @@ fun Tuna.getCardList() = TunaRequestResult<List<TunaCard>>().apply {
     })
 }
 
-fun Tuna.deleteCard(token: String) = TunaRequestResult<Boolean>().apply {
-    deleteCard(token, callback = object : Tuna.TunaRequestCallback<Boolean> {
+fun TunaCore.getPaymentMethods() = TunaRequestResult<List<TunaPaymentMethod>>().apply {
+    getPaymentMethods(callback = object : TunaCore.TunaRequestCallback<List<TunaPaymentMethod>> {
+        override fun onSuccess(result: List<TunaPaymentMethod>) {
+            invokeSuccess(result)
+        }
+
+        override fun onFailed(e: Throwable) {
+            invokeFailure(e)
+        }
+    })
+}
+
+fun TunaCore.deleteCard(token: String) = TunaRequestResult<Boolean>().apply {
+    deleteCard(token, callback = object : TunaCore.TunaRequestCallback<Boolean> {
         override fun onSuccess(result: Boolean) {
             invokeSuccess(result)
         }
@@ -181,10 +193,10 @@ fun Tuna.deleteCard(token: String) = TunaRequestResult<Boolean>().apply {
     })
 }
 
-fun Tuna.deleteCard(card: TunaCard) = deleteCard(card.token)
+fun TunaCore.deleteCard(card: TunaCard) = deleteCard(card.token)
 
-fun Tuna.bind(card: TunaCard, cvv: String) = TunaRequestResult<TunaCard>().apply {
-    bind(card, cvv, callback = object : Tuna.TunaRequestCallback<TunaCard> {
+fun TunaCore.bind(card: TunaCard, cvv: String) = TunaRequestResult<TunaCard>().apply {
+    bind(card, cvv, callback = object : TunaCore.TunaRequestCallback<TunaCard> {
         override fun onSuccess(result: TunaCard) {
             invokeSuccess(result)
         }
@@ -195,10 +207,8 @@ fun Tuna.bind(card: TunaCard, cvv: String) = TunaRequestResult<TunaCard>().apply
     })
 }
 
-
-
 fun Tuna.Companion.getSandboxSessionId() = TunaRequestResult<String>().apply {
-    getSandboxSessionId(callback = object : Tuna.TunaRequestCallback<String> {
+    getSandboxSessionId(callback = object : TunaCore.TunaRequestCallback<String> {
         override fun onSuccess(result: String) {
             invokeSuccess(result)
         }
@@ -208,4 +218,3 @@ fun Tuna.Companion.getSandboxSessionId() = TunaRequestResult<String>().apply {
         }
     })
 }
-

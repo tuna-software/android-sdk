@@ -1,8 +1,19 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.TunaUI" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+
+    <style name="Theme.TunaUI.TunaCard">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginStart">47dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginEnd">47dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+
+    <style name="Theme.TunaUI.DialogFragment" parent="Theme.MaterialComponents.DayNight.Dialog">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/tunaui_primary_color</item>
+        <item name="colorPrimaryDark">@color/tunaui_primary_dark_color</item>
         <item name="colorPrimaryVariant">@color/tunaui_primary_variant_color</item>
         <item name="colorOnPrimary">@color/tunaui_secundary_color</item>
         <!-- Secondary brand color. -->
@@ -10,16 +21,22 @@
         <item name="colorSecondaryVariant">@color/tunaui_secundary_color</item>
         <item name="colorOnSecondary">@color/tunaui_primary_color</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/tuna_black</item>
         <!-- Customize your theme here. -->
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+        <!-- Fill the screen -->
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <!-- No backgrounds, titles or window float -->
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">@bool/tuna_new_card_dialog_fragment_window_is_floating</item>
+        <!-- Just to prove it's working -->
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
-    <style name="Theme.TunaUI.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name="Theme.TunaUI.DialogFragment.NewCardContent">
+        <item name="android:gravity">top</item>
     </style>
 
-    <style name="Theme.TunaAndroidSDK.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.TunaAndroidSDK.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

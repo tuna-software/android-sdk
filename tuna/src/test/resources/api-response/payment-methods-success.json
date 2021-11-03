@@ -1,0 +1,18 @@
+{
+  "paymentMethods": [
+    {
+      "methodType": 51,
+      "displayName": "Boleto"
+    },
+    {
+      "methodType": 49,
+      "displayName": "CreditCard"
+    }
+  ],
+  "brands": [
+    "visa",
+    "elo",
+    "mastercard"
+  ],
+  "code": 1
+}

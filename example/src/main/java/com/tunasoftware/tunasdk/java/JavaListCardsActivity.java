@@ -1,5 +1,13 @@
 package com.tunasoftware.tunasdk.java;
 
+import static com.tunasoftware.tunasdk.java.utils.Extras.CARD_BRAND;
+import static com.tunasoftware.tunasdk.java.utils.Extras.CARD_EXPIRATION_MONTH;
+import static com.tunasoftware.tunasdk.java.utils.Extras.CARD_EXPIRATION_YEAR;
+import static com.tunasoftware.tunasdk.java.utils.Extras.CARD_HOLDER_NAME;
+import static com.tunasoftware.tunasdk.java.utils.Extras.CARD_MASKED_NUMBER;
+import static com.tunasoftware.tunasdk.java.utils.Extras.CARD_TOKEN;
+import static com.tunasoftware.tunasdk.java.utils.Extras.LOG_TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,7 +19,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tunasoftware.tuna.Tuna;
+import com.tunasoftware.android.Tuna;
 import com.tunasoftware.tuna.entities.TunaCard;
 import com.tunasoftware.tunasdk.R;
 import com.tunasoftware.tunasdk.java.adapters.ListCardsAdapter;
@@ -21,14 +29,6 @@ import com.tunasoftware.tunasdk.java.listners.RecyclerViewTouchListener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-
-import static com.tunasoftware.tunasdk.java.utils.Extras.CARD_BRAND;
-import static com.tunasoftware.tunasdk.java.utils.Extras.CARD_EXPIRATION_MONTH;
-import static com.tunasoftware.tunasdk.java.utils.Extras.CARD_EXPIRATION_YEAR;
-import static com.tunasoftware.tunasdk.java.utils.Extras.CARD_HOLDER_NAME;
-import static com.tunasoftware.tunasdk.java.utils.Extras.CARD_MASKED_NUMBER;
-import static com.tunasoftware.tunasdk.java.utils.Extras.CARD_TOKEN;
-import static com.tunasoftware.tunasdk.java.utils.Extras.LOG;
 
 public class JavaListCardsActivity extends AppCompatActivity {
 
@@ -81,7 +81,7 @@ public class JavaListCardsActivity extends AppCompatActivity {
             @Override
             public void onFailed(@NotNull Throwable e) {
                 hideLoading();
-                Log.e(LOG, "Error start session!!!", e);
+                Log.e(LOG_TAG, "Error start session!!!", e);
             }
         });
     }
@@ -98,7 +98,7 @@ public class JavaListCardsActivity extends AppCompatActivity {
             @Override
             public void onFailed(@NotNull Throwable e) {
                 hideLoading();
-                Log.e(LOG, "Error get cards!!!", e);
+                Log.e(LOG_TAG, "Error get cards!!!", e);
             }
         });
     }

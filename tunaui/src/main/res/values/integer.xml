@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="anim_length">700</integer>
+    <integer name="anim_length_half">350</integer>
+
+    <integer name="animation_duration">@android:integer/config_mediumAnimTime</integer>
+
+</resources>

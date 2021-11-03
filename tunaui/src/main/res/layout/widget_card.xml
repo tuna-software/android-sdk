@@ -1,55 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/content"
-    android:layout_width="266dp"
-    android:layout_height="166dp"
-    android:background="@drawable/card_input_background"
-    android:paddingStart="24dp"
-    android:paddingEnd="24dp"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <com.tunasoftware.tunaui.widgets.TextViewMaskedWidget
-        android:id="@+id/tvNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="38dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:maskTextColor="@color/tuna_bg_text_view_masked_50"
-        app:maskWidth="198" />
-
-    <com.tunasoftware.tunaui.widgets.TextViewMaskedWidget
-        android:id="@+id/tvName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@+id/tvNumber"
-        app:layout_constraintTop_toBottomOf="@+id/tvNumber"
-        app:maskTextColor="@color/tuna_bg_text_view_masked_20"
-        app:maskWidth="161" />
-
-    <com.tunasoftware.tunaui.widgets.TextViewMaskedWidget
-        android:id="@+id/tvValidate"
-        android:layout_width="56dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/tuna_bg_card_master"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/tvNumber"
-        app:maskTextColor="@color/tuna_bg_text_view_masked_20"
-        app:maskWidth="56" />
+        app:layout_constraintDimensionRatio="H,16:10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <com.tunasoftware.tunaui.widgets.TextViewMaskedWidget
-        android:id="@+id/tvCvv"
-        android:layout_width="56dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvValidate"
-        app:layout_constraintStart_toEndOf="@+id/tvValidate"
-        app:maskTextColor="@color/tuna_bg_text_view_masked_20"
-        app:maskWidth="56" />
+        <ImageView
+            android:id="@+id/ivFlag"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/tuna_bg_text_view_masked"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <com.tunasoftware.tunaui.widgets.TextViewMaskedWidget
+            android:id="@+id/tvName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/tvNumber"
+            app:layout_constraintStart_toStartOf="@+id/tvNumber"
+            app:maskTextColor="@color/tuna_gray"
+            app:maskText="@string/tuna_card_holder_name_placeholder"/>
 
+        <com.tunasoftware.tunaui.widgets.TextViewMaskedWidget
+            android:id="@+id/tvNumber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tvValidate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:maskTextColor="@color/tuna_gray"
+            app:maskText="@string/tuna_card_number_placeholder" />
 
+        <com.tunasoftware.tunaui.widgets.TextViewMaskedWidget
+            android:id="@+id/tvValidate"
+            android:layout_width="wrap_content"
+            android:minWidth="64dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/tvNumber"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:maskTextColor="@color/tuna_gray"
+            app:maskText="@string/tuna_card_expiration_placeholder" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

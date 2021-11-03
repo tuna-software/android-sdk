@@ -1,5 +1,7 @@
 package com.tunasoftware.tuna.entities
 
+import java.io.Serializable
+
 /**
  *
  */
@@ -8,5 +10,5 @@ data class TunaCard(val token:String,
                     val cardHolderName:String,
                     val expirationMonth:Int,
                     val expirationYear:Int,
-                    val maskedNumber:String)
+                    val maskedNumber:String): Serializable
 

@@ -3,15 +3,18 @@ package com.tunasoftware.tunaui.widgets
 import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
 import com.tunasoftware.tunaui.R
-import com.tunasoftware.tunaui.extensions.px
-import kotlinx.android.synthetic.main.widget_tuna_swipe.view.*
+import com.tunasoftware.tunaui.databinding.WidgetTunaSwipeBinding
+import com.tunasoftware.tunaui.extensions.dp
 import kotlin.math.abs
 
 class TunaSwipeWidget : FrameLayout {
+
+    private val binding : WidgetTunaSwipeBinding
 
     private var _onItemClickListener = {}
     private var _onDeleteClickListener = {}
@@ -33,8 +36,7 @@ class TunaSwipeWidget : FrameLayout {
         attrs,
         defStyleAttr
     ){
-        inflate(context, R.layout.widget_tuna_swipe, this)
-
+        binding = WidgetTunaSwipeBinding.inflate(LayoutInflater.from(context), this, true)
         context.obtainStyledAttributes(
             attrs,
             R.styleable.SwipeWidget,
@@ -48,81 +50,90 @@ class TunaSwipeWidget : FrameLayout {
             }
         }
 
-        btnDelete.setOnClickListener {
-            _onDeleteClickListener.invoke()
-        }
-
-        gestureHandler.setOnTouchListener(object :OnTouchListener{
-
-            var startX:Float? = null
-            var lastX:Float? = null
-            var hasMoven = false
-
-            override fun onTouch(p0: View?, event: MotionEvent): Boolean {
-                when(event.action){
-                    MotionEvent.ACTION_DOWN -> {
-                        hasMoven = false
-                        startX = event.x
-                        lastX = event.x
-                    }
-                    MotionEvent.ACTION_MOVE -> {
-
-                        if (swipeDisabled) return false
-
-                        if (event.x < lastX!!){
-                            val diff = lastX!! - event.x
-                            if (abs(diff) > 2.px) {
-                                hasMoven = true
-                                val progressInc = diff / swipe_layout.width
-                                Log.d("swipe", "progressInc $progressInc")
-                                if (swipe_layout.progress + progressInc <= 1f)
-                                    swipe_layout.progress += progressInc
-                                else
-                                    swipe_layout.progress = 1f
-                            }
-                        } else {
-                            val diff = event.x - lastX!!
-                            if (abs(diff) > 2.px) {
-                                hasMoven = true
-                                val progressInc = diff / swipe_layout.width
-                                Log.d("swipe", "progressInc $progressInc")
-                                if (swipe_layout.progress - progressInc >= 0f)
-                                    swipe_layout.progress -= progressInc
-                                else
-                                    swipe_layout.progress = 0f
-                            }
-                        }
-
-                    }
-                    MotionEvent.ACTION_UP -> {
-                        if (!hasMoven){
-                            swipe_layout.progress = 0f
-                            _onItemClickListener.invoke()
-                        } else {
-                            if (event.x < startX?:0f){
-                                swipe_layout.transitionToEnd()
-                            } else {
-                                swipe_layout.transitionToStart()
-                            }
-                        }
-                    }
-
-                    MotionEvent.ACTION_CANCEL -> {
-                        if (swipe_layout.progress >= 0.5f){
-                            swipe_layout.transitionToEnd()
-                        } else {
-                            swipe_layout.transitionToStart()
-                        }
-                    }
-                }
-                return true
+        with(binding){
+            btnDelete.setOnClickListener {
+                _onDeleteClickListener.invoke()
             }
 
-        })
+            gestureHandler.setOnTouchListener(object :OnTouchListener{
+
+                var startX:Float? = null
+                var hasMoven = false
+
+                override fun onTouch(p0: View?, event: MotionEvent): Boolean {
+                    when(event.action){
+
+                        MotionEvent.ACTION_DOWN -> {
+                            hasMoven = false
+                            startX = event.x
+                        }
+                        MotionEvent.ACTION_MOVE -> {
+
+                            if (swipeDisabled) return false
+
+                            if (event.x < startX!!){
+                                val diff = startX!! - event.x
+                                Log.d("swipe", "diff $diff")
+                                Log.d("swipe", "diff dp ${diff/ 1.dp}")
+                                if (abs(diff) > 20.dp) {
+                                    hasMoven = true
+                                    val progressInc = diff / swipeLayout.width
+                                    Log.d("swipe", "progressInc $progressInc")
+                                    if (swipeLayout.progress + progressInc <= 1f)
+                                        swipeLayout.progress += progressInc
+                                    else
+                                        swipeLayout.progress = 1f
+                                }
+                            } else {
+                                val diff = event.x - startX!!
+                                Log.d("swipe", "diff $diff")
+                                Log.d("swipe", "diff dp ${diff/ 1.dp}")
+                                if (abs(diff) > 20.dp) {
+                                    hasMoven = true
+                                    val progressInc = diff / swipeLayout.width
+                                    Log.d("swipe", "progressInc $progressInc")
+                                    if (swipeLayout.progress - progressInc >= 0f)
+                                        swipeLayout.progress -= progressInc
+                                    else
+                                        swipeLayout.progress = 0f
+                                }
+                            }
+
+                        }
+                        MotionEvent.ACTION_UP -> {
+                            if (!hasMoven || swipeDisabled){
+                                swipeLayout.progress = 0f
+                                _onItemClickListener.invoke()
+                            } else {
+                                if (event.x < startX?:0f){
+                                    swipeLayout.transitionToEnd()
+                                } else {
+                                    swipeLayout.transitionToStart()
+                                }
+                            }
+                        }
+
+                        MotionEvent.ACTION_CANCEL -> {
+                            if (hasMoven && !swipeDisabled) {
+                                if (event.x < startX ?: 0f) {
+                                    swipeLayout.transitionToEnd()
+                                } else {
+                                    swipeLayout.transitionToStart()
+                                }
+                            }
+                        }
+                    }
+                    return true
+                }
+
+            })
+        }
+
+
     }
 
     fun close(){
-        swipe_layout.progress = 0f
+        binding.swipeLayout.progress = 0f
     }
 
 }

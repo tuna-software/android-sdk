@@ -1,6 +1,7 @@
 package com.tunasoftware.tunaui.utils
 
 import android.text.Editable
+import android.text.Selection
 import android.text.TextWatcher
 import android.widget.EditText
 
@@ -13,51 +14,50 @@ class Mask{
                 .replace("*", "")
         }
 
+        var isUpdating : Boolean = false
 
-        fun mask(mask : String, etCpf : EditText) : TextWatcher {
+        fun mask(mask : String) : TextWatcher {
 
             val textWatcher : TextWatcher = object : TextWatcher {
-                var isUpdating : Boolean = false
+
                 var oldString : String = ""
+                var count = 0
+
                 override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
 
                 }
 
                 override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                    val str = replaceChars(s.toString())
-                    var cpfWithMask = ""
+                      this.count = count
+                }
 
-                    if (count == 0)//is deleting
-                        isUpdating = true
-
-                    if (isUpdating){
-                        oldString = str
-                        isUpdating = false
+                override fun afterTextChanged(s: Editable) {
+                    if (isUpdating || count == 0)
                         return
-                    }
+                    isUpdating = true
+
+                    val str = replaceChars(s.toString())
+                    var textWithMask = ""
 
                     var i = 0
                     for (m : Char in mask.toCharArray()){
                         if (m != '#' && str.length > oldString.length){
-                            cpfWithMask += m
+                            textWithMask += m
                             continue
                         }
                         try {
-                            cpfWithMask += str.get(i)
+                            textWithMask += str[i]
                         }catch (e : Exception){
                             break
                         }
                         i++
                     }
-
-                    isUpdating = true
-                    etCpf.setText(cpfWithMask)
-                    etCpf.setSelection(cpfWithMask.length)
-
-                }
-
-                override fun afterTextChanged(editable: Editable) {
-
+                    s.clear()
+                    s.append(textWithMask)
+                    if (textWithMask.equals(s.toString())) {
+                        Selection.setSelection(s, s.length)
+                    }
+                    isUpdating = false
                 }
             }
 

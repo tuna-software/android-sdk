@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="model_payment_method_margin_top">4dp</dimen>
+    <dimen name="model_payment_method_margin_bottom">4dp</dimen>
+    <dimen name="widget_payment_method_content_padding_left">16dp</dimen>
+    <dimen name="widget_payment_method_content_padding_right">16dp</dimen>
+    <dimen name="widget_payment_method_label_margin_start">16dp</dimen>
+    <dimen name="widget_payment_method_label_margin_end">16dp</dimen>
+    <dimen name="widget_tuna_swipe_height">60dp</dimen>
+    <dimen name="widget_tuna_swipe_payment_method_widget_margin_end">20dp</dimen>
+    <dimen name="widget_tuna_swipe_payment_method_widget_margin_start">20dp</dimen>
+    <dimen name="widget_tuna_swipe_btn_delete_width">24dp</dimen>
+    <dimen name="widget_tuna_swipe_btn_delete_height">24dp</dimen>
+    <dimen name="widget_tuna_swipe_btn_delete_margin_end">16dp</dimen>
+    <dimen name="widget_tuna_swipe_btn_delete_margin_start">16dp</dimen>
+    <dimen name="widget_tuna_swipe_scene_end_payment_method_widget_margin_start">-6dp</dimen>
+    <dimen name="tuna_select_payment_method_fragment_title_margin_top">16dp</dimen>
+    <dimen name="tuna_select_payment_method_fragment_list_margin_top">16dp</dimen>
+    <dimen name="tuna_select_payment_method_fragment_list_padding_bottom">76dp</dimen>
+    <dimen name="tuna_select_payment_method_fragment_btn_select_margin_bottom">16dp</dimen>
+    <dimen name="tuna_select_payment_method_layout_width">0dp</dimen>
+    <dimen name="tuna_select_payment_method_layout_height">0dp</dimen>
+    <dimen name="tuna_bottom_button_margin">24dp</dimen>
+    <dimen name="new_card_dialog_card_fields_margin_top">0dp</dimen>
+    <dimen name="new_card_dialog_frame_cards_margin_top">8dp</dimen>
+</resources>

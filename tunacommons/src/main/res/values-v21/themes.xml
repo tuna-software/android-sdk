@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TunaToolbarStyle">
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="android:background">?colorPrimary</item>
+        <item name="android:theme">@style/TunaToolbarTheme</item>
+        <item name="android:elevation">4dp</item>
+        <item name="titleTextAppearance">@style/TunaToolbarTitleTextAppearance</item>
+    </style>
+
+    <style name="Theme.TunaUI.TunaButton" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:background">@drawable/tuna_button_bg</item>
+        <item name="elevation">4dp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:elevation">4dp</item>
+    </style>
+</resources>

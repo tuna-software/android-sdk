@@ -24,6 +24,9 @@ enum class TunaExceptionCodes(val code: Int, val message: String) {
     CONNECTION(-3, "Network is unreachable"),
     TIMEOUT(-4, "Request timeout"),
     SANDBOX_ONLY(-5, "This method can only be called in sandbox mode"),
+    GOOGLE_PAY_RESULT_ERROR(-6, "Google pay returned with error status"),
+    GOOGLE_PAY_API_EXCEPTION(-7, "Google play Api returns an exception"),
+    GOOGLE_PAY_RESULT_NULL(-8, "Google play payment data is null"),
     DEFAULT(0, "Tuna Unexpected Server Error");
 
 }

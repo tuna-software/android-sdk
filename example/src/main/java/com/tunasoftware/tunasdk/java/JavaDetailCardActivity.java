@@ -1,5 +1,7 @@
 package com.tunasoftware.tunasdk.java;
 
+import static com.tunasoftware.tunasdk.java.utils.Extras.LOG_TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
@@ -22,7 +24,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.tunasoftware.tuna.Tuna;
+import com.tunasoftware.android.Tuna;
 import com.tunasoftware.tuna.entities.TunaCard;
 import com.tunasoftware.tuna.exceptions.TunaCardCanNotBeRemovedException;
 import com.tunasoftware.tuna.exceptions.TunaCardDataMissedException;
@@ -50,8 +52,6 @@ import com.tunasoftware.tunasdk.R;
 import com.tunasoftware.tunasdk.java.utils.Extras;
 
 import org.jetbrains.annotations.NotNull;
-
-import static com.tunasoftware.tunasdk.java.utils.Extras.LOG;
 
 public class JavaDetailCardActivity extends AppCompatActivity {
 
@@ -147,51 +147,51 @@ public class JavaDetailCardActivity extends AppCompatActivity {
 
     private void handleError(Throwable e){
         if (e instanceof TunaSDKNotInitiatedException) {
-            Log.e(LOG, "Error start session!!!", e);
+            Log.e(LOG_TAG, "Error start session!!!", e);
         } else if (e instanceof TunaRequestNullException) {
-            Log.e(LOG, "Error start session!!!", e);
+            Log.e(LOG_TAG, "Error start session!!!", e);
         } else if (e instanceof TunaSessionExpiredException) {
-            Log.e(LOG, "Error start session!!!", e);
+            Log.e(LOG_TAG, "Error start session!!!", e);
         } else if (e instanceof TunaSessionInvalidException) {
-            Log.e(LOG, "Error start session!!!", e);
+            Log.e(LOG_TAG, "Error start session!!!", e);
         } else if (e instanceof TunaCardDataMissedException) {
-            Log.e(LOG, "Error start session!!!", e);
+            Log.e(LOG_TAG, "Error start session!!!", e);
         } else if (e instanceof TunaCardNumberAlreadyTokenizedException) {
-            Log.e(LOG, "Error start session!!!", e);
+            Log.e(LOG_TAG, "Error start session!!!", e);
         } else if (e instanceof TunaInvalidExpirationDateException) {
-            Log.e(LOG, "Error start session!!!", e);
+            Log.e(LOG_TAG, "Error start session!!!", e);
         } else if (e instanceof TunaInvalidCardNumberException) {
-            Log.e(LOG, "Error start session!!!", e);
+            Log.e(LOG_TAG, "Error start session!!!", e);
         } else if (e instanceof TunaTokenNotFoundException) {
-            Log.e(LOG, "Error start session!!!", e);
+            Log.e(LOG_TAG, "Error start session!!!", e);
         } else if (e instanceof TunaTokenCanNotBeRemovedException) {
-            Log.e(LOG, "Error start session!!!", e);
+            Log.e(LOG_TAG, "Error start session!!!", e);
         } else if (e instanceof TunaCardCanNotBeRemovedException) {
-            Log.e(LOG, "Error start session!!!", e);
+            Log.e(LOG_TAG, "Error start session!!!", e);
         } else if (e instanceof TunaPartnerGuidMissedException) {
-            Log.e(LOG, "Error start session!!!", e);
+            Log.e(LOG_TAG, "Error start session!!!", e);
         } else if (e instanceof TunaInvalidPartnerTokenException) {
-            Log.e(LOG, "Error start session!!!", e);
+            Log.e(LOG_TAG, "Error start session!!!", e);
         } else if (e instanceof TunaCustomerDataMissedException) {
-            Log.e(LOG, "Error start session!!!", e);
+            Log.e(LOG_TAG, "Error start session!!!", e);
         } else if (e instanceof TunaRequestTokenMissedException) {
-            Log.e(LOG, "Error start session!!!", e);
+            Log.e(LOG_TAG, "Error start session!!!", e);
         } else if (e instanceof TunaInvalidCardTokenException) {
-            Log.e(LOG, "Error start session!!!", e);
+            Log.e(LOG_TAG, "Error start session!!!", e);
         } else if (e instanceof TunaInvalidCardHolderNameException) {
-            Log.e(LOG, "Error start session!!!", e);
+            Log.e(LOG_TAG, "Error start session!!!", e);
         } else if (e instanceof TunaReachedMaxCardsByUserException) {
-            Log.e(LOG, "Error start session!!!", e);
+            Log.e(LOG_TAG, "Error start session!!!", e);
         } else if (e instanceof TunaReachedMaxSessionsByUserException) {
-            Log.e(LOG, "Error start session!!!", e);
+            Log.e(LOG_TAG, "Error start session!!!", e);
         } else if (e instanceof TunaConnectException) {
-            Log.e(LOG, "Error start session!!!", e);
+            Log.e(LOG_TAG, "Error start session!!!", e);
         } else if (e instanceof TunaTimeoutException) {
-            Log.e(LOG, "Error start session!!!", e);
+            Log.e(LOG_TAG, "Error start session!!!", e);
         } else if (e instanceof TunaException) {
-            Log.e(LOG, "Error start session!!!", e);
+            Log.e(LOG_TAG, "Error start session!!!", e);
         } else {
-            Log.e(LOG, "Error start session!!!", e);
+            Log.e(LOG_TAG, "Error start session!!!", e);
         }
     }
 

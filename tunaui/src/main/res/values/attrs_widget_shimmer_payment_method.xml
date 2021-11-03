@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PaymentMethodShimmerWidget">
+        <attr name="paymentMethodShimmerSelected" format="boolean" />
+        <attr name="paymentMethodShimmerLabelWidth" format="dimension|float" />
+    </declare-styleable>
+</resources>

@@ -5,19 +5,24 @@ import android.text.SpannableString
 import android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
 import android.text.style.ForegroundColorSpan
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import com.tunasoftware.tunaui.R
-import com.tunasoftware.tunaui.extensions.px
-import kotlinx.android.synthetic.main.widget_payment_method.view.*
+import com.tunasoftware.tunaui.databinding.WidgetPaymentMethodBinding
+import com.tunasoftware.tunaui.extensions.dp
+import com.tunasoftware.tunaui.utils.disableForAccessibility
+
 
 class TunaPaymentMethodWidget : FrameLayout {
+
+    private val binding: WidgetPaymentMethodBinding
 
     var paymentMethodFlag: Int? = 0
         set(value) {
             field = value
-            value?.let { ivFlag.setImageResource(value) }
+            value?.let { binding.ivFlag.setImageResource(value) }
         }
 
     var paymentMethodLabelPrimary: String? = ""
@@ -40,16 +45,17 @@ class TunaPaymentMethodWidget : FrameLayout {
         set(value) {
             field = value
             value?.let {
-                if (value) {
-                    ivSelected.visibility = VISIBLE
-                    content.setCardBackgroundColor(ContextCompat.getColor(context, R.color.tuna_white))
-                    content.cardElevation = 4.px.toFloat()
-                } else {
-                    ivSelected.visibility = GONE
-                    content.setCardBackgroundColor(ContextCompat.getColor(context, R.color.tuna_background))
-                    content.cardElevation = 0f
+                with(binding){
+                    if (value) {
+                        ivSelected.visibility = VISIBLE
+                        content.setCardBackgroundColor(ContextCompat.getColor(context, R.color.tunaui_primary_color))
+                        content.cardElevation = 2.dp.toFloat()
+                    } else {
+                        ivSelected.visibility = GONE
+                        content.setCardBackgroundColor(ContextCompat.getColor(context, R.color.tuna_background))
+                        content.cardElevation = 0f
+                    }
                 }
-
                 setLabel(paymentMethodLabelPrimary, paymentMethodLabelSecondary)
             }
         }
@@ -61,7 +67,7 @@ class TunaPaymentMethodWidget : FrameLayout {
         attrs,
         defStyleAttr
     ) {
-        View.inflate(context, R.layout.widget_payment_method, this)
+        binding = WidgetPaymentMethodBinding.inflate(LayoutInflater.from(context), this, true)
         context.obtainStyledAttributes(
             attrs,
             R.styleable.PaymentMethodWidget,
@@ -76,6 +82,8 @@ class TunaPaymentMethodWidget : FrameLayout {
             } finally {
                 recycle()
             }
+
+            binding.content.disableForAccessibility()
         }
     }
 
@@ -92,6 +100,6 @@ class TunaPaymentMethodWidget : FrameLayout {
             spannable.setSpan(ForegroundColorSpan(black), 0, primary.length, SPAN_EXCLUSIVE_EXCLUSIVE)
         }
 
-        tvLabel.text = spannable
+        binding.tvLabel.text = spannable
     }
 }
