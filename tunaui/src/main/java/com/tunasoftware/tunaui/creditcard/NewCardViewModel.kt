@@ -25,49 +25,59 @@ class NewCardViewModel(application: Application, val tuna: Tuna) : AndroidViewMo
 
     var showCpfField: Boolean = false
 
-    val cardNumber = CreditCardField(CreditCardFieldType.NUMBER){ field, showError ->
+    val cardNumber = CreditCardField(CreditCardFieldType.NUMBER, { field, showError ->
         if (field.getValue().isCreditCard())
             true else {
             if (showError) field.setError(context.getString(R.string.tuna_card_number_invalid))
             false
         }
-    }
+    }, {
+        onNextClick(it.type)
+    })
 
-    val cardName = CreditCardField(CreditCardFieldType.NAME){ field, showError ->
+    val cardName = CreditCardField(CreditCardFieldType.NAME, { field, showError ->
         if (field.getValue().isNotBlank() && field.getValue().split(" ").size >= 2) {
             true
         } else {
             if (showError) field.setError(context.getString(R.string.tuna_card_name_invalid))
             false
         }
-    }
+    }, {
+        onNextClick(it.type)
+    })
 
-    val cardExpirationDate = CreditCardField(CreditCardFieldType.EX_DATE){ field, showError ->
+    val cardExpirationDate = CreditCardField(CreditCardFieldType.EX_DATE, { field, showError ->
         if (field.getValue().isYearMonth()){
             true
         } else {
             if (showError) field.setError(context.getString(R.string.tuna_card_expitarion_date_invalid))
             false
         }
-    }
+    }, {
+        onNextClick(it.type)
+    })
 
-    val cardCvv = CreditCardField(CreditCardFieldType.CVV){ field, showError ->
+    val cardCvv = CreditCardField(CreditCardFieldType.CVV, { field, showError ->
         if (field.getValue().length >= 3){
             true
         } else {
             if (showError) field.setError(context.getString(R.string.tuna_card_cvv_invalid))
             false
         }
-    }
+    }, {
+        onNextClick(it.type)
+    })
 
-    val cardCpf = CreditCardField(CreditCardFieldType.CPF){ field, showError ->
+    val cardCpf = CreditCardField(CreditCardFieldType.CPF, { field, showError ->
         if (field.getValue().isCpf()){
             true
         } else {
             if (showError) field.setError(context.getString(R.string.tuna_card_cpf_invalid))
             false
         }
-    }
+    }, {
+        onNextClick(it.type)
+    })
 
     fun setCardData(name:String , number:String, expiration:String){
         cardName.text.value = name
@@ -83,7 +93,7 @@ class NewCardViewModel(application: Application, val tuna: Tuna) : AndroidViewMo
         if ((currentField == CreditCardFieldType.CPF && showCpfField) || (currentField == CreditCardFieldType.CVV && !showCpfField)) {
             saveCard()
         } else {
-            actionsLiveData.postValue(ActionFieldNext())
+            actionsLiveData.postValue(ActionFieldNext(currentField))
         }
     }
 
@@ -128,7 +138,7 @@ fun TunaCard.toTunaUICard() = TunaUICard(
     )
 
 
-class CreditCardField(var type: CreditCardFieldType, val validation : (CreditCardField, Boolean) -> Boolean): TextFieldState(){
+class CreditCardField(var type: CreditCardFieldType, val validation : (CreditCardField, Boolean) -> Boolean, val next : (CreditCardField) -> Unit): TextFieldState(){
 
     fun validate() = validation.invoke(this, true)
     fun validate(showError:Boolean) = validation.invoke(this, showError)
@@ -144,6 +154,6 @@ enum class CreditCardFieldType {
 }
 
 class ActionFieldBack
-class ActionFieldNext
+class ActionFieldNext(val currentType: CreditCardFieldType)
 class ActionErrorSavingCard
 class ActionFinish(val card: TunaUICard)

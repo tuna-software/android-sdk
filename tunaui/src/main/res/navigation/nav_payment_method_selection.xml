@@ -9,7 +9,8 @@
         android:id="@+id/selectPaymentMethodFragment"
         android:name="com.tunasoftware.tunaui.select.SelectPaymentMethodFragment"
         android:label="select_payment_method_fragment"
-        tools:layout="@layout/select_payment_method_fragment" >
+        tools:layout="@layout/select_payment_method_fragment">
+
         <action
             android:id="@+id/action_selectMethod_to_newCard"
             app:destination="@id/newCardFragment"
@@ -17,15 +18,32 @@
             app:exitAnim="@anim/exit_slide"
             app:popEnterAnim="@anim/push_out_enter"
             app:popExitAnim="@anim/push_out_exit" />
+
+        <action
+            android:id="@+id/action_selectMethod_to_newCardDialog"
+            app:destination="@id/newCardDialogFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/newCardFragment"
         android:name="com.tunasoftware.tunaui.creditcard.NewCardFragment"
         android:label="new_card_fragment"
-        tools:layout="@layout/new_card_fragment" >
+        tools:layout="@layout/new_card_fragment">
         <argument
             android:name="shouldShowCpf"
-            app:argType="boolean"
-            android:defaultValue="false" />
+            android:defaultValue="false"
+            app:argType="boolean" />
     </fragment>
+
+    <dialog
+        android:id="@+id/newCardDialogFragment"
+        android:name="com.tunasoftware.tunaui.creditcard.NewCardDialogFragment"
+        android:label="new_card_dialog_fragment"
+        tools:layout="@layout/new_card_fragment">
+        <argument
+            android:name="shouldShowCpf"
+            android:defaultValue="false"
+            app:argType="boolean" />
+    </dialog>
+
 </navigation>

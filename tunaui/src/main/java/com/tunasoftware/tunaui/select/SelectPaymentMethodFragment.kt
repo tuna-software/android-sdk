@@ -1,7 +1,6 @@
 package com.tunasoftware.tunaui.select
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.snackbar.Snackbar
 import com.tunasoftware.tunacommons.ui.entities.UIState
@@ -66,16 +64,21 @@ class SelectPaymentMethodFragment : Fragment() {
         binding.tvTitle.setAsHeading()
         shimmerSelectPaymentMethod = binding.root.findViewById(R.id.shimmer_select_payment_method)
 
-        val new =  getNavigationResult<TunaUICard>(NewCardFragment.RESULT_CARD)?.let {
-             PaymentMethodCreditCard(PaymentMethodType.CREDIT_CARD, it.maskedNumber, flag = it.flag(), tunaUICard = it)
+        getNavigationResult<TunaUICard?>(R.id.selectPaymentMethodFragment, NewCardFragment.RESULT_CARD){
+            it?.let {
+                PaymentMethodCreditCard(PaymentMethodType.CREDIT_CARD, it.maskedNumber, flag = it.flag(), tunaUICard = it).run {
+                    viewModel.onNewCardAdded(this)
+                }
+            }
         }
-        new?.let {
-            adapter.current = it
-            viewModel.onPaymentMethodSelected(it)
-        }
+
         adapter.setOnClickListener {
             if (it.methodType == PaymentMethodType.NEW_CREDIT_CARD){
-                navigator.navigate(R.id.action_selectMethod_to_newCard)
+                if (resources.getBoolean(R.bool.tuna_new_card_dialog_fragment_window_is_floating)) {
+                    navigator.navigate(R.id.action_selectMethod_to_newCardDialog)
+                } else {
+                    navigator.navigate(R.id.action_selectMethod_to_newCard)
+                }
             } else {
                 viewModel.onPaymentMethodSelected(it)
                 binding.rvPaymentMethods.postDelayed({
@@ -127,6 +130,7 @@ class SelectPaymentMethodFragment : Fragment() {
                 }
             }
         })
+        viewModel.selectedPaymentMethod.observe(viewLifecycleOwner, {selected -> adapter.current = selected})
         viewModel.actionsLiveData.observe(this , { action ->
             when (action){
                 is ActionShowErrorDeletingCard -> {
