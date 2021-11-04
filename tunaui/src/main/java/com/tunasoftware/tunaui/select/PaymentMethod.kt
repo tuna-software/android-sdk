@@ -5,22 +5,22 @@ import com.tunasoftware.tunaui.R
 import com.tunasoftware.tunaui.domain.entities.TunaCardFlag
 import com.tunasoftware.tunaui.domain.entities.TunaUICard
 
-
-
 open class PaymentMethod(
     val methodType: PaymentMethodType,
     val displayName: String,
     val disableSwipe: Boolean = false,
-    val selectable: Boolean = true
+    val selectable: Boolean = true,
+    var selected: Boolean = false
 )
 
-class  PaymentMethodCreditCard(methodType: PaymentMethodType,
+class PaymentMethodCreditCard(methodType: PaymentMethodType,
                                displayName: String,
                                disableSwipe: Boolean = false,
                                selectable: Boolean = true,
+                               selected: Boolean = false,
                                val flag: TunaCardFlag,
                                val tunaUICard: TunaUICard
-): PaymentMethod(methodType, displayName, disableSwipe, selectable)
+): PaymentMethod(methodType, displayName, disableSwipe, selectable, selected)
 
 fun PaymentMethodCreditCard.getTunaCard() = TunaCard(token = this.tunaUICard.token,
         brand = this.tunaUICard.brand,
@@ -29,8 +29,6 @@ fun PaymentMethodCreditCard.getTunaCard() = TunaCard(token = this.tunaUICard.tok
         expirationYear = this.tunaUICard.expirationYear,
         maskedNumber = this.tunaUICard.maskedNumber
     )
-
-
 
 val PaymentMethod.methodFlag
     get() = when (this.methodType) {
