@@ -46,26 +46,30 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnTunaUiExample.setOnClickListener {
-            Tuna.getSandboxSessionId().onSuccess {
-                Tuna.startSession(it)
-                tunaUI.selectPaymentMethod(object : TunaUI.TunaSelectPaymentMethodCallback{
-                    override fun onPaymentMethodSelected(paymentMethodSelectionResult: PaymentMethodSelectionResult) {
-                        when(paymentMethodSelectionResult.paymentMethodType){
-                            TunaPaymentMethodType.BANK_SLIP -> TODO()
-                            TunaPaymentMethodType.CREDIT_CARD -> {
-                                val tunacard = paymentMethodSelectionResult.cardInfo
-                                    ?: throw Exception("Tuna card should not be null")
-                                Log.i(Extras.LOG_TAG,tunacard.maskedNumber)
+            Tuna.getSandboxSessionId()
+                .onSuccess {
+                    Tuna.startSession(it)
+                    tunaUI.selectPaymentMethod(object : TunaUI.TunaSelectPaymentMethodCallback {
+                        override fun onPaymentMethodSelected(paymentMethodSelectionResult: PaymentMethodSelectionResult) {
+                            when (paymentMethodSelectionResult.paymentMethodType) {
+                                TunaPaymentMethodType.BANK_SLIP -> TODO()
+                                TunaPaymentMethodType.CREDIT_CARD -> {
+                                    val tunacard = paymentMethodSelectionResult.cardInfo
+                                        ?: throw Exception("Tuna card should not be null")
+                                    Log.i(Extras.LOG_TAG, tunacard.maskedNumber)
+                                }
                             }
                         }
-                    }
 
-                    override fun onCancelled() {
-                        Log.i(Extras.LOG_TAG, "cancelled")
-                    }
+                        override fun onCancelled() {
+                            Log.i(Extras.LOG_TAG, "cancelled")
+                        }
 
-                })
-            }
+                    })
+                }
+                .onFailure {
+                    Log.e(Extras.LOG_TAG, "Error start session", it)
+                }
         }
 
         btnTunaCardRecognitionExample.setOnClickListener {

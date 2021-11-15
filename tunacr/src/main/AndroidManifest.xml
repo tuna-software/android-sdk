@@ -4,15 +4,17 @@
 
     <uses-feature android:name="android.hardware.camera.any" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application>
-        <activity android:name=".TunaCardRecognition"
+        <activity
+            android:name=".TunaCardRecognition"
+            android:exported="true"
             android:theme="@style/Theme.TunaUI.NoActionBar">
 
             <intent-filter>
-                <action android:name="TUNA_OPEN_CARD_RECOGNITION"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="TUNA_OPEN_CARD_RECOGNITION" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
         </activity>
