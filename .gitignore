@@ -1,7 +1,5 @@
 *.iml
 .gradle
-github.properties
-/local.properties
 /.idea/caches
 /.idea/libraries
 /.idea/modules.xml
@@ -15,3 +13,4 @@ github.properties
 .cxx
 local.properties
 /.idea/
+sonatype.properties

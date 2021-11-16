@@ -1,0 +1,91 @@
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+def publishGroupId = "br.tec.tuna"
+def publishDescription = "Tuna Android SDK"
+def publishUrl = "https://github.com/tuna-software/android-sdk"
+def publishLicenceName = "MIT License"
+def publishLicenceUrl = "https://github.com/tuna-software/android-sdk/master/LICENSE"
+def publishDeveloperId = "tuna-software"
+def publishDeveloperName = "Tuna Software"
+def publishDeveloperEmail = "p@tuna.uy"
+def publishScmConnection = "scm:git:github.com/tuna-software/android-sdk.git"
+def publishScmDeveloperConnection = "scm:git:ssh://github.com/tuna-software/android-sdk.git"
+def publishScmUrl = "https://github.com/tuna-software/android-sdk/tree/master"
+
+task androidSourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    if (project.plugins.findPlugin("com.android.library")) {
+        from android.sourceSets.main.java.srcDirs
+    } else {
+        from sourceSets.main.java.srcDirs
+    }
+}
+
+artifacts {
+    archives androidSourcesJar
+}
+
+group = publishGroupId
+version = PUBLISH_VERSION
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                // The coordinates of the library, being set from variables that we'll set up later
+                groupId publishGroupId
+                artifactId PUBLISH_ARTIFACT_ID
+                version PUBLISH_VERSION
+
+                // Two artifacts, the `aar` (or `jar`) and the sources
+                if (project.plugins.findPlugin("com.android.library")) {
+                    from components.release
+                } else {
+                    artifact("$buildDir/libs/${project.getName()}-${version}.jar")
+                }
+
+                artifact androidSourcesJar
+
+                if (project.plugins.findPlugin("java-library")) {
+                    artifact(tasks["dokkaJavadocJar"])
+                }
+
+                // Mostly self-explanatory metadata
+                pom {
+                    name = PUBLISH_ARTIFACT_ID
+                    description = publishDescription
+                    url = publishUrl
+                    licenses {
+                        license {
+                            name = publishLicenceName
+                            url = publishLicenceUrl
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = publishDeveloperId
+                            name = publishDeveloperName
+                            email = publishDeveloperEmail
+                        }
+                    }
+
+                    // Version control info - if you're using GitHub, follow the format as seen here
+                    scm {
+                        connection = publishScmConnection
+                        developerConnection = publishScmDeveloperConnection
+                        url = publishScmUrl
+                    }
+                }
+            }
+        }
+    }
+}
+
+ext["signing.keyId"] = rootProject.ext["signing.keyId"]
+ext["signing.password"] = rootProject.ext["signing.password"]
+ext["signing.secretKeyRingFile"] = rootProject.ext["signing.secretKeyRingFile"]
+
+signing {
+    sign publishing.publications
+}
