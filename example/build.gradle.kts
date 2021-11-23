@@ -47,8 +47,7 @@ dependencies {
     implementation(Libraries.coroutinesAndroid)
     implementation(Libraries.activity)
 
-//    implementation(project(":tuna-android"))
-    implementation("br.tec.tuna:tuna-android:0.0.4")
+    implementation(project(":tuna-android"))
     implementation(project(":tuna-android-kt"))
 
     implementation(project(":tunaui"))
