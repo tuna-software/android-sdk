@@ -36,10 +36,6 @@ public class JavaNewCardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_card);
         loading = findViewById(R.id.loading);
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Add new card");
-        }
-
         findViewById(R.id.btnGenerateCard).setOnClickListener(view -> addCardAndSave());
         ((CheckBox) findViewById(R.id.cbInformCvv)).setOnCheckedChangeListener((buttonView, isChecked) -> {
             findViewById(R.id.edtCardCvv).setVisibility(isChecked ? View.VISIBLE : View.GONE);

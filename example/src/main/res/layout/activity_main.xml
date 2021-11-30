@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".kotlin.MainActivity">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/tunaToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/app_name" />
+
     <Button
         android:id="@+id/btnJavaExample"
         android:layout_width="wrap_content"
@@ -13,9 +22,8 @@
         android:text="JAVA EXAMPLE"
         app:layout_constraintBottom_toTopOf="@+id/btnKotlinExample"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tunaToolbar"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
@@ -26,7 +34,6 @@
         android:text="KOTLIN EXAMPLE"
         app:layout_constraintBottom_toTopOf="@+id/btnSelectPaymentMethodExample"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnJavaExample" />
 
@@ -38,7 +45,6 @@
         android:text="SELECT PAYMENT METHOD"
         app:layout_constraintBottom_toTopOf="@+id/btnCheckoutExample"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnKotlinExample" />
 
@@ -62,7 +68,6 @@
         android:text="TUNA CARD RECOGNITION"
         app:layout_constraintBottom_toTopOf="@+id/btnTunaGooglePayExample"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnCheckoutExample" />
 
