@@ -34,8 +34,6 @@ class KotlinDetailCardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_card)
 
-        supportActionBar?.title = "Card detail"
-
         if (intent != null) {
             val cardMaskedNumber = intent.getStringExtra(Extras.CARD_MASKED_NUMBER)
             val cardHolderName = intent.getStringExtra(Extras.CARD_HOLDER_NAME)

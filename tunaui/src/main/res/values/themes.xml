@@ -10,7 +10,7 @@
         <item name="android:layout_marginBottom">8dp</item>
     </style>
 
-    <style name="Theme.TunaUI.DialogFragment" parent="Theme.MaterialComponents.DayNight.Dialog">
+    <style name="Theme.TunaUI.DialogFragment" parent="Theme.Material3.DayNight.Dialog">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/tunaui_primary_color</item>
         <item name="colorPrimaryDark">@color/tunaui_primary_dark_color</item>

@@ -7,7 +7,7 @@ object Versions {
     const val coreKtx = "1.7.0"
     const val lifecycle = "2.4.0"
     const val lifecycleExtensions = "2.2.0"
-    const val material = "1.4.0"
+    const val material = "1.5.0-beta01"
     const val constraintLayout = "2.1.1"
     const val coroutinesAndroid = "1.5.1"
     const val coroutinesCore = "1.5.0"
