@@ -31,6 +31,7 @@
     <string name="tuna_place_order">Finalizar pedido</string>
     <string name="tuna_checkout_payment_method">Meio de pagamento</string>
     <string name="tuna_checkout_installments">Parcelas</string>
+    <string name="tuna_checkout_address">Endereço de entrega</string>
     <string name="tuna_checkout_delivery">Enrega</string>
     <string name="tuna_checkout_document">Documento</string>
 

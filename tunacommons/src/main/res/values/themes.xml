@@ -94,10 +94,24 @@
 
     <style name="Theme.TunaUI.TunaCheckoutItem.LabelPrimary" parent="TextAppearance.Material3.BodyMedium">
         <item name="android:textColor">@color/tunaui_primary_dark_color</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:minHeight">36dp</item>
     </style>
 
     <style name="Theme.TunaUI.TunaCheckoutItem.LabelSecondary" parent="TextAppearance.Material3.BodyMedium">
         <item name="android:textColor">@color/tuna_gray</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:minHeight">36dp</item>
+    </style>
+
+    <style name="Theme.TunaUI.TunaCheckoutItem.CardView" parent="">
+        <item name="cardBackgroundColor">@color/tunaui_background_item_checkout</item>
+        <item name="cardCornerRadius">8dp</item>
+        <item name="cardElevation">4dp</item>
+        <item name="contentPaddingBottom">8dp</item>
+        <item name="contentPaddingLeft">16dp</item>
+        <item name="contentPaddingRight">16dp</item>
+        <item name="contentPaddingTop">8dp</item>
     </style>
 
 </resources>

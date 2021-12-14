@@ -26,4 +26,6 @@
     <dimen name="tuna_checkout_layout_width">0dp</dimen>
     <dimen name="tuna_checkout_layout_height">0dp</dimen>
     <dimen name="tuna_checkout_fragment_btn_place_order_margin_bottom">16dp</dimen>
+    <dimen name="widget_item_checkout_padding_vertical">8dp</dimen>
+    <dimen name="widget_item_checkout_padding_horizontal">16dp</dimen>
 </resources>
