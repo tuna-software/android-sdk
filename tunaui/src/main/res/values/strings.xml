@@ -29,6 +29,10 @@
     <string name="button_label_yes">Yes</string>
     <string name="tuna_checkout_title">Checkout</string>
     <string name="tuna_place_order">Place Order</string>
+    <string name="tuna_checkout_payment_method">Payment method</string>
+    <string name="tuna_checkout_installments">Installments</string>
+    <string name="tuna_checkout_delivery">Delivery</string>
+    <string name="tuna_checkout_document">Document</string>
 
     <!--  Accessibility  -->
     <string name="tuna_accessibility_close_button">Close</string>

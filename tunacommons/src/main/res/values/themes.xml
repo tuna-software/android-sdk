@@ -88,4 +88,16 @@
         <item name="iconTint">@color/tuna_gray</item>
     </style>
 
+    <style name="Theme.TunaUI.TunaCheckoutItem.Title" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textColor">@color/tunaui_primary_dark_color</item>
+    </style>
+
+    <style name="Theme.TunaUI.TunaCheckoutItem.LabelPrimary" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">@color/tunaui_primary_dark_color</item>
+    </style>
+
+    <style name="Theme.TunaUI.TunaCheckoutItem.LabelSecondary" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">@color/tuna_gray</item>
+    </style>
+
 </resources>

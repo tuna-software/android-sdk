@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CheckoutItemWidget">
+        <attr name="checkoutTitle" format="reference|string" />
+        <attr name="checkoutFlag" format="reference|color" />
+        <attr name="checkoutLabelPrimary" format="reference|string" />
+        <attr name="checkoutLabelSecondary" format="reference|string" />
+    </declare-styleable>
+</resources>

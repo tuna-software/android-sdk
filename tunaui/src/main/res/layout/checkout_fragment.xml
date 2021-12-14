@@ -11,7 +11,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tuna_toolbar"
         style="@style/TunaToolbarStyle"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="?android:actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,7 +19,7 @@
 
     <com.tunasoftware.tunaui.widgets.TunaCheckoutHeaderWidget
         android:id="@+id/checkoutHeader"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:checkoutDiscountPercentage="26%"
@@ -28,6 +28,49 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tuna_toolbar" />
+
+    <com.tunasoftware.tunaui.widgets.TunaCheckoutItemWidget
+        android:id="@+id/checkoutPaymentMethod"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:checkoutFlag="@drawable/tuna_ic_master"
+        app:checkoutTitle="@string/tuna_checkout_payment_method"
+        app:checkoutLabelPrimary="Credi card * * * * 5051"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkoutHeader" />
+
+    <com.tunasoftware.tunaui.widgets.TunaCheckoutItemWidget
+        android:id="@+id/checkoutInstallments"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:checkoutTitle="@string/tuna_checkout_installments"
+        app:checkoutLabelPrimary="12x Sem juros"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkoutPaymentMethod" />
+
+    <com.tunasoftware.tunaui.widgets.TunaCheckoutItemWidget
+        android:id="@+id/checkoutDelivery"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:checkoutTitle="@string/tuna_checkout_delivery"
+        app:checkoutLabelPrimary="Sedex"
+        app:checkoutLabelSecondary="R$ 8,75"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkoutInstallments" />
+
+    <com.tunasoftware.tunaui.widgets.TunaCheckoutItemWidget
+        android:id="@+id/checkoutDocument"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:checkoutTitle="@string/tuna_checkout_document"
+        app:checkoutLabelPrimary="111.222.333-44"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkoutDelivery" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnSelect"
