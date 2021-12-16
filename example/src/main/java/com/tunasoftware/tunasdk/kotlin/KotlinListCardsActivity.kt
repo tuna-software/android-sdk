@@ -31,8 +31,6 @@ class KotlinListCardsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_cards)
 
-        supportActionBar?.title = "List of cards"
-
         btnAddCard.setOnClickListener {
             val intent = Intent(this, KotlinNewCardActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE_NEW_CARD)

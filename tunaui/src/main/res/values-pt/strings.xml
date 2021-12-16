@@ -27,6 +27,16 @@
     <string name="message_confirmation_remove_card">Tem certeza que deseja remover este cartão?</string>
     <string name="button_label_no">Não</string>
     <string name="button_label_yes">Sim</string>
+    <string name="tuna_checkout_title">Checkout</string>
+    <string name="tuna_place_order">Finalizar pedido</string>
+    <string name="tuna_checkout_payment_method">Meio de pagamento</string>
+    <string name="tuna_checkout_installments">Parcelas</string>
+    <string name="tuna_checkout_address">Endereço de entrega</string>
+    <string name="tuna_checkout_delivery">Enrega</string>
+    <string name="tuna_checkout_document">Documento</string>
+    <string name="tuna_checkout_promo_code">Código promocional</string>
+    <string name="tuna_checkout_promo_code_hint">Insira seu código promocional</string>
+    <string name="tuna_checkout_redeem">Resgatar</string>
 
     <!--  Accessebility  -->
     <string name="tuna_accessibility_close_button">Fechar</string>

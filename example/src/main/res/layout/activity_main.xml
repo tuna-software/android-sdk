@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".kotlin.MainActivity">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/tunaToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/app_name" />
+
     <Button
         android:id="@+id/btnJavaExample"
         android:layout_width="wrap_content"
@@ -13,9 +22,8 @@
         android:text="JAVA EXAMPLE"
         app:layout_constraintBottom_toTopOf="@+id/btnKotlinExample"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tunaToolbar"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
@@ -24,23 +32,33 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="KOTLIN EXAMPLE"
-        app:layout_constraintBottom_toTopOf="@+id/btnTunaUiExample"
+        app:layout_constraintBottom_toTopOf="@+id/btnSelectPaymentMethodExample"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnJavaExample" />
 
     <Button
-        android:id="@+id/btnTunaUiExample"
+        android:id="@+id/btnSelectPaymentMethodExample"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="TUNA UI EXAMPLES"
+        android:text="SELECT PAYMENT METHOD"
+        app:layout_constraintBottom_toTopOf="@+id/btnCheckoutExample"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnKotlinExample" />
+
+    <Button
+        android:id="@+id/btnCheckoutExample"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="CHECKOUT"
         app:layout_constraintBottom_toTopOf="@+id/btnTunaCardRecognitionExample"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnKotlinExample" />
+        app:layout_constraintTop_toBottomOf="@+id/btnSelectPaymentMethodExample" />
 
     <Button
         android:id="@+id/btnTunaCardRecognitionExample"
@@ -50,9 +68,8 @@
         android:text="TUNA CARD RECOGNITION"
         app:layout_constraintBottom_toTopOf="@+id/btnTunaGooglePayExample"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnTunaUiExample" />
+        app:layout_constraintTop_toBottomOf="@+id/btnCheckoutExample" />
 
     <Button
         android:id="@+id/btnTunaGooglePayExample"

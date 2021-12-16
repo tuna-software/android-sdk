@@ -45,10 +45,6 @@ public class JavaListCardsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_cards);
         loading = findViewById(R.id.loading);
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("List of cards");
-        }
-
         findViewById(R.id.btnAddCard).setOnClickListener(view -> {
             Intent intent = new Intent(JavaListCardsActivity.this, JavaNewCardActivity.class);
             startActivityForResult(intent, REQUEST_CODE_NEW_CARD);

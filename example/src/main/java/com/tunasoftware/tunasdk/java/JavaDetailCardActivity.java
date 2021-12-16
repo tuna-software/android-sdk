@@ -67,11 +67,6 @@ public class JavaDetailCardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail_card);
         btnBind = findViewById(R.id.btnBind);
         cardModel = findViewById(R.id.cardModel);
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Card detail");
-        }
-
         loading = findViewById(R.id.loading);
 
         Intent intent = getIntent();
