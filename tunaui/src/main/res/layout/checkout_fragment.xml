@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/tuna_background"
+    tools:context=".checkout.TunaCheckoutFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tuna_toolbar"
+        style="@style/TunaToolbarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.tunasoftware.tunaui.widgets.TunaCheckoutHeader
+        android:id="@+id/checkoutHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:checkoutDiscountPercentage="26%"
+        app:checkoutTotalWithDiscount="R$ 2.843,00"
+        app:checkoutTotalWithoutDiscount="R$ 2.999,05"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tuna_toolbar" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSelect"
+        style="@style/Theme.TunaUI.TunaButton"
+        android:layout_width="@dimen/tuna_checkout_layout_width"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/tuna_bottom_button_margin"
+        android:layout_marginEnd="@dimen/tuna_bottom_button_margin"
+        android:layout_marginBottom="@dimen/tuna_checkout_fragment_btn_place_order_margin_bottom"
+        android:text="@string/tuna_place_order"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

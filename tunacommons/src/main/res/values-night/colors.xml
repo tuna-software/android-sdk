@@ -4,6 +4,7 @@
     <color name="tunaui_primary_dark_color">@color/tuna_white</color>
     <color name="tunaui_primary_variant_color">#333333</color>
     <color name="tunaui_secundary_color">@color/tuna_white</color>
+    <color name="tunaui_background_header_checkout">@color/tunaui_primary_color</color>
 
     <color name="tuna_white">#FFFFFF</color>
     <color name="tuna_black">#000000</color>

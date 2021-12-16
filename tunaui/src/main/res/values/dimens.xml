@@ -23,4 +23,7 @@
     <dimen name="tuna_bottom_button_margin">24dp</dimen>
     <dimen name="new_card_dialog_card_fields_margin_top">0dp</dimen>
     <dimen name="new_card_dialog_frame_cards_margin_top">8dp</dimen>
+    <dimen name="tuna_checkout_layout_width">0dp</dimen>
+    <dimen name="tuna_checkout_layout_height">0dp</dimen>
+    <dimen name="tuna_checkout_fragment_btn_place_order_margin_bottom">16dp</dimen>
 </resources>

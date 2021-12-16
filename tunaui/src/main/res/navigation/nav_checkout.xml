@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_checkout"
+    app:startDestination="@id/checkoutFragment">
+
+    <fragment
+        android:id="@+id/checkoutFragment"
+        android:name="com.tunasoftware.tunaui.checkout.TunaCheckoutFragment"
+        android:label="checkout_fragment"
+        tools:layout="@layout/checkout_fragment">
+    </fragment>
+
+</navigation>

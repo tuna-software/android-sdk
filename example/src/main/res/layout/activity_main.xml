@@ -24,23 +24,35 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="KOTLIN EXAMPLE"
-        app:layout_constraintBottom_toTopOf="@+id/btnTunaUiExample"
+        app:layout_constraintBottom_toTopOf="@+id/btnSelectPaymentMethodExample"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnJavaExample" />
 
     <Button
-        android:id="@+id/btnTunaUiExample"
+        android:id="@+id/btnSelectPaymentMethodExample"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="TUNA UI EXAMPLES"
-        app:layout_constraintBottom_toTopOf="@+id/btnTunaCardRecognitionExample"
+        android:text="SELECT PAYMENT METHOD"
+        app:layout_constraintBottom_toTopOf="@+id/btnCheckoutExample"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnKotlinExample" />
+
+    <Button
+        android:id="@+id/btnCheckoutExample"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="CHECKOUT"
+        app:layout_constraintBottom_toTopOf="@+id/btnTunaCardRecognitionExample"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSelectPaymentMethodExample" />
 
     <Button
         android:id="@+id/btnTunaCardRecognitionExample"
@@ -52,7 +64,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnTunaUiExample" />
+        app:layout_constraintTop_toBottomOf="@+id/btnCheckoutExample" />
 
     <Button
         android:id="@+id/btnTunaGooglePayExample"
