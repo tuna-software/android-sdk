@@ -43,7 +43,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/tuna_ic_check" />
+            app:srcCompat="@drawable/tuna_ic_check_circle_outline" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

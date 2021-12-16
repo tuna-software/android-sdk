@@ -34,6 +34,9 @@
     <string name="tuna_checkout_address">Shipping address</string>
     <string name="tuna_checkout_delivery">Delivery</string>
     <string name="tuna_checkout_document">Document</string>
+    <string name="tuna_checkout_promo_code">Promo code</string>
+    <string name="tuna_checkout_promo_code_hint">Enter your promo code</string>
+    <string name="tuna_checkout_redeem">Redeem</string>
 
     <!--  Accessibility  -->
     <string name="tuna_accessibility_close_button">Close</string>

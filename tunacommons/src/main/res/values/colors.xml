@@ -13,6 +13,7 @@
     <color name="tuna_green">#4CAF50</color>
     <color name="tuna_background">@color/tunaui_primary_variant_color</color>
     <color name="tuna_divider">#CCCCCC</color>
+    <color name="tuna_error">#FF3030</color>
 
     <color name="tuna_bg_text_view_masked_50">#80ffffff</color>
     <color name="tuna_bg_text_view_masked_20">#33ffffff</color>
@@ -21,5 +22,7 @@
 
     <color name="tuna_dot_selected">#333333</color>
     <color name="tuna_dot_unselected">#EEEEEE</color>
+
+    <color name="tuna_btn_redeem">#0F77F0</color>
 
 </resources>

@@ -96,6 +96,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/checkoutDelivery" />
+
+            <com.tunasoftware.tunaui.widgets.TunaCheckoutPromoCodeWidget
+                android:id="@+id/checkoutPromoCode"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:checkoutPromoCodeTitle="@string/tuna_checkout_promo_code"
+                app:checkoutPromoCodeLabelError="Código inválido"
+                app:checkoutPromoCodeMessageError="Este código promocional expirou em 14/03/2021"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkoutDocument" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
