@@ -82,4 +82,10 @@
 
     <style name="Theme.TunaUI.Dialog.Alert" parent="Theme.AppCompat.DayNight.Dialog.Alert"/>
 
+    <style name="Theme.TunaUI.WidgetHeaderCheckout.IconButton" parent="Widget.Material3.Button.IconButton">
+        <item name="android:elevation">4dp</item>
+        <item name="backgroundTint">@color/tuna_background</item>
+        <item name="iconTint">@color/tuna_gray</item>
+    </style>
+
 </resources>

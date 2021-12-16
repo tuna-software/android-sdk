@@ -7,6 +7,7 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
@@ -14,10 +15,13 @@ import androidx.core.graphics.drawable.DrawableCompat
 import com.tunasoftware.tunaui.R
 import com.tunasoftware.tunaui.databinding.WidgetHeaderCheckoutBinding
 import com.tunasoftware.tunaui.extensions.dp
+import com.tunasoftware.tunaui.select.PaymentMethod
 
 class TunaCheckoutHeader : FrameLayout {
 
     private val binding: WidgetHeaderCheckoutBinding = WidgetHeaderCheckoutBinding.inflate(LayoutInflater.from(context), this, true)
+
+    private var _onActionListener: () -> Unit = {}
 
     var checkoutTotalWithoutDiscount: String? = ""
         set(value) {
@@ -73,6 +77,11 @@ class TunaCheckoutHeader : FrameLayout {
                 DrawableCompat.setTint(drawable, ContextCompat.getColor(context, R.color.tuna_green))
             }
             binding.tvDiscountPercentage.setCompoundDrawables(drawable, null, null, null)
+            binding.btnAction.setOnClickListener { _onActionListener.invoke() }
         }
+    }
+
+    fun setOnActionListener(listener: () -> Unit) {
+        this._onActionListener = listener
     }
 }
