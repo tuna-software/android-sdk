@@ -3,6 +3,8 @@ package com.tunasoftware.tunaui.widgets
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
@@ -14,24 +16,27 @@ import com.tunasoftware.tunaui.extensions.dp
 
 class TunaCheckoutPromoCodeWidget : FrameLayout {
 
-    private val binding: WidgetPromoCodeCheckoutBinding = WidgetPromoCodeCheckoutBinding.inflate(LayoutInflater.from(context), this, true)
+    private val _binding: WidgetPromoCodeCheckoutBinding = WidgetPromoCodeCheckoutBinding.inflate(LayoutInflater.from(context), this, true)
+    private var _onRedeemListener: (promoCode: String) -> Unit = {}
+    private var _onRemovedListener: () -> Unit = {}
 
     var checkoutTitle: String? = ""
         set(value) {
             field = value
-            value?.let { binding.tvTitle.text = value }
+            value?.let { _binding.tvTitle.text = value }
         }
 
     var checkoutLabelSuccess: String? = ""
         set(value) {
             field = value
             value.let {
-                binding.tvLabelSuccess.text = value
+                _binding.tvLabelSuccess.text = value
                 if (it.isNullOrBlank()) {
-                    binding.tvLabelSuccess.visibility = GONE
+                    _binding.tvLabelSuccess.visibility = GONE
                 } else {
-                    binding.tvLabelError.visibility = GONE
-                    binding.tvLabelSuccess.visibility = VISIBLE
+                    _binding.tvLabelError.visibility = GONE
+                    _binding.tvMessageError.visibility = GONE
+                    _binding.tvLabelSuccess.visibility = VISIBLE
                 }
             }
         }
@@ -40,12 +45,12 @@ class TunaCheckoutPromoCodeWidget : FrameLayout {
         set(value) {
             field = value
             value.let {
-                binding.tvLabelError.text = value
+                _binding.tvLabelError.text = value
                 if (it.isNullOrBlank()) {
-                    binding.tvLabelError.visibility = GONE
+                    _binding.tvLabelError.visibility = GONE
                 } else {
-                    binding.tvLabelError.visibility = VISIBLE
-                    binding.tvLabelSuccess.visibility = GONE
+                    _binding.tvLabelError.visibility = VISIBLE
+                    _binding.tvLabelSuccess.visibility = GONE
                 }
             }
         }
@@ -54,12 +59,12 @@ class TunaCheckoutPromoCodeWidget : FrameLayout {
         set(value) {
             field = value
             value.let {
-                binding.tvMessageError.text = value
+                _binding.tvMessageError.text = value
                 if (it.isNullOrBlank()) {
-                    binding.tvMessageError.visibility = GONE
+                    _binding.tvMessageError.visibility = GONE
                 } else {
-                    binding.tvMessageError.visibility = VISIBLE
-                    binding.tvLabelSuccess.visibility = GONE
+                    _binding.tvMessageError.visibility = VISIBLE
+                    _binding.tvLabelSuccess.visibility = GONE
                 }
             }
         }
@@ -87,16 +92,89 @@ class TunaCheckoutPromoCodeWidget : FrameLayout {
 
                 ContextCompat.getDrawable(context, R.drawable.tuna_ic_check_circle_outline)?.let {
                     val drawable = BitmapDrawable(resources, Bitmap.createScaledBitmap(it.toBitmap(), 16.dp, 16.dp, true))
-                    binding.tvLabelSuccess.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null)
+                    _binding.tvLabelSuccess.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null)
                 }
 
                 ContextCompat.getDrawable(context, R.drawable.tuna_ic_close_circle_outline)?.let {
                     val drawable = BitmapDrawable(resources, Bitmap.createScaledBitmap(it.toBitmap(), 16.dp, 16.dp, true))
-                    binding.tvLabelError.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null)
+                    _binding.tvLabelError.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null)
                 }
             } finally {
                 recycle()
             }
+
+            _binding.edtPromoCode.addTextChangedListener(object: TextWatcher {
+                override fun afterTextChanged(s: Editable?) {
+                }
+
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    _binding.tvMessageError.visibility = GONE
+                    _binding.tvLabelError.visibility = GONE
+                    _binding.tvLabelSuccess.visibility = GONE
+                    _binding.progress.visibility = GONE
+
+                    if (s.isNullOrBlank()) {
+                        _binding.btnRedeem.visibility = GONE
+                    } else {
+                        _binding.btnRedeem.visibility = VISIBLE
+                    }
+                }
+            })
+
+            _binding.btnRedeem.setOnClickListener {
+                _onRedeemListener.invoke(_binding.edtPromoCode.text.toString())
+            }
+
+            _binding.btnRemovePromoCode.setOnClickListener {
+                checkoutLabelSuccess = ""
+                _binding.edtPromoCode.setText("")
+                _binding.layoutPromoCodeSuccess.visibility = GONE
+                _binding.edtPromoCode.visibility = VISIBLE
+                _binding.edtPromoCode.requestFocus()
+                _onRemovedListener.invoke()
+            }
         }
     }
+
+    fun setOnRedeemListener(listener: (promoCode: String) -> Unit) {
+        this._onRedeemListener = listener
+    }
+
+    fun setOnRemovedListener(listener: () -> Unit) {
+        this._onRemovedListener = listener
+    }
+
+    fun setState(state: State) {
+        when (state) {
+            is State.Loading -> {
+                _binding.btnRedeem.visibility = GONE
+                if (state.loading) {
+                    _binding.progress.visibility = VISIBLE
+                } else {
+                    _binding.progress.visibility = GONE
+                }
+            }
+            is State.Success -> {
+                _binding.btnRedeem.visibility = GONE
+                _binding.edtPromoCode.visibility = GONE
+                _binding.tvPromoCode.text = _binding.edtPromoCode.text
+                _binding.layoutPromoCodeSuccess.visibility = VISIBLE
+                checkoutLabelSuccess = state.value
+            }
+            is State.Error -> {
+                _binding.btnRedeem.visibility = GONE
+                checkoutLabelError = state.error
+                checkoutMessageError = state.message
+            }
+        }
+    }
+}
+
+sealed class State {
+    class Loading(val loading: Boolean): State()
+    class Success(val value: String): State()
+    class Error(val error: String, val message: String): State()
 }
