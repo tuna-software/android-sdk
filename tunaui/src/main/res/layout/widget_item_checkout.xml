@@ -23,8 +23,11 @@
         android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/Theme.TunaUI.TunaCheckoutItem.CardView.Content"
+            android:id="@+id/cardViewContent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackground">
 
             <ImageView
                 android:id="@+id/ivFlag"
