@@ -32,7 +32,7 @@
     <string name="tuna_checkout_payment_method">Meio de pagamento</string>
     <string name="tuna_checkout_installments">Parcelas</string>
     <string name="tuna_checkout_address">Endereço de entrega</string>
-    <string name="tuna_checkout_delivery">Enrega</string>
+    <string name="tuna_checkout_delivery">Entrega</string>
     <string name="tuna_checkout_document">Documento</string>
     <string name="tuna_checkout_promo_code">Código promocional</string>
     <string name="tuna_checkout_promo_code_hint">Insira seu código promocional</string>

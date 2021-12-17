@@ -41,6 +41,31 @@
                 android:textSize="14sp" />
 
             <LinearLayout
+                android:id="@+id/layoutPromoCodeSuccess"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@+id/layoutEnd"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tvPromoCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnRemovePromoCode"
+                    style="@style/Widget.Material3.Button.IconButton"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    app:icon="@drawable/tuna_ic_close_circle_outline"
+                    app:iconTint="@color/tuna_gray" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/layoutEnd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
