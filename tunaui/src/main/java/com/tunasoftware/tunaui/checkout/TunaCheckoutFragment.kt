@@ -1,6 +1,8 @@
 package com.tunasoftware.tunaui.checkout
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +18,7 @@ import com.tunasoftware.tunaui.databinding.CheckoutFragmentBinding
 import com.tunasoftware.tunaui.domain.entities.PaymentMethodSelectionResult
 import com.tunasoftware.tunaui.domain.entities.TunaCardFlag
 import com.tunasoftware.tunaui.domain.entities.cardFlag
+import com.tunasoftware.tunaui.widgets.State
 
 class TunaCheckoutFragment : Fragment() {
 
@@ -66,5 +69,22 @@ class TunaCheckoutFragment : Fragment() {
                     }
         }
 
+        var success = false
+        binding.checkoutPromoCode.setOnRedeemListener {
+            binding.checkoutPromoCode.setState(State.Loading(true))
+            Handler(Looper.getMainLooper()).postDelayed({
+                binding.checkoutPromoCode.setState(State.Loading(false))
+                if (success) {
+                    binding.checkoutPromoCode.setState(State.Success("- R$ 43,25"))
+                } else {
+                    binding.checkoutPromoCode.setState(State.Error("Invalid code", "This promo code expired at 31/08/2021"))
+                }
+                success = !success
+            }, 3000)
+        }
+
+        binding.checkoutPromoCode.setOnRemovedListener {
+            Log.d("TunaCheckoutFragment", "Promo code removed...")
+        }
     }
 }
