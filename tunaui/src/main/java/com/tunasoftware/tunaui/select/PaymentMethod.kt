@@ -4,6 +4,7 @@ import com.tunasoftware.tuna.entities.TunaCard
 import com.tunasoftware.tunaui.R
 import com.tunasoftware.tunaui.domain.entities.TunaCardFlag
 import com.tunasoftware.tunaui.domain.entities.TunaUICard
+import com.tunasoftware.tunaui.domain.entities.cardFlag
 
 open class PaymentMethod(
     val methodType: PaymentMethodType,
@@ -35,17 +36,7 @@ val PaymentMethod.methodFlag
         PaymentMethodType.BANK_SLIP -> R.drawable.tuna_ic_barcode
         PaymentMethodType.CREDIT_CARD -> {
             if (this is PaymentMethodCreditCard) {
-                when (this.flag) {
-                    TunaCardFlag.VISA -> {
-                        R.drawable.tuna_ic_visa
-                    }
-                    TunaCardFlag.HIPERCARD -> R.drawable.tuna_ic_hipercard
-                    TunaCardFlag.ELO -> R.drawable.tuna_ic_elo
-                    TunaCardFlag.AMEX -> R.drawable.tuna_ic_amex
-                    TunaCardFlag.DINERS -> R.drawable.tuna_ic_diners
-                    TunaCardFlag.MASTER -> R.drawable.tuna_ic_master
-                    TunaCardFlag.UNDEFINED -> R.drawable.tuna_ic_generic_card
-                }
+                this.flag.cardFlag
             } else {
                 R.drawable.tuna_ic_generic_card
             }

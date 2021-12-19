@@ -75,4 +75,8 @@ class TunaCheckoutItemWidget : FrameLayout {
             }
         }
     }
+
+    override fun setOnClickListener(listener: OnClickListener?) {
+        binding.cardViewContent.setOnClickListener(listener)
+    }
 }
