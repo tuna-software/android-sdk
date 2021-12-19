@@ -96,6 +96,7 @@ class SelectPaymentMethodFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.itemAnimator = null
         subscribe()
         viewModel.init()
     }

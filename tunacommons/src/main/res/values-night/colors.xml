@@ -17,4 +17,6 @@
     <color name="tuna_dot_selected">#FFFFFF</color>
     <color name="tuna_dot_unselected">#333333</color>
 
+    <color name="tuna_radio_button">@color/tuna_white</color>
+
 </resources>

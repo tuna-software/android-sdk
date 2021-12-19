@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/tuna_background"
+    tools:context=".delivery.TunaDeliverySelectionActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tuna_toolbar"
+        style="@style/TunaToolbarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tuna_select_delivery_fragment_title_margin_top"
+        android:gravity="center_horizontal"
+        android:text="@string/tuna_select_delivery_header"
+        android:textColor="@color/tunaui_secundary_color"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tuna_toolbar" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvDeliveries"
+        android:layout_width="@dimen/tuna_select_delivery_layout_width"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/tuna_select_delivery_fragment_list_margin_top"
+        android:clipToPadding="false"
+        android:paddingStart="@dimen/tuna_bottom_button_margin"
+        android:paddingEnd="@dimen/tuna_bottom_button_margin"
+        android:paddingBottom="@dimen/tuna_select_delivery_fragment_list_padding_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+    <include
+        layout="@layout/select_delivery_shimmer"
+        android:layout_width="@dimen/tuna_select_delivery_layout_width"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/tuna_select_delivery_fragment_list_margin_top"
+        android:paddingBottom="@dimen/tuna_select_delivery_fragment_list_padding_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSelect"
+        style="@style/Theme.TunaUI.TunaButton"
+        android:layout_width="@dimen/tuna_select_delivery_layout_width"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/tuna_bottom_button_margin"
+        android:layout_marginEnd="@dimen/tuna_bottom_button_margin"
+        android:layout_marginBottom="@dimen/tuna_select_delivery_fragment_btn_select_margin_bottom"
+        android:text="@string/tuna_select_delivery"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

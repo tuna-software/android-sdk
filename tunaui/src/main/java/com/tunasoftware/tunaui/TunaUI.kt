@@ -7,7 +7,9 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.tunasoftware.tunaui.checkout.TunaCheckoutActivity
+import com.tunasoftware.tunaui.delivery.TunaDeliverySelectionActivity
 import com.tunasoftware.tunaui.domain.entities.CheckoutResult
+import com.tunasoftware.tunaui.domain.entities.DeliverySelectionResult
 import com.tunasoftware.tunaui.domain.entities.PaymentMethodSelectionResult
 
 class TunaUI(private val activity: AppCompatActivity) {
@@ -48,13 +50,33 @@ class TunaUI(private val activity: AppCompatActivity) {
             checkoutCallback = null
         }
 
+    private val selectDeliveryLauncher: ActivityResultLauncher<Intent> =
+        activity.activityResultRegistry.register(
+            "selectDelivery",
+            activity,
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            when (result.resultCode) {
+                Activity.RESULT_OK -> {
+                    result.data?.getSerializableExtra(RESULT_DELIVERY_SELECTION)
+                        ?.let {
+                            selectDeliveryCallback?.onSelectedDelivery(it as DeliverySelectionResult)
+                        } ?: selectDeliveryCallback?.onCancelled()
+                }
+                else -> selectDeliveryCallback?.onCancelled()
+            }
+            selectDeliveryCallback = null
+        }
+
 
     private var selectPaymentMethodCallback: TunaSelectPaymentMethodCallback? = null
     private var checkoutCallback: TunaCheckoutCallback? = null
+    private var selectDeliveryCallback: TunaDeliverySelectionCallback? = null
 
     companion object {
         const val RESULT_PAYMENT_SELECTION = "RESULT_PAYMENT_SELECTION"
         const val RESULT_CHECKOUT = "RESULT_CHECKOUT"
+        const val RESULT_DELIVERY_SELECTION = "RESULT_DELIVERY_SELECTION"
     }
 
     /**
@@ -124,6 +146,38 @@ class TunaUI(private val activity: AppCompatActivity) {
 
         /**
          * the checkout was cancelled
+         */
+        fun onCancelled()
+
+    }
+
+    /**
+     * Starts the TunaUI to select delivery
+     * @param callback
+     */
+    fun selectDelivery(callback: TunaDeliverySelectionCallback) {
+        this.selectDeliveryCallback = callback
+        try {
+            val intent = Intent(activity, TunaDeliverySelectionActivity::class.java)
+            selectDeliveryLauncher.launch(intent)
+        } catch (e: Throwable) {
+            Log.e("error", e.toString())
+        }
+    }
+
+    /**
+     * Callback for delivery selection
+     */
+    interface TunaDeliverySelectionCallback {
+
+        /**
+         * the delivery has been selected
+         * @param deliverySelectionResult
+         */
+        fun onSelectedDelivery(deliverySelectionResult: DeliverySelectionResult)
+
+        /**
+         * the delivery selection was cancelled
          */
         fun onCancelled()
 

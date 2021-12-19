@@ -37,6 +37,9 @@
     <string name="tuna_checkout_promo_code">Promo code</string>
     <string name="tuna_checkout_promo_code_hint">Enter your promo code</string>
     <string name="tuna_checkout_redeem">Redeem</string>
+    <string name="tuna_select_delivery_title">Delivery</string>
+    <string name="tuna_select_delivery_header">Select how you want to receive</string>
+    <string name="tuna_select_delivery">Select delivery</string>
 
     <!--  Accessibility  -->
     <string name="tuna_accessibility_close_button">Close</string>
