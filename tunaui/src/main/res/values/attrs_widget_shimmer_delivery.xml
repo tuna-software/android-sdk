@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DeliveryShimmerWidget">
+        <attr name="deliveryShimmerSelected" format="boolean" />
+        <attr name="deliveryShimmerNameWidth" format="dimension|float" />
+        <attr name="deliveryShimmerDescriptionWidth" format="dimension|float" />
+    </declare-styleable>
+</resources>

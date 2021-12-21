@@ -18,12 +18,13 @@ import com.tunasoftware.tunaui.databinding.CheckoutFragmentBinding
 import com.tunasoftware.tunaui.domain.entities.PaymentMethodSelectionResult
 import com.tunasoftware.tunaui.domain.entities.TunaCardFlag
 import com.tunasoftware.tunaui.domain.entities.cardFlag
+import com.tunasoftware.tunaui.domain.entities.DeliverySelectionResult
 import com.tunasoftware.tunaui.widgets.State
 
 class TunaCheckoutFragment : Fragment() {
 
     lateinit var binding: CheckoutFragmentBinding
-    lateinit var tunaUI : TunaUI
+    private lateinit var tunaUI : TunaUI
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -85,6 +86,20 @@ class TunaCheckoutFragment : Fragment() {
 
         binding.checkoutPromoCode.setOnRemovedListener {
             Log.d("TunaCheckoutFragment", "Promo code removed...")
+        }
+
+        binding.checkoutDelivery.setOnClickListener {
+            tunaUI.selectDelivery(object : TunaUI.TunaDeliverySelectionCallback {
+                override fun onSelectedDelivery(deliverySelectionResult: DeliverySelectionResult) {
+                    val delivery = deliverySelectionResult.delivery
+                    binding.checkoutDelivery.checkoutLabelPrimary = delivery.name
+                    binding.checkoutDelivery.checkoutLabelSecondary = delivery.value
+                }
+
+                override fun onCancelled() {
+                    Log.d("TunaCheckoutFragment", "Canceled")
+                }
+            })
         }
     }
 }

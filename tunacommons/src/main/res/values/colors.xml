@@ -24,5 +24,6 @@
     <color name="tuna_dot_unselected">#EEEEEE</color>
 
     <color name="tuna_btn_redeem">#0F77F0</color>
+    <color name="tuna_radio_button">@color/tuna_green</color>
 
 </resources>

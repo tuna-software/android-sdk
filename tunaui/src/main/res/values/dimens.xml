@@ -28,4 +28,11 @@
     <dimen name="tuna_checkout_fragment_btn_place_order_margin_bottom">16dp</dimen>
     <dimen name="widget_item_checkout_padding_vertical">8dp</dimen>
     <dimen name="widget_item_checkout_padding_horizontal">16dp</dimen>
+    <dimen name="model_select_delivery_content_padding_horizontal">16dp</dimen>
+    <dimen name="model_select_delivery_content_padding_vertical">8dp</dimen>
+    <dimen name="tuna_select_delivery_fragment_title_margin_top">@dimen/tuna_select_payment_method_fragment_title_margin_top</dimen>
+    <dimen name="tuna_select_delivery_layout_width">@dimen/tuna_select_payment_method_layout_width</dimen>
+    <dimen name="tuna_select_delivery_fragment_list_padding_bottom">@dimen/tuna_select_payment_method_fragment_list_padding_bottom</dimen>
+    <dimen name="tuna_select_delivery_fragment_list_margin_top">@dimen/tuna_select_payment_method_fragment_list_margin_top</dimen>
+    <dimen name="tuna_select_delivery_fragment_btn_select_margin_bottom">@dimen/tuna_select_payment_method_fragment_btn_select_margin_bottom</dimen>
 </resources>
