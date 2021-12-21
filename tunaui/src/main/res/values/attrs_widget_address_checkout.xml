@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CheckoutAddressWidget">
+        <attr name="checkoutAddressTitle" format="reference|string" />
+        <attr name="checkoutAddressLabelPrimary" format="reference|string" />
+        <attr name="checkoutAddressLabelSecondary" format="reference|string" />
+    </declare-styleable>
+</resources>

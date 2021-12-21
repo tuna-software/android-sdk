@@ -1,0 +1,12 @@
+rootProject.name = "Tuna Android SDK"
+include(":tunacommons")
+include(":tunacr")
+include(":tunaui")
+include(":tunakt")
+include(":tuna")
+include(":example")
+include(":tuna-wallets")
+include(":tuna-google-pay")
+include(":tuna-android")
+include(":tuna-java")
+include(":tuna-android-kt")

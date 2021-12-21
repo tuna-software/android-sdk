@@ -45,7 +45,7 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:indeterminate="true"
-        android:indeterminateTint="@color/tuna_black"
+        android:indeterminateTint="@color/tunaui_primary_dark_color"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/btnNext"
         app:layout_constraintEnd_toEndOf="@+id/btnNext"

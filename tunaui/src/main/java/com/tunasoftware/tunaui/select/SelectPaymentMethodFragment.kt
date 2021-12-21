@@ -96,6 +96,7 @@ class SelectPaymentMethodFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.itemAnimator = null
         subscribe()
         viewModel.init()
     }
@@ -120,9 +121,6 @@ class SelectPaymentMethodFragment : Fragment() {
                     context?.announceForAccessibility(getString(R.string.tuna_accessibility_loaded_list))
                     stopShimmer()
                     adapter.setItems(state.result)
-                    adapter.current?.let {
-                        viewModel.onPaymentMethodSelected(it)
-                    }
                 }
                 is UIState.Error -> {
                     //TODO
@@ -131,7 +129,6 @@ class SelectPaymentMethodFragment : Fragment() {
                 }
             }
         })
-        viewModel.selectedPaymentMethod.observe(viewLifecycleOwner, {selected -> adapter.current = selected})
         viewModel.actionsLiveData.observe(this , { action ->
             when (action){
                 is ActionShowErrorDeletingCard -> {
@@ -167,7 +164,6 @@ class SelectPaymentMethodFragment : Fragment() {
             .setNegativeButton(R.string.button_label_no, null)
             .setPositiveButton(R.string.button_label_yes) { _, _ ->
                 viewModel.onDeleteCard(paymentMethod, requireContext())
-                adapter.removePaymentMethod(paymentMethod)
             }
             .create()
             .show()

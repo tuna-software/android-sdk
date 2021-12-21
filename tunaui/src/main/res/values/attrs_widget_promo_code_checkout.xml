@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CheckoutPromoCodeWidget">
+        <attr name="checkoutPromoCodeTitle" format="reference|string" />
+        <attr name="checkoutPromoCodeLabelSuccess" format="reference|string" />
+        <attr name="checkoutPromoCodeLabelError" format="reference|string" />
+        <attr name="checkoutPromoCodeMessageError" format="reference|string" />
+    </declare-styleable>
+</resources>

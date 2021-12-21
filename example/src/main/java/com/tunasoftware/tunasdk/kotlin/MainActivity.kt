@@ -7,22 +7,22 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.tunasoftware.android.Tuna
+import com.tunasoftware.android.kt.getSandboxSessionId
 import com.tunasoftware.googlepay.TunaGooglePay
 import com.tunasoftware.googlepay.TunaGooglePayPaymentData
-import com.tunasoftware.tuna.exceptions.*
-import com.tunasoftware.android.kt.getSandboxSessionId
 import com.tunasoftware.tuna.entities.TunaPaymentMethodType
+import com.tunasoftware.tuna.exceptions.*
 import com.tunasoftware.tunasdk.R
 import com.tunasoftware.tunasdk.java.JavaListCardsActivity
 import com.tunasoftware.tunasdk.java.utils.Extras
 import com.tunasoftware.tunaui.TunaUI
+import com.tunasoftware.tunaui.domain.entities.CheckoutResult
 import com.tunasoftware.tunaui.domain.entities.PaymentMethodSelectionResult
 import com.tunasoftware.wallets.TunaWalletCallback
 import com.tunasoftware.wallets.TunaWalletPaymentData
 import com.tunasoftware.wallets.isAvailable
 import com.tunasoftware.wallets.requestPayment
 import kotlinx.android.synthetic.main.activity_main.*
-import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
 
@@ -45,27 +45,49 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, KotlinListCardsActivity::class.java))
         }
 
-        btnTunaUiExample.setOnClickListener {
-            Tuna.getSandboxSessionId().onSuccess {
-                Tuna.startSession(it)
-                tunaUI.selectPaymentMethod(object : TunaUI.TunaSelectPaymentMethodCallback{
-                    override fun onPaymentMethodSelected(paymentMethodSelectionResult: PaymentMethodSelectionResult) {
-                        when(paymentMethodSelectionResult.paymentMethodType){
-                            TunaPaymentMethodType.BANK_SLIP -> TODO()
-                            TunaPaymentMethodType.CREDIT_CARD -> {
-                                val tunacard = paymentMethodSelectionResult.cardInfo
-                                    ?: throw Exception("Tuna card should not be null")
-                                Log.i(Extras.LOG_TAG,tunacard.maskedNumber)
+        btnSelectPaymentMethodExample.setOnClickListener {
+            Tuna.getSandboxSessionId()
+                .onSuccess {
+                    Tuna.startSession(it)
+                    tunaUI.selectPaymentMethod(object : TunaUI.TunaSelectPaymentMethodCallback {
+                        override fun onPaymentMethodSelected(paymentMethodSelectionResult: PaymentMethodSelectionResult) {
+                            when (paymentMethodSelectionResult.paymentMethodType) {
+                                TunaPaymentMethodType.BANK_SLIP -> TODO()
+                                TunaPaymentMethodType.CREDIT_CARD -> {
+                                    val tunacard = paymentMethodSelectionResult.cardInfo
+                                        ?: throw Exception("Tuna card should not be null")
+                                    Log.i(Extras.LOG_TAG, tunacard.maskedNumber)
+                                }
                             }
                         }
-                    }
 
-                    override fun onCancelled() {
-                        Log.i(Extras.LOG_TAG, "cancelled")
-                    }
+                        override fun onCancelled() {
+                            Log.i(Extras.LOG_TAG, "cancelled")
+                        }
+                    })
+                }
+                .onFailure {
+                    Log.e(Extras.LOG_TAG, "Error start session", it)
+                }
+        }
 
-                })
-            }
+        btnCheckoutExample.setOnClickListener {
+            Tuna.getSandboxSessionId()
+                .onSuccess {
+                    Tuna.startSession(it)
+                    tunaUI.checkout(object : TunaUI.TunaCheckoutCallback {
+                        override fun onCheckoutCompleted(checkoutResult: CheckoutResult) {
+                            Log.i(Extras.LOG_TAG, "Checkout successfully")
+                        }
+
+                        override fun onCancelled() {
+                            Log.i(Extras.LOG_TAG, "cancelled")
+                        }
+                    })
+                }
+                .onFailure {
+                    Log.e(Extras.LOG_TAG, "Error start session", it)
+                }
         }
 
         btnTunaCardRecognitionExample.setOnClickListener {

@@ -19,7 +19,6 @@ class KotlinNewCardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_card)
-        supportActionBar?.title = "Add new card"
         btnGenerateCard.setOnClickListener {
             Tuna.getCurrentSession()?.let { session ->
                 addNewCard(session)

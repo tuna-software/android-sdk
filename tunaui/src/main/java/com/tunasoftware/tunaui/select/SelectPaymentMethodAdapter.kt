@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.tunasoftware.tunaui.R
 import com.tunasoftware.tunaui.widgets.TunaPaymentMethodWidget
@@ -11,12 +13,32 @@ import com.tunasoftware.tunaui.widgets.TunaSwipeWidget
 
 class SelectPaymentMethodAdapter : RecyclerView.Adapter<SelectPaymentMethodAdapter.ViewHolder>() {
 
-    private val dataSet: MutableList<PaymentMethod> = mutableListOf()
-    var current: PaymentMethod? = null
-    set(value) {
-        field = value
-        notifyDataSetChanged()
+    companion object {
+        private val DIFF_CALLBACK: DiffUtil.ItemCallback<PaymentMethod> = object : DiffUtil.ItemCallback<PaymentMethod>() {
+            override fun areItemsTheSame(
+                oldItem: PaymentMethod,
+                newItem: PaymentMethod
+            ): Boolean {
+                if (oldItem is  PaymentMethodCreditCard && newItem is PaymentMethodCreditCard) {
+                    return oldItem.tunaUICard.token == newItem.tunaUICard.token
+                }
+                return oldItem == newItem
+            }
+
+            override fun areContentsTheSame(
+                oldItem: PaymentMethod,
+                newItem: PaymentMethod
+            ): Boolean {
+                return oldItem.displayName == newItem.displayName &&
+                        oldItem.methodType == newItem.methodType &&
+                        oldItem.disableSwipe == newItem.disableSwipe &&
+                        oldItem.selectable == newItem.selectable &&
+                        oldItem.selected == newItem.selected
+            }
+        }
     }
+
+    private val mDiffer = AsyncListDiffer(this, DIFF_CALLBACK)
     private var _onClickListener: (PaymentMethod) -> Unit = {}
     private var _onRemoveItemListener: (PaymentMethod) -> Unit = {}
 
@@ -32,12 +54,12 @@ class SelectPaymentMethodAdapter : RecyclerView.Adapter<SelectPaymentMethodAdapt
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        val paymentMethod = dataSet[position]
+        val paymentMethod = mDiffer.currentList[position]
         viewHolder.apply {
             val tunaSwipeWidget = view.findViewById<TunaSwipeWidget>(R.id.tunaSwipeWidget)
 
             ViewCompat.addAccessibilityAction(view, view.context.getString(R.string.tuna_accessibility_select_item)) { _, _ ->
-                selectPaymentMethod(paymentMethod, position)
+                onSelectPaymentMethod(paymentMethod)
                 true
             }
 
@@ -63,7 +85,7 @@ class SelectPaymentMethodAdapter : RecyclerView.Adapter<SelectPaymentMethodAdapt
                         else -> paymentMethod.displayName
                     }
                 }
-                paymentMethodSelected = current == paymentMethod
+                paymentMethodSelected = paymentMethod.selected
 
                 contentDescription = if (paymentMethodSelected == true) {
                     view.context.getString(R.string.tuna_accessibility_selected_card, paymentMethodLabelSecondary)
@@ -72,21 +94,18 @@ class SelectPaymentMethodAdapter : RecyclerView.Adapter<SelectPaymentMethodAdapt
                 }
             }
 
-            if (current != paymentMethod){
+            if (!paymentMethod.selected){
                 tunaSwipeWidget.close()
             }
 
             tunaSwipeWidget.swipeDisabled = paymentMethod.disableSwipe
 
-            tunaSwipeWidget.setOnItemClickListener {
-                selectPaymentMethod(paymentMethod, position)
-            }
-
+            tunaSwipeWidget.setOnItemClickListener { onSelectPaymentMethod(paymentMethod) }
             tunaSwipeWidget.setOnDeleteClickListener { onRemovePaymentMethod(paymentMethod) }
         }
     }
 
-    override fun getItemCount() = dataSet.size
+    override fun getItemCount() = mDiffer.currentList.size
 
     fun setOnClickListener(listener: (PaymentMethod) -> Unit) {
         this._onClickListener = listener
@@ -97,37 +116,19 @@ class SelectPaymentMethodAdapter : RecyclerView.Adapter<SelectPaymentMethodAdapt
     }
 
     fun setItems(items: List<PaymentMethod>) {
-        dataSet.clear()
-        dataSet.addAll(items)
-        current = items.firstOrNull { it.selectable }
-        notifyDataSetChanged()
+        mDiffer.submitList(items)
     }
 
     fun getItemPosition(item: PaymentMethod?): Int {
-        return dataSet.indexOf(item);
-    }
-
-    fun removePaymentMethod(paymentMethod: PaymentMethod) {
-        removeAtPosition(getItemPosition(paymentMethod))
-    }
-
-    private fun removeAtPosition(position: Int) {
-        dataSet.removeAt(position)
-        notifyItemRemoved(position)
+        return mDiffer.currentList.indexOf(item);
     }
 
     private fun onRemovePaymentMethod(paymentMethod: PaymentMethod) {
         _onRemoveItemListener.invoke(paymentMethod)
     }
 
-    private fun selectPaymentMethod(paymentMethod: PaymentMethod, position: Int) {
-        val positionCurrent = getItemPosition(current)
-        if (paymentMethod.selectable)
-            current = paymentMethod
+    private fun onSelectPaymentMethod(paymentMethod: PaymentMethod) {
         _onClickListener.invoke(paymentMethod)
-
-        notifyItemChanged(positionCurrent)
-        notifyItemChanged(position)
     }
 
 }

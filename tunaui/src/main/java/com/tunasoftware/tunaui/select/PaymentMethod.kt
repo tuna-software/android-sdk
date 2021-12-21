@@ -4,23 +4,24 @@ import com.tunasoftware.tuna.entities.TunaCard
 import com.tunasoftware.tunaui.R
 import com.tunasoftware.tunaui.domain.entities.TunaCardFlag
 import com.tunasoftware.tunaui.domain.entities.TunaUICard
-
-
+import com.tunasoftware.tunaui.domain.entities.cardFlag
 
 open class PaymentMethod(
     val methodType: PaymentMethodType,
     val displayName: String,
     val disableSwipe: Boolean = false,
-    val selectable: Boolean = true
+    val selectable: Boolean = true,
+    var selected: Boolean = false
 )
 
-class  PaymentMethodCreditCard(methodType: PaymentMethodType,
+class PaymentMethodCreditCard(methodType: PaymentMethodType,
                                displayName: String,
                                disableSwipe: Boolean = false,
                                selectable: Boolean = true,
+                               selected: Boolean = false,
                                val flag: TunaCardFlag,
                                val tunaUICard: TunaUICard
-): PaymentMethod(methodType, displayName, disableSwipe, selectable)
+): PaymentMethod(methodType, displayName, disableSwipe, selectable, selected)
 
 fun PaymentMethodCreditCard.getTunaCard() = TunaCard(token = this.tunaUICard.token,
         brand = this.tunaUICard.brand,
@@ -30,24 +31,12 @@ fun PaymentMethodCreditCard.getTunaCard() = TunaCard(token = this.tunaUICard.tok
         maskedNumber = this.tunaUICard.maskedNumber
     )
 
-
-
 val PaymentMethod.methodFlag
     get() = when (this.methodType) {
         PaymentMethodType.BANK_SLIP -> R.drawable.tuna_ic_barcode
         PaymentMethodType.CREDIT_CARD -> {
             if (this is PaymentMethodCreditCard) {
-                when (this.flag) {
-                    TunaCardFlag.VISA -> {
-                        R.drawable.tuna_ic_visa
-                    }
-                    TunaCardFlag.HIPERCARD -> R.drawable.tuna_ic_hipercard
-                    TunaCardFlag.ELO -> R.drawable.tuna_ic_elo
-                    TunaCardFlag.AMEX -> R.drawable.tuna_ic_amex
-                    TunaCardFlag.DINERS -> R.drawable.tuna_ic_diners
-                    TunaCardFlag.MASTER -> R.drawable.tuna_ic_master
-                    TunaCardFlag.UNDEFINED -> R.drawable.tuna_ic_generic_card
-                }
+                this.flag.cardFlag
             } else {
                 R.drawable.tuna_ic_generic_card
             }

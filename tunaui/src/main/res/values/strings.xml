@@ -27,6 +27,19 @@
     <string name="message_confirmation_remove_card">Do you want to remove this card?</string>
     <string name="button_label_no">No</string>
     <string name="button_label_yes">Yes</string>
+    <string name="tuna_checkout_title">Checkout</string>
+    <string name="tuna_place_order">Place Order</string>
+    <string name="tuna_checkout_payment_method">Payment method</string>
+    <string name="tuna_checkout_installments">Installments</string>
+    <string name="tuna_checkout_address">Shipping address</string>
+    <string name="tuna_checkout_delivery">Delivery</string>
+    <string name="tuna_checkout_document">Document</string>
+    <string name="tuna_checkout_promo_code">Promo code</string>
+    <string name="tuna_checkout_promo_code_hint">Enter your promo code</string>
+    <string name="tuna_checkout_redeem">Redeem</string>
+    <string name="tuna_select_delivery_title">Delivery</string>
+    <string name="tuna_select_delivery_header">Select how you want to receive</string>
+    <string name="tuna_select_delivery">Select delivery</string>
 
     <!--  Accessibility  -->
     <string name="tuna_accessibility_close_button">Close</string>

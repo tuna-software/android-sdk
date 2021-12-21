@@ -4,10 +4,8 @@
     <color name="tunaui_primary_dark_color">@color/tuna_white</color>
     <color name="tunaui_primary_variant_color">#333333</color>
     <color name="tunaui_secundary_color">@color/tuna_white</color>
+    <color name="tunaui_background_header_checkout">@color/tunaui_primary_color</color>
 
-    <color name="tuna_white">#FFFFFF</color>
-    <color name="tuna_black">#000000</color>
-    <color name="tuna_gray">#999999</color>
     <color name="tuna_background">@color/tunaui_primary_variant_color</color>
     <color name="tuna_divider">#000000</color>
 
@@ -18,5 +16,7 @@
 
     <color name="tuna_dot_selected">#FFFFFF</color>
     <color name="tuna_dot_unselected">#333333</color>
+
+    <color name="tuna_radio_button">@color/tuna_white</color>
 
 </resources>

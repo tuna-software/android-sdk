@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/tuna_background"
+    tools:context=".checkout.TunaCheckoutFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tuna_toolbar"
+        style="@style/TunaToolbarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/tuna_checkout_fragment_btn_place_order_margin_bottom"
+        app:layout_constraintBottom_toTopOf="@+id/btnSelect"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tuna_toolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.tunasoftware.tunaui.widgets.TunaCheckoutHeaderWidget
+                android:id="@+id/checkoutHeader"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:checkoutDiscountPercentage="26%"
+                app:checkoutTotalWithDiscount="R$ 2.843,00"
+                app:checkoutTotalWithoutDiscount="R$ 2.999,05"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.tunasoftware.tunaui.widgets.TunaCheckoutItemWidget
+                android:id="@+id/checkoutPaymentMethod"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:checkoutLabelPrimary="@string/tuna_select_payment_method"
+                app:checkoutTitle="@string/tuna_checkout_payment_method"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkoutHeader" />
+
+            <com.tunasoftware.tunaui.widgets.TunaCheckoutItemWidget
+                android:id="@+id/checkoutInstallments"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:checkoutLabelPrimary="12x Sem juros"
+                app:checkoutTitle="@string/tuna_checkout_installments"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkoutPaymentMethod" />
+
+            <com.tunasoftware.tunaui.widgets.TunaCheckoutAddressWidget
+                android:id="@+id/checkoutAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:checkoutAddressLabelPrimary="Rua Carolina Santos 33"
+                app:checkoutAddressLabelSecondary="Bloco 1 Apt 602"
+                app:checkoutAddressTitle="@string/tuna_checkout_address"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkoutInstallments" />
+
+            <com.tunasoftware.tunaui.widgets.TunaCheckoutItemWidget
+                android:id="@+id/checkoutDelivery"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:checkoutLabelPrimary="@string/tuna_select_delivery"
+                app:checkoutTitle="@string/tuna_checkout_delivery"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkoutAddress" />
+
+            <com.tunasoftware.tunaui.widgets.TunaCheckoutItemWidget
+                android:id="@+id/checkoutDocument"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:checkoutLabelPrimary="111.222.333-44"
+                app:checkoutTitle="@string/tuna_checkout_document"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkoutDelivery" />
+
+            <com.tunasoftware.tunaui.widgets.TunaCheckoutPromoCodeWidget
+                android:id="@+id/checkoutPromoCode"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:checkoutPromoCodeTitle="@string/tuna_checkout_promo_code"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkoutDocument" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSelect"
+        style="@style/Theme.TunaUI.TunaButton"
+        android:layout_width="@dimen/tuna_checkout_layout_width"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/tuna_bottom_button_margin"
+        android:layout_marginEnd="@dimen/tuna_bottom_button_margin"
+        android:layout_marginBottom="@dimen/tuna_checkout_fragment_btn_place_order_margin_bottom"
+        android:text="@string/tuna_place_order"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,7 +13,7 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="Theme.TunaUI.TunaTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+    <style name="Theme.TunaUI.TunaTextInputLayout" parent="Widget.Material3.TextInputLayout.FilledBox">
         <item name="boxStrokeColor">@color/tuna_white</item>
         <item name="boxBackgroundColor">@color/tuna_background</item>
         <item name="android:textColorHint">@color/tuna_gray</item>

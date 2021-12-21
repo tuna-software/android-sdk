@@ -8,6 +8,18 @@
             android:theme="@style/Theme.TunaUI.NoActionBar"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".checkout.TunaCheckoutActivity"
+            android:theme="@style/Theme.TunaUI.NoActionBar"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".delivery.TunaDeliverySelectionActivity"
+            android:theme="@style/Theme.TunaUI.NoActionBar"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>
