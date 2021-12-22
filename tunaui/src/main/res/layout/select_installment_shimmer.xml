@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/shimmer_select_installment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="@dimen/tuna_bottom_button_margin"
+    android:paddingEnd="@dimen/tuna_bottom_button_margin"
+    app:shimmer_direction="left_to_right"
+    app:shimmer_duration="1500">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.tunasoftware.tunaui.widgets.TunaInstallmentShimmerWidget
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:installmentShimmerDescriptionWidth="140dp"
+            app:installmentShimmerNameWidth="114dp"
+            app:installmentShimmerSelected="true" />
+
+        <com.tunasoftware.tunaui.widgets.TunaInstallmentShimmerWidget
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:installmentShimmerDescriptionWidth="140dp"
+            app:installmentShimmerNameWidth="114dp"
+            app:installmentShimmerSelected="false" />
+
+        <com.tunasoftware.tunaui.widgets.TunaInstallmentShimmerWidget
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:installmentShimmerDescriptionWidth="140dp"
+            app:installmentShimmerNameWidth="114dp"
+            app:installmentShimmerSelected="false" />
+
+        <com.tunasoftware.tunaui.widgets.TunaInstallmentShimmerWidget
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:installmentShimmerDescriptionWidth="152dp"
+            app:installmentShimmerNameWidth="100dp"
+            app:installmentShimmerSelected="false" />
+
+        <com.tunasoftware.tunaui.widgets.TunaInstallmentShimmerWidget
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:installmentShimmerDescriptionWidth="152dp"
+            app:installmentShimmerNameWidth="100dp"
+            app:installmentShimmerSelected="false" />
+
+        <com.tunasoftware.tunaui.widgets.TunaInstallmentShimmerWidget
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:installmentShimmerDescriptionWidth="152dp"
+            app:installmentShimmerNameWidth="100dp"
+            app:installmentShimmerSelected="false" />
+    </LinearLayout>
+</com.facebook.shimmer.ShimmerFrameLayout>

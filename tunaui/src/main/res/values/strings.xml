@@ -40,6 +40,9 @@
     <string name="tuna_select_delivery_title">Delivery</string>
     <string name="tuna_select_delivery_header">Select how you want to receive</string>
     <string name="tuna_select_delivery">Select delivery</string>
+    <string name="tuna_select_installment_title">Installments</string>
+    <string name="tuna_select_installment_header">Select your installment</string>
+    <string name="tuna_select_installment">Select installment</string>
 
     <!--  Accessibility  -->
     <string name="tuna_accessibility_close_button">Close</string>
