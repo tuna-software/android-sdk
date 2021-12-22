@@ -7,7 +7,7 @@ import com.tunasoftware.tunaui.R
 import com.tunasoftware.tunaui.TunaUI
 import com.tunasoftware.tunaui.domain.entities.DeliverySelectionResult
 
-class TunaDeliverySelectionActivity : AppCompatActivity(), TunaDeliverySelectionResultHandler {
+class TunaSelectDeliveryActivity : AppCompatActivity(), TunaDeliverySelectionResultHandler {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

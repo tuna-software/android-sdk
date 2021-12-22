@@ -8,4 +8,5 @@
     <dimen name="tuna_checkout_layout_height">500dp</dimen>
     <dimen name="tuna_select_delivery_layout_width">@dimen/tuna_select_payment_method_layout_width</dimen>
     <dimen name="tuna_select_installment_layout_width">@dimen/tuna_select_payment_method_layout_width</dimen>
+    <dimen name="tuna_inform_document_layout_width">@dimen/tuna_select_payment_method_layout_width</dimen>
 </resources>

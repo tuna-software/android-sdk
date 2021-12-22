@@ -111,5 +111,17 @@ class TunaCheckoutFragment : Fragment() {
                 }
             })
         }
+
+        binding.checkoutDocument.setOnClickListener {
+            tunaUI.informDocument(object : TunaUI.TunaInformDocumentCallback {
+                override fun onDocumentInformed(result: String) {
+                    binding.checkoutDocument.checkoutLabelPrimary = result
+                }
+
+                override fun onCancelled() {
+                    Log.d("TunaCheckoutFragment", "Canceled")
+                }
+            })
+        }
     }
 }

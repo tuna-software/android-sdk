@@ -16,13 +16,19 @@
             android:windowSoftInputMode="adjustResize" />
 
         <activity
-            android:name=".delivery.TunaDeliverySelectionActivity"
+            android:name=".delivery.TunaSelectDeliveryActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.TunaUI.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".installment.TunaSelectInstallmentActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.TunaUI.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".document.TunaInformDocumentActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.TunaUI.NoActionBar"
             android:windowSoftInputMode="adjustResize" />

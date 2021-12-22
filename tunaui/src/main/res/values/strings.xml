@@ -33,7 +33,7 @@
     <string name="tuna_checkout_installments">Installments</string>
     <string name="tuna_checkout_address">Shipping address</string>
     <string name="tuna_checkout_delivery">Delivery</string>
-    <string name="tuna_checkout_document">Document</string>
+    <string name="tuna_checkout_document">Document ID</string>
     <string name="tuna_checkout_promo_code">Promo code</string>
     <string name="tuna_checkout_promo_code_hint">Enter your promo code</string>
     <string name="tuna_checkout_redeem">Redeem</string>
@@ -43,6 +43,9 @@
     <string name="tuna_select_installment_title">Installments</string>
     <string name="tuna_select_installment_header">Select your installment</string>
     <string name="tuna_select_installment">Select installment</string>
+    <string name="tuna_inform_document_header">Inform the document ID</string>
+    <string name="tuna_apply_document">Apply document</string>
+    <string name="tuna_inform_document_title">Document ID</string>
 
     <!--  Accessibility  -->
     <string name="tuna_accessibility_close_button">Close</string>
