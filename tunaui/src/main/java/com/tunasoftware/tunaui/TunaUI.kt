@@ -10,7 +10,9 @@ import com.tunasoftware.tunaui.checkout.TunaCheckoutActivity
 import com.tunasoftware.tunaui.delivery.TunaDeliverySelectionActivity
 import com.tunasoftware.tunaui.domain.entities.CheckoutResult
 import com.tunasoftware.tunaui.domain.entities.DeliverySelectionResult
+import com.tunasoftware.tunaui.domain.entities.InstallmentSelectionResult
 import com.tunasoftware.tunaui.domain.entities.PaymentMethodSelectionResult
+import com.tunasoftware.tunaui.installment.TunaSelectInstallmentActivity
 
 class TunaUI(private val activity: AppCompatActivity) {
 
@@ -68,15 +70,35 @@ class TunaUI(private val activity: AppCompatActivity) {
             selectDeliveryCallback = null
         }
 
+    private val selectInstallmentLauncher: ActivityResultLauncher<Intent> =
+        activity.activityResultRegistry.register(
+            "selectInstallment",
+            activity,
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            when (result.resultCode) {
+                Activity.RESULT_OK -> {
+                    result.data?.getSerializableExtra(RESULT_INSTALLMENT_SELECTION)
+                        ?.let {
+                            selectInstallmentCallback?.onSelectedInstallment(it as InstallmentSelectionResult)
+                        } ?: selectInstallmentCallback?.onCancelled()
+                }
+                else -> selectInstallmentCallback?.onCancelled()
+            }
+            selectInstallmentCallback = null
+        }
+
 
     private var selectPaymentMethodCallback: TunaSelectPaymentMethodCallback? = null
     private var checkoutCallback: TunaCheckoutCallback? = null
     private var selectDeliveryCallback: TunaDeliverySelectionCallback? = null
+    private var selectInstallmentCallback: TunaInstallmentSelectionCallback? = null
 
     companion object {
         const val RESULT_PAYMENT_SELECTION = "RESULT_PAYMENT_SELECTION"
         const val RESULT_CHECKOUT = "RESULT_CHECKOUT"
         const val RESULT_DELIVERY_SELECTION = "RESULT_DELIVERY_SELECTION"
+        const val RESULT_INSTALLMENT_SELECTION = "RESULT_INSTALLMENT_SELECTION"
     }
 
     /**
@@ -178,6 +200,38 @@ class TunaUI(private val activity: AppCompatActivity) {
 
         /**
          * the delivery selection was cancelled
+         */
+        fun onCancelled()
+
+    }
+
+    /**
+     * Starts the TunaUI to select installment
+     * @param callback
+     */
+    fun selectInstallment(callback: TunaInstallmentSelectionCallback) {
+        this.selectInstallmentCallback = callback
+        try {
+            val intent = Intent(activity, TunaSelectInstallmentActivity::class.java)
+            selectInstallmentLauncher.launch(intent)
+        } catch (e: Throwable) {
+            Log.e("error", e.toString())
+        }
+    }
+
+    /**
+     * Callback for installment selection
+     */
+    interface TunaInstallmentSelectionCallback {
+
+        /**
+         * the installment has been selected
+         * @param installmentSelectionResult
+         */
+        fun onSelectedInstallment(installmentSelectionResult: InstallmentSelectionResult)
+
+        /**
+         * the installment selection was cancelled
          */
         fun onCancelled()
 

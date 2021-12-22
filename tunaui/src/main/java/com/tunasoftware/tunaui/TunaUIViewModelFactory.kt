@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.tunasoftware.android.Tuna
 import com.tunasoftware.tunaui.creditcard.NewCardViewModel
 import com.tunasoftware.tunaui.delivery.TunaSelectDeliveryViewModel
+import com.tunasoftware.tunaui.installment.TunaSelectInstallmentViewModel
 import com.tunasoftware.tunaui.select.SelectPaymentMethodViewModel
 
 class TunaUIViewModelFactory constructor(private val application: Application) :
@@ -17,6 +18,9 @@ class TunaUIViewModelFactory constructor(private val application: Application) :
                 provideTunaViewModel(modelClass)
             }
             modelClass.isAssignableFrom(TunaSelectDeliveryViewModel::class.java) -> {
+                provideTunaViewModel(modelClass)
+            }
+            modelClass.isAssignableFrom(TunaSelectInstallmentViewModel::class.java) -> {
                 provideTunaViewModel(modelClass)
             }
             modelClass.isAssignableFrom(NewCardViewModel::class.java) -> {

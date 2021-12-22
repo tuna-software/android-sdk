@@ -40,6 +40,9 @@
     <string name="tuna_select_delivery_title">Entrega</string>
     <string name="tuna_select_delivery_header">Selecione como deseja receber</string>
     <string name="tuna_select_delivery">Selecionar entrega</string>
+    <string name="tuna_select_installment_title">Parcelas</string>
+    <string name="tuna_select_installment_header">Selecione como parcelar</string>
+    <string name="tuna_select_installment">Selecionar parcela</string>
 
     <!--  Accessebility  -->
     <string name="tuna_accessibility_close_button">Fechar</string>
