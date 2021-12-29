@@ -43,6 +43,9 @@
     <string name="tuna_select_installment_title">Parcelas</string>
     <string name="tuna_select_installment_header">Selecione como parcelar</string>
     <string name="tuna_select_installment">Selecionar parcela</string>
+    <string name="tuna_inform_document_header">Informe o documento</string>
+    <string name="tuna_apply_document">Adicionar documento</string>
+    <string name="tuna_inform_document_title">Documento</string>
 
     <!--  Accessebility  -->
     <string name="tuna_accessibility_close_button">Fechar</string>

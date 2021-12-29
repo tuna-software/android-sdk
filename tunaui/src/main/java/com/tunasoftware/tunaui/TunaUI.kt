@@ -7,7 +7,8 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.tunasoftware.tunaui.checkout.TunaCheckoutActivity
-import com.tunasoftware.tunaui.delivery.TunaDeliverySelectionActivity
+import com.tunasoftware.tunaui.delivery.TunaSelectDeliveryActivity
+import com.tunasoftware.tunaui.document.TunaInformDocumentActivity
 import com.tunasoftware.tunaui.domain.entities.CheckoutResult
 import com.tunasoftware.tunaui.domain.entities.DeliverySelectionResult
 import com.tunasoftware.tunaui.domain.entities.InstallmentSelectionResult
@@ -88,17 +89,37 @@ class TunaUI(private val activity: AppCompatActivity) {
             selectInstallmentCallback = null
         }
 
+    private val informDocumentLauncher: ActivityResultLauncher<Intent> =
+        activity.activityResultRegistry.register(
+            "informDocument",
+            activity,
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            when (result.resultCode) {
+                Activity.RESULT_OK -> {
+                    result.data?.getStringExtra(RESULT_DOCUMENT_INFORMED)
+                        ?.let {
+                            informDocumentCallback?.onDocumentInformed(it)
+                        } ?: informDocumentCallback?.onCancelled()
+                }
+                else -> informDocumentCallback?.onCancelled()
+            }
+            informDocumentCallback = null
+        }
+
 
     private var selectPaymentMethodCallback: TunaSelectPaymentMethodCallback? = null
     private var checkoutCallback: TunaCheckoutCallback? = null
     private var selectDeliveryCallback: TunaDeliverySelectionCallback? = null
     private var selectInstallmentCallback: TunaInstallmentSelectionCallback? = null
+    private var informDocumentCallback: TunaInformDocumentCallback? = null
 
     companion object {
         const val RESULT_PAYMENT_SELECTION = "RESULT_PAYMENT_SELECTION"
         const val RESULT_CHECKOUT = "RESULT_CHECKOUT"
         const val RESULT_DELIVERY_SELECTION = "RESULT_DELIVERY_SELECTION"
         const val RESULT_INSTALLMENT_SELECTION = "RESULT_INSTALLMENT_SELECTION"
+        const val RESULT_DOCUMENT_INFORMED = "RESULT_DOCUMENT_INFORMED"
     }
 
     /**
@@ -180,7 +201,7 @@ class TunaUI(private val activity: AppCompatActivity) {
     fun selectDelivery(callback: TunaDeliverySelectionCallback) {
         this.selectDeliveryCallback = callback
         try {
-            val intent = Intent(activity, TunaDeliverySelectionActivity::class.java)
+            val intent = Intent(activity, TunaSelectDeliveryActivity::class.java)
             selectDeliveryLauncher.launch(intent)
         } catch (e: Throwable) {
             Log.e("error", e.toString())
@@ -232,6 +253,38 @@ class TunaUI(private val activity: AppCompatActivity) {
 
         /**
          * the installment selection was cancelled
+         */
+        fun onCancelled()
+
+    }
+
+    /**
+     * Starts the TunaUI to inform a document
+     * @param callback
+     */
+    fun informDocument(callback: TunaInformDocumentCallback) {
+        this.informDocumentCallback = callback
+        try {
+            val intent = Intent(activity, TunaInformDocumentActivity::class.java)
+            informDocumentLauncher.launch(intent)
+        } catch (e: Throwable) {
+            Log.e("error", e.toString())
+        }
+    }
+
+    /**
+     * Callback for inform document
+     */
+    interface TunaInformDocumentCallback {
+
+        /**
+         * the document was informed
+         * @param result
+         */
+        fun onDocumentInformed(result: String)
+
+        /**
+         * inform the document was canceled
          */
         fun onCancelled()
 

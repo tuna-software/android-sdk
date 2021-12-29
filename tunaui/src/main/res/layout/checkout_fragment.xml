@@ -89,7 +89,7 @@
                 android:id="@+id/checkoutDocument"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:checkoutLabelPrimary="111.222.333-44"
+                app:checkoutLabelPrimary="@string/tuna_inform_document_header"
                 app:checkoutTitle="@string/tuna_checkout_document"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

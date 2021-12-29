@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/tuna_background"
-    tools:context=".installment.TunaSelectInstallmentFragment">
+    tools:context=".document.TunaInformDocumentFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tuna_toolbar"
@@ -21,48 +21,50 @@
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/tuna_select_installment_fragment_title_margin_top"
+        android:layout_marginTop="@dimen/tuna_inform_document_fragment_title_margin_top"
         android:gravity="center_horizontal"
-        android:text="@string/tuna_select_installment_header"
+        android:text="@string/tuna_inform_document_header"
         android:textColor="@color/tunaui_secundary_color"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tuna_toolbar" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvInstallments"
-        android:layout_width="@dimen/tuna_select_installment_layout_width"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/tuna_select_installment_fragment_list_margin_top"
-        android:clipToPadding="false"
-        android:paddingStart="@dimen/tuna_bottom_button_margin"
-        android:paddingEnd="@dimen/tuna_bottom_button_margin"
-        android:paddingBottom="@dimen/tuna_select_installment_fragment_list_padding_bottom"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tiNumber"
+        style="@style/Theme.TunaUI.TunaTextInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/tuna_bottom_button_margin"
+        android:layout_marginTop="@dimen/tuna_inform_document_fragment_list_margin_top"
+        android:layout_marginEnd="@dimen/tuna_bottom_button_margin"
+        android:hint="@string/tuna_checkout_document"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle">
 
-    <include
-        layout="@layout/select_installment_shimmer"
-        android:layout_width="@dimen/tuna_select_installment_layout_width"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/tuna_select_installment_fragment_list_margin_top"
-        android:paddingBottom="@dimen/tuna_select_installment_fragment_list_padding_bottom"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etNumber"
+            style="@style/Theme.TunaUI.TunaTextInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:inputType="phone">
+
+            <requestFocus />
+
+        </com.google.android.material.textfield.TextInputEditText>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnSelect"
         style="@style/Theme.TunaUI.TunaButton"
-        android:layout_width="@dimen/tuna_select_installment_layout_width"
+        android:layout_width="@dimen/tuna_inform_document_layout_width"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/tuna_bottom_button_margin"
         android:layout_marginEnd="@dimen/tuna_bottom_button_margin"
-        android:layout_marginBottom="@dimen/tuna_select_installment_fragment_btn_select_margin_bottom"
-        android:text="@string/tuna_select_installment"
+        android:layout_marginBottom="@dimen/tuna_inform_document_fragment_btn_select_margin_bottom"
+        android:text="@string/tuna_apply_document"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
