@@ -151,7 +151,9 @@ abstract class TunaCoreImp(private val sessionId: String, private val tunaAPI: T
                             val result = response.body()
                             if (result != null) {
                                 if (result.code == 1) {
-                                    callback.onSuccess(card)
+                                    val newCard = card.copy()
+                                    newCard.setBindResult(result.validFor)
+                                    callback.onSuccess(newCard)
                                 } else {
                                     callback.onFailed(result.code.toTunaException(result.message))
                                 }

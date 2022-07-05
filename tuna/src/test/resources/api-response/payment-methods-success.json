@@ -1,11 +1,11 @@
 {
   "paymentMethods": [
     {
-      "methodType": 51,
+      "methodType": 3,
       "displayName": "Boleto"
     },
     {
-      "methodType": 49,
+      "methodType": 1,
       "displayName": "CreditCard"
     }
   ],

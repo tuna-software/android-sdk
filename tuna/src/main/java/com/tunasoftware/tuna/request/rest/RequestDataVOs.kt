@@ -64,6 +64,7 @@ data class BindCardRequestVO(
 data class BindCardResultVO(
         @SerializedName("code") val code: Int,
         @SerializedName("message") val message: String?,
+        @SerializedName("validFor") val validFor: Int = 0
 )
 
 data class PaymentMethodsResultVO(

@@ -110,6 +110,8 @@ class TunaRequestImpTest : TunaTest() {
         assertEquals(2022, tunaCard?.expirationYear)
         assertNotNull(tunaCard?.token)
         assertFalse(tunaCard?.token!!.isEmpty())
+        assertFalse(tunaCard.bindHasExpired())
+        assertTrue(tunaCard.secondsBindToExpire() > 0)
     }
 
     @Test

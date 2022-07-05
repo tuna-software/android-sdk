@@ -196,6 +196,10 @@ public class JavaDetailCardActivity extends AppCompatActivity {
             @Override
             public void onSuccess(TunaCard result) {
                 hideLoading();
+
+                Log.i(LOG_TAG, "Seconds until this bind expire" + result.secondsBindToExpire());
+                Log.i(LOG_TAG, "Bind has expired" + result.bindHasExpired());
+
                 Toast.makeText(JavaDetailCardActivity.this, "Bind card success!!!", Toast.LENGTH_SHORT).show();
             }
 

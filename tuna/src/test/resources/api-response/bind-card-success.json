@@ -2,5 +2,6 @@
   "brand": "Visa",
   "code": 1,
   "message": null,
-  "token": "ct_NjIyYjg5MGUtZTE0NS00NTQ2LWI1N2EtMWNlNmMyOGM0OWRj0"
+  "token": "ct_NjIyYjg5MGUtZTE0NS00NTQ2LWI1N2EtMWNlNmMyOGM0OWRj0",
+  "validFor": 200
 }
