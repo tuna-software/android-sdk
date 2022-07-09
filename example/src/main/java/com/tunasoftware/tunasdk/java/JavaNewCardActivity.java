@@ -82,6 +82,9 @@ public class JavaNewCardActivity extends AppCompatActivity {
                 intent.putExtra(CARD_EXPIRATION_MONTH, result.getExpirationMonth());
                 intent.putExtra(CARD_EXPIRATION_YEAR, result.getExpirationYear());
 
+                Log.i(LOG_TAG, "Seconds until this bind expire" + result.secondsBindToExpire());
+                Log.i(LOG_TAG, "Bind has expired" + result.bindHasExpired());
+
                 if (detail) {
                     startActivity(intent);
                     setResult(RESULT_CANCELED);
