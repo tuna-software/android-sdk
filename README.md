@@ -278,11 +278,17 @@ tunaSession.bind(card, cvv, new Tuna.TunaRequestCallback<TunaCard>() {
             @Override
             public void onSuccess(TunaCard result) {
                   //your card is ready to be used for an actual purchase
+                  
+                  //get how many seconds until this bind expire
+                  int seconds = result.secondsBindToExpire();
+
+                  //verify if bind has expired
+                  boolean expired = result.bindHasExpired();
             }
 
             @Override
             public void onFailed(@NotNull Throwable e) {
-                   //it fails, you should handle this exception
+                 //it fails, you should handle this exception
             }
         });
 ```
@@ -294,8 +300,14 @@ tunaSession.bind(card, cvv, new Tuna.TunaRequestCallback<TunaCard>() {
 
 ```
 tunaSession.bind(card = card, cvv = cvv)
-                .onSuccess { card ->
+                .onSuccess { result ->
                     //your card is ready to be used for an actual purchase
+                    
+                    //get how many seconds until this bind expire
+                    val seconds = result.secondsBindToExpire()
+                    
+                    //verify if bind has expired
+                    val expired = result.bindHasExpired()
                 }
                 .onFailure {
                     //it fails, you should handle this exception

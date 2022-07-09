@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.InputFilter
 import android.text.InputFilter.LengthFilter
 import android.text.InputType
+import android.util.Log
 import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
@@ -84,6 +85,15 @@ class KotlinDetailCardActivity : AppCompatActivity() {
         tuna?.run {
             bind(card = card, cvv = cvv)
                 .onSuccess {
+
+                    Log.i(
+                        Extras.LOG_TAG,
+                        "Seconds until this bind expire" + it.secondsBindToExpire()
+                    )
+                    Log.i(Extras.LOG_TAG,
+                        "Bind has expired" + it.bindHasExpired()
+                    )
+
                     Toast.makeText(
                         this@KotlinDetailCardActivity,
                         "Bind card success!!!",
