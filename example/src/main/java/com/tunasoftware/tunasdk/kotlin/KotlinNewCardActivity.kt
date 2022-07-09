@@ -2,6 +2,7 @@ package com.tunasoftware.tunasdk.kotlin
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +14,8 @@ import com.tunasoftware.tunasdk.java.JavaDetailCardActivity
 import com.tunasoftware.tunasdk.java.utils.Extras
 import com.tunasoftware.tunasdk.kotlin.MainActivity.Companion.printTunaException
 import kotlinx.android.synthetic.main.activity_new_card.*
+import com.tunasoftware.tunasdk.java.utils.Extras.LOG_TAG
+
 
 class KotlinNewCardActivity : AppCompatActivity() {
 
@@ -75,6 +78,10 @@ class KotlinNewCardActivity : AppCompatActivity() {
         intent.putExtra(Extras.CARD_BRAND, result.brand)
         intent.putExtra(Extras.CARD_EXPIRATION_MONTH, result.expirationMonth)
         intent.putExtra(Extras.CARD_EXPIRATION_YEAR, result.expirationYear)
+
+        Log.i(LOG_TAG, "Seconds until this bind expire" + result.secondsBindToExpire());
+        Log.i(LOG_TAG, "Bind has expired" + result.bindHasExpired());
+
         if (detail) {
             startActivity(intent)
             setResult(RESULT_CANCELED)

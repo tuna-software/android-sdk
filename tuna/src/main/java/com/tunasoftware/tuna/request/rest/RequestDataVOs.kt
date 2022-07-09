@@ -22,6 +22,7 @@ data class GenerateCardResultVO(
         @SerializedName("brand") val brand: String,
         @SerializedName("code") val code: Int,
         @SerializedName("message") val message: String?,
+        @SerializedName("validFor") val validFor: Int?,
 )
 
 data class SessionRequestVO(
