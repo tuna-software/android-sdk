@@ -5,21 +5,32 @@
     <application>
         <activity
             android:name=".TunaSelectPaymentMethodActivity"
-            android:theme="@style/Theme.TunaUI.NoActionBar"
             android:screenOrientation="portrait"
+            android:theme="@style/Theme.TunaUI.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".checkout.TunaCheckoutActivity"
-            android:theme="@style/Theme.TunaUI.NoActionBar"
             android:screenOrientation="portrait"
+            android:theme="@style/Theme.TunaUI.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
-            android:name=".delivery.TunaDeliverySelectionActivity"
-            android:theme="@style/Theme.TunaUI.NoActionBar"
+            android:name=".delivery.TunaSelectDeliveryActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/Theme.TunaUI.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".installment.TunaSelectInstallmentActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.TunaUI.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".document.TunaInformDocumentActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.TunaUI.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
     </application>
-
 </manifest>

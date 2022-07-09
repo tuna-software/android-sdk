@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="InstallmentShimmerWidget">
+        <attr name="installmentShimmerSelected" format="boolean" />
+        <attr name="installmentShimmerNameWidth" format="dimension|float" />
+        <attr name="installmentShimmerDescriptionWidth" format="dimension|float" />
+    </declare-styleable>
+</resources>

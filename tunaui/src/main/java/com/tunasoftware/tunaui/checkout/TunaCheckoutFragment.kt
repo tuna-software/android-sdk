@@ -15,10 +15,7 @@ import com.tunasoftware.android.kt.getSandboxSessionId
 import com.tunasoftware.tunaui.R
 import com.tunasoftware.tunaui.TunaUI
 import com.tunasoftware.tunaui.databinding.CheckoutFragmentBinding
-import com.tunasoftware.tunaui.domain.entities.PaymentMethodSelectionResult
-import com.tunasoftware.tunaui.domain.entities.TunaCardFlag
-import com.tunasoftware.tunaui.domain.entities.cardFlag
-import com.tunasoftware.tunaui.domain.entities.DeliverySelectionResult
+import com.tunasoftware.tunaui.domain.entities.*
 import com.tunasoftware.tunaui.widgets.State
 
 class TunaCheckoutFragment : Fragment() {
@@ -94,6 +91,31 @@ class TunaCheckoutFragment : Fragment() {
                     val delivery = deliverySelectionResult.delivery
                     binding.checkoutDelivery.checkoutLabelPrimary = delivery.name
                     binding.checkoutDelivery.checkoutLabelSecondary = delivery.value
+                }
+
+                override fun onCancelled() {
+                    Log.d("TunaCheckoutFragment", "Canceled")
+                }
+            })
+        }
+
+        binding.checkoutInstallment.setOnClickListener {
+            tunaUI.selectInstallment(object : TunaUI.TunaInstallmentSelectionCallback {
+                override fun onSelectedInstallment(installmentSelectionResult: InstallmentSelectionResult) {
+                    val installment = installmentSelectionResult.installment
+                    binding.checkoutInstallment.checkoutLabelPrimary = installment.name
+                }
+
+                override fun onCancelled() {
+                    Log.d("TunaCheckoutFragment", "Canceled")
+                }
+            })
+        }
+
+        binding.checkoutDocument.setOnClickListener {
+            tunaUI.informDocument(object : TunaUI.TunaInformDocumentCallback {
+                override fun onDocumentInformed(result: String) {
+                    binding.checkoutDocument.checkoutLabelPrimary = result
                 }
 
                 override fun onCancelled() {
