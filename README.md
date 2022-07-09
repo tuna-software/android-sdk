@@ -176,6 +176,12 @@ tunaSession.addNewCard(number, cardHolderName, expirationMonth, expirationYear, 
                     @Override
                     public void onSuccess(TunaCard card) {
                         //Here is your tuna card
+                        
+                        //get how many seconds until this bind expire
+                        int seconds = result.secondsBindToExpire();
+
+                        //verify if bind has expired
+                        boolean expired = result.bindHasExpired();
                     }
 
                     @Override
@@ -261,8 +267,14 @@ tunaSession.addNewCard(cardNumber = number,
                 expirationYear = year,
                 cvv = "000",
                 save = false)
-                .onSuccess { tunaCard ->  
+                .onSuccess { result ->  
                      //Here is your tuna card   
+                     
+                     //get how many seconds until this bind expire
+                     val seconds = result.secondsBindToExpire()
+                    
+                     //verify if bind has expired
+                     val expired = result.bindHasExpired()
                 }
                 .onFailure { error->
                     //it fails, you should handle this exception
