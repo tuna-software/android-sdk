@@ -18,7 +18,7 @@
         <item name="boxBackgroundColor">@color/tuna_background</item>
         <item name="android:textColorHint">@color/tuna_gray</item>
         <item name="hintTextColor">@color/tuna_gray</item>
-        <item name="textColor">@color/tuna_white</item>
+        <item name="android:textColor">@color/tuna_white</item>
     </style>
 
 </resources>

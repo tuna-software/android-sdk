@@ -4,7 +4,6 @@ plugins {
 }
 
 ext {
-    set("PUBLISH_VERSION", "0.0.4")
     set("PUBLISH_ARTIFACT_ID", "tuna-android")
 }
 

@@ -7,11 +7,10 @@ plugins {
 }
 
 ext {
-    set("PUBLISH_VERSION", "0.0.4")
     set("PUBLISH_ARTIFACT_ID", "tuna")
 }
 
-apply(from = "${rootProject.projectDir}/scripts/publish-module.gradle")
+apply(from = "${rootProject.projectDir}/scripts/publish-module-with-dependencies.gradle")
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
@@ -33,12 +32,12 @@ tasks.register<Jar>("dokkaJavadocJar") {
 dependencies {
     implementation(Libraries.stdlib)
 
-    implementation(Libraries.retrofit)
-    implementation(Libraries.retrofitConverterGson)
-    implementation(Libraries.gson)
-    implementation(Libraries.okhttp)
-    implementation(Libraries.okhttpLoggingInterceptor)
-    implementation(Libraries.coroutinesCore)
+    api(Libraries.retrofit)
+    api(Libraries.retrofitConverterGson)
+    api(Libraries.gson)
+    api(Libraries.okhttp)
+    api(Libraries.okhttpLoggingInterceptor)
+    api(Libraries.coroutinesCore)
 
     testImplementation(Libraries.junit)
     testImplementation(Libraries.mockitoKotlin)
