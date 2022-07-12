@@ -215,7 +215,9 @@ abstract class TunaCoreImp(private val sessionId: String, private val tunaAPI: T
                                 it.length
                         )
                     }"
-                })
+                }).apply {
+                    setBindResult(result.validFor?:0)
+                }
     }
 
     private fun ListCardsResultVO.toTunaCardList(): List<TunaCard> {
