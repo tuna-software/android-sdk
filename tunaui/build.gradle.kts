@@ -7,7 +7,6 @@ plugins {
 }
 
 ext {
-    set("PUBLISH_VERSION", "0.0.1")
     set("PUBLISH_ARTIFACT_ID", "tuna-ui")
 }
 

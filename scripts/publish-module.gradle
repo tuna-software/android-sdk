@@ -26,6 +26,14 @@ artifacts {
     archives androidSourcesJar
 }
 
+File versionFile = project.rootProject.file('version.properties')
+Properties properties = new Properties()
+new FileInputStream(versionFile).withCloseable { it -> properties.load(it) }
+properties.each { name, value ->
+    print("${name} : ${value}")
+    ext[name] = value
+}
+
 group = publishGroupId
 version = PUBLISH_VERSION
 
