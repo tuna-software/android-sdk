@@ -3,8 +3,9 @@ buildscript {
 
     repositories {
         google()
-        jcenter()
+        mavenCentral()
         maven(url = uri("https://plugins.gradle.org/m2/"))
+        maven(url = uri("https://s01.oss.sonatype.org/content/repositories/releases/"))
     }
 
     dependencies {
@@ -23,8 +24,8 @@ apply(plugin = "org.jetbrains.dokka")
 allprojects {
     repositories {
         google()
-        jcenter()
         mavenCentral()
+        maven(url = uri("https://s01.oss.sonatype.org/content/repositories/releases/"))
     }
 }
 
